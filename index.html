@@ -1,885 +1,2593 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+<!doctype html>
+<html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
-<title>方塊冒險世界｜Step 11 工作台與裝備</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>三國 · 烽火英雄 改良版</title>
+
 <style>
-*{box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1220;font-family:"Microsoft JhengHei",Arial,sans-serif;touch-action:none}
-#game{display:block;width:100vw;height:100vh;background:#78c8ff}
-#hud{position:fixed;left:10px;top:10px;z-index:10;padding:8px 10px;border:2px solid #ffffff88;border-radius:10px;background:#0008;color:#fff;font-size:12px;line-height:1.5;pointer-events:none}
-#title{color:#ffe08a;font-weight:900;font-size:15px}
-#modeText{color:#ffe08a;font-weight:900}
-#toolText,#equipText{color:#9dd7ff;font-weight:900}
-.barBox{width:180px;height:12px;border:1px solid #fff8;background:#111;border-radius:99px;overflow:hidden;margin-top:4px}
-.hpFill{height:100%;background:linear-gradient(90deg,#c00,#ff5555)}
-.hungerFill{height:100%;background:linear-gradient(90deg,#b56b00,#ffe08a)}
-#mobile{display:none;position:fixed;inset:0;z-index:20;pointer-events:none}
-.btn{position:absolute;width:64px;height:64px;border-radius:50%;border:3px solid #fff8;background:#0008;color:#fff;font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center;pointer-events:auto;box-shadow:0 0 16px #0008}
-.btn:active{transform:scale(.92);background:#ffffff55}
-#leftBtn{left:18px;bottom:30px}
-#rightBtn{left:94px;bottom:30px}
-#jumpBtn{right:22px;bottom:28px;width:80px;height:80px;font-size:18px;background:#5a3000cc;border-color:#ffe08a;color:#ffe08a}
-#modeBtn{right:22px;bottom:116px;width:80px;height:46px;border-radius:18px;font-size:16px;background:#063a16cc;border-color:#4dff85;color:#4dff85}
-#toolBtn{right:22px;bottom:168px;width:80px;height:42px;border-radius:18px;font-size:14px;background:#08233acc;border-color:#4ba3ff;color:#9dd7ff}
-#attackBtn{right:112px;bottom:84px;width:70px;height:70px;background:#4a0808cc;border-color:#ff5555;color:#ff9999;font-size:17px}
-#eatBtn{right:112px;bottom:162px;width:70px;height:50px;border-radius:18px;background:#4a3008cc;border-color:#ffe08a;color:#ffe08a;font-size:17px}
-#sleepBtn{right:192px;bottom:162px;width:66px;height:50px;border-radius:18px;background:#14144acc;border-color:#aaaaff;color:#ddddff;font-size:17px}
-#chestBtn{right:112px;bottom:220px;width:70px;height:46px;border-radius:18px;background:#4a2d08cc;border-color:#d99a42;color:#ffd38a;font-size:16px}
-#furnaceBtn{right:192px;bottom:220px;width:66px;height:46px;border-radius:18px;background:#333333cc;border-color:#aaa;color:#eee;font-size:16px}
-#workBtn{right:272px;bottom:220px;width:66px;height:46px;border-radius:18px;background:#083a24cc;border-color:#4dff85;color:#b7ffd0;font-size:16px}
-#resetBtn,#bagBtn,#wipeBtn{position:fixed;right:10px;z-index:30;padding:8px 12px;border-radius:10px;border:2px solid #ffe08a;background:#0009;color:#ffe08a;font-weight:900}
-#resetBtn{top:10px}
-#bagBtn{top:52px;border-color:#4ba3ff;color:#9dd7ff}
-#wipeBtn{top:94px;border-color:#ff5555;color:#ff9999}
-#hotbar{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:40;display:flex;gap:4px;padding:6px;border:2px solid #ffffff66;border-radius:14px;background:#0009}
-.slot{width:48px;height:58px;border:2px solid #ffffff55;border-radius:10px;background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:8px;font-weight:900;position:relative}
-.slot.selected{border-color:#ffe08a;box-shadow:0 0 16px #ffe08a}
-.slot .count{position:absolute;right:4px;bottom:3px;color:#ffe08a;font-size:12px;text-shadow:1px 1px #000}
-.blockIcon{width:23px;height:23px;border:2px solid #0008;margin-bottom:3px;position:relative}
-.msg{position:fixed;left:50%;top:18%;transform:translateX(-50%);z-index:50;color:#ffe08a;font-size:24px;font-weight:900;text-shadow:2px 2px #000;pointer-events:none}
-#crosshair{position:fixed;width:34px;height:34px;border:2px solid #fff8;background:#ffffff22;z-index:8;pointer-events:none;display:none}
-#crosshair.place{border-color:#4dff85;background:#4dff8533}
-#crosshair.mine{border-color:#ffe08a;background:#ffe08a33}
-#mineProgress{position:fixed;width:34px;height:6px;background:#000a;border:1px solid #fff8;z-index:9;display:none;pointer-events:none}
-#mineProgressFill{height:100%;width:0%;background:#ffe08a}
-.panel{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:80;width:min(860px,94vw);max-height:78vh;overflow:auto;display:none;border:3px solid #ffe08a;border-radius:16px;background:linear-gradient(#1b2435,#070b12);color:#fff;padding:14px;box-shadow:0 0 30px #000}
-.panel h2{margin:0 0 10px;color:#ffe08a}
-.tabs{display:flex;gap:8px;margin-bottom:12px}
-.tabBtn{flex:1;padding:10px;border-radius:10px;border:2px solid #ffffff55;background:#0008;color:#fff;font-weight:900}
-.tabBtn.active{border-color:#ffe08a;color:#ffe08a;box-shadow:0 0 12px #ffe08a55}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:9px}
-.item{border:1px solid #ffffff55;border-radius:12px;background:#0008;padding:9px;text-align:center;font-weight:900}
-.item .blockIcon{margin:0 auto 6px;width:34px;height:34px}
-.item button,.recipe button,.wideBtn{padding:8px 10px;border-radius:10px;border:2px solid #ffe08a;background:#3b2808;color:#ffe08a;font-weight:900;margin-top:6px}
-.item button:disabled,.recipe button:disabled,.wideBtn:disabled{opacity:.4;border-color:#666;color:#999}
-.recipe{border:1px solid #ffffff55;border-radius:12px;background:#0008;margin-bottom:10px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
-.recipe b{color:#ffe08a}
-.recipe small{color:#cfd7e8;line-height:1.6}
-.toolBox,.furnaceBox,.equipBox{margin-top:10px;border:1px solid #4ba3ff;border-radius:12px;padding:10px;background:#06111faa}
-.toolBtn{margin:4px;padding:8px 10px;border-radius:10px;border:2px solid #4ba3ff;background:#06111f;color:#9dd7ff;font-weight:900}
-.toolBtn.active{border-color:#ffe08a;color:#ffe08a;box-shadow:0 0 12px #ffe08a66}
-.closeBtn{width:100%;margin-top:12px;padding:10px;border-radius:10px;border:2px solid #ffe08a;background:#3b2808;color:#ffe08a;font-weight:900}
-.twoCol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:900px){
- #mobile{display:block}
- #hud{font-size:9.5px;max-width:265px}
- #hotbar{bottom:6px;gap:2px;padding:4px}
- .slot{width:32px;height:47px;font-size:7px}
- .blockIcon{width:17px;height:17px}
- .slot .count{font-size:10px}
- .twoCol{grid-template-columns:1fr}
+:root{
+  color-scheme:dark;
+  --gold:#e8bd72;
+  --muted:#a3b6b4;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#091b23;
+  color:#edf1e9;
+  font-family:system-ui,"Noto Sans TC",sans-serif;
+}
+button,select,input{font:inherit}
+button{
+  cursor:pointer;
+  border:1px solid #63817d;
+  background:#173740;
+  color:#eff5ed;
+  padding:11px 16px;
+  border-radius:7px;
+  touch-action:manipulation;
+}
+button:hover{border-color:var(--gold);background:#26494a}
+button.primary{
+  background:var(--gold);
+  color:#18282a;
+  font-weight:800;
+  border:0;
+}
+button:disabled{opacity:.45;cursor:default}
+select,input{
+  width:100%;
+  background:#092129;
+  color:#fff;
+  padding:10px;
+  border:1px solid #456468;
+  border-radius:6px;
+}
+h1,h2,p{margin:0}
+h1{
+  font-family:serif;
+  font-size:clamp(36px,6vw,68px);
+  letter-spacing:.12em;
+}
+h2{font-size:21px;color:var(--gold)}
+small,.muted{color:var(--muted)}
+#menu{
+  min-height:100vh;
+  padding:32px max(20px,calc((100vw - 1200px)/2));
+  background:
+    radial-gradient(ellipse at 80% 5%,#355751 0,transparent 55%),
+    linear-gradient(130deg,#0b1f2a,#0b171b);
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:30px;
+}
+.eyebrow{
+  font-size:12px;
+  color:var(--gold);
+  letter-spacing:.25em;
+  margin-bottom:12px;
+}
+.sub{
+  margin-top:16px;
+  max-width:640px;
+  line-height:1.8;
+  color:#c0cfca;
+}
+.badge{
+  border:1px solid #738375;
+  border-radius:30px;
+  padding:8px 13px;
+  font-size:12px;
+  white-space:nowrap;
+}
+.layout{
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  gap:20px;
+}
+.panel{
+  background:#10272dd9;
+  border:1px solid #35504e;
+  padding:23px;
+  border-radius:14px;
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  max-height:280px;
+  overflow:auto;
+}
+.hero{
+  padding:11px 4px;
+  text-align:center;
+  border:1px solid #314e50;
+  border-radius:8px;
+  background:#0c222a;
+}
+.hero.active{border-color:var(--gold);background:#3e4634}
+.hero b{font-family:serif;font-size:20px;display:block}
+.hero small{font-size:11px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.filters button{font-size:12px;padding:6px 11px}
+.filters .active{background:#756442}
+.loadout{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{font-size:12px;color:#bacac3;display:block}
+label select{margin-top:7px}
+#portrait{
+  width:100%;
+  height:200px;
+  background:radial-gradient(ellipse,#345b59,#0e242b);
+  border-radius:9px;
+  margin-bottom:14px;
+}
+#heroDesc{max-width:180px;text-align:right}
+.stats{display:flex;gap:8px;margin:15px 0}
+.stat{flex:1;border-top:1px solid #415751;padding-top:10px}
+.stat b{display:block;color:var(--gold);font-size:24px}
+.stat small{font-size:11px}
+.bar-actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+details{
+  margin-top:18px;
+  border-top:1px solid #35514f;
+  padding-top:15px;
+  font-size:13px;
+  line-height:1.9;
+}
+summary{cursor:pointer;color:var(--gold)}
+#game{display:none;position:fixed;inset:0;background:#0d2730}
+#world{width:100%;height:100%;display:block;touch-action:none}
+#hud{
+  position:absolute;
+  left:18px;
+  right:18px;
+  top:16px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  pointer-events:none;
+}
+.hudbox{
+  background:#0a222ddd;
+  border:1px solid #426465;
+  border-radius:8px;
+  padding:10px 14px;
+  min-width:200px;
+}
+#hud button{pointer-events:auto;padding:7px 12px}
+.meter{
+  height:7px;
+  background:#344749;
+  border-radius:5px;
+  margin:6px 0;
+  overflow:hidden;
+}
+.meter i{display:block;height:100%;background:#69c59c;width:100%}
+.meter.energy i{background:#dcb96b}
+#objective{text-align:center;font-size:14px}
+#status{font-size:12px;color:#c0d0c5}
+#toast{
+  position:absolute;
+  top:27%;
+  width:100%;
+  text-align:center;
+  font-size:24px;
+  color:#fff1b8;
+  text-shadow:0 3px 6px #000;
+  pointer-events:none;
+}
+#controls{
+  position:absolute;
+  bottom:max(18px,env(safe-area-inset-bottom));
+  left:18px;
+  right:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  pointer-events:none;
+}
+.actions{
+  display:grid;
+  grid-template-columns:repeat(3,72px);
+  gap:7px;
+}
+.actions button{
+  pointer-events:auto;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:none;
+  padding:10px 1px;
+  background:#13343eea;
+  font-size:13px;
+}
+.actions button:first-child{background:#aa7538}
+.actions small{display:block;font-size:10px}
+.actions button.pressed{background:#7f7043}
+.actions button.unready{opacity:.55}
+.help{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:11px;
+  color:#c0cfc4;
+  text-align:center;
+  pointer-events:none;
+}
+#overlay{
+  position:absolute;
+  inset:0;
+  background:#061b28b8;
+  display:none;
+  place-items:center;
+  backdrop-filter:blur(5px);
+}
+#dialog{
+  max-width:460px;
+  width:90%;
+  text-align:center;
+  padding:35px;
+  background:#102b35;
+  border:1px solid #a99466;
+  border-radius:14px;
+}
+#dialog p{margin:18px 0;line-height:1.9;color:#ccd8d0}
+#dialog button{margin:5px}
+#savehint{font-size:11px;max-width:320px}
+#custom{display:flex;gap:6px;margin-top:12px}
+#custom input{min-width:0}
+#custom select{width:100px}
+footer{font-size:12px;line-height:1.8;color:#90aaa5;margin:22px 0}
+#stick{
+  width:126px;
+  height:126px;
+  border:2px solid #72948a88;
+  border-radius:50%;
+  background:#102f3ebb;
+  position:relative;
+  pointer-events:auto;
+  touch-action:none;
+  user-select:none;
+}
+#knob{
+  position:absolute;
+  left:42px;
+  top:42px;
+  width:38px;
+  height:38px;
+  background:#d9bd80cc;
+  border:2px solid #ffe3a3;
+  border-radius:50%;
+  pointer-events:none;
+}
+#stick span{
+  position:absolute;
+  bottom:8px;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:10px;
+  color:#adc9bc;
+  pointer-events:none;
+}
+.orders{position:absolute;left:18px;bottom:170px;display:flex;gap:7px}
+.orders button{font-size:12px;padding:8px}
+#bossbar{
+  position:absolute;
+  top:126px;
+  left:30%;
+  width:40%;
+  text-align:center;
+  font-size:12px;
+  color:#f4c6b4;
+  pointer-events:none;
+}
+#bossbar .meter i{background:#d97664}
+#combo{
+  position:absolute;
+  top:180px;
+  right:20px;
+  color:#f5d995;
+  font-size:23px;
+  pointer-events:none;
+}
+@media(max-width:750px){
+  #menu{padding:20px 14px}
+  .layout{grid-template-columns:1fr}
+  header{align-items:start}
+  .badge{display:none}
+  .panel{padding:16px}
+  #hud{left:8px;right:8px;top:8px;flex-wrap:wrap}
+  .hudbox{padding:7px 9px;min-width:150px}
+  #objective{order:3;width:100%;font-size:12px}
+  .help{display:none}
+  #controls{left:10px;right:10px}
+  .actions{grid-template-columns:repeat(3,62px)}
+  #toast{font-size:18px;top:32%}
+  #bossbar{top:157px;left:20%;width:60%}
+  #combo{top:207px;font-size:17px}
+  #stick{width:112px;height:112px}
+  #knob{left:35px;top:35px}
+  .orders{left:10px;bottom:150px}
 }
 </style>
 </head>
+
 <body>
+<div id="menu">
+  <header>
+    <div>
+      <div class="eyebrow">THREE KINGDOMS · BATTLEFIELD</div>
+      <h1>三國・烽火英雄</h1>
+      <p class="sub">
+        領百兵，破千軍。選擇你的武將與兵法，帶著坐騎和戰寵，
+        親自踏入立體戰場。
+      </p>
+    </div>
+    <span class="badge">改良版 · 立體戰場 · 觸控搖桿</span>
+  </header>
 
-<canvas id="game"></canvas>
+  <div class="layout">
+    <section class="panel">
+      <div class="section-title">
+        <h2>01 / 點將出征</h2>
+        <small id="count"></small>
+      </div>
 
-<div id="hud">
-  <div id="title">方塊冒險世界｜Step 11</div>
-  <div>電腦：A/D 移動，W/空白跳，E 挖放，B 背包，T 工具，F 攻擊，R 吃，Q 睡，C 箱，V 爐，X 工作台</div>
-  <div>新增：工作台、進階合成、劍、防具、裝備系統</div>
-  <div>模式：<span id="modeText">挖掘</span>｜工具：<span id="toolText">手</span></div>
-  <div>裝備：<span id="equipText">木劍 / 無甲</span></div>
-  <div>生命：<span id="hpText">100 / 100</span><div class="barBox"><div class="hpFill" id="hpFill"></div></div></div>
-  <div>飢餓：<span id="hungerText">100 / 100</span><div class="barBox"><div class="hungerFill" id="hungerFill"></div></div></div>
-  <div id="info">座標：0, 0</div>
-</div>
+      <div class="filters" id="filters"></div>
+      <div class="hero-grid" id="heroes"></div>
 
-<button id="resetBtn">重生</button>
-<button id="bagBtn">背包</button>
-<button id="wipeBtn">清存檔</button>
+      <div id="custom">
+        <input id="customName" maxlength="12" placeholder="新增武將姓名">
+        <select id="customRole">
+          <option>武將</option>
+          <option>智將</option>
+          <option>君主</option>
+          <option>刺客</option>
+        </select>
+        <button id="addHero">加入</button>
+      </div>
 
-<div id="mobile">
-  <div class="btn" id="leftBtn">←</div>
-  <div class="btn" id="rightBtn">→</div>
-  <div class="btn" id="jumpBtn">跳</div>
-  <div class="btn" id="modeBtn">挖</div>
-  <div class="btn" id="toolBtn">工具</div>
-  <div class="btn" id="attackBtn">攻擊</div>
-  <div class="btn" id="eatBtn">吃</div>
-  <div class="btn" id="sleepBtn">睡</div>
-  <div class="btn" id="chestBtn">箱</div>
-  <div class="btn" id="furnaceBtn">爐</div>
-  <div class="btn" id="workBtn">台</div>
-</div>
+      <details>
+        <summary>照片需求與本版收錄範圍</summary>
+        <p>
+          本作是依手稿製作的同人原型，採原創程式幾何人物、武器與特效，
+          沒有使用人物圖片。使用真正三維座標與透視投影，
+          但屬低多邊形風格，尚非《真・三國無雙》等級的寫實模型。
+        </p>
+        <p>
+          先收錄 32 位代表人物，含武將、智將、君主與刺客（燎原火）；
+          可新增人物姓名與職業。沒有宣稱已收齊《三國幻戰》
+          《真・三國無雙》《火鳳燎原》的全部角色、兵法、武器、
+          寵物或坐騎。戰寵與招式為本版原創／通用設計，非完整原作圖鑑。
+        </p>
+        <p>
+          規則：初始 10,000 功績；我方擊殺一名敵兵 +10，敵將 +100；
+          玩家陣亡一次 −1,000（最低 0）。每 100 功績可帶 1 兵，
+          出征時依功績決定編制，同時最多 100 名友軍在場，
+          其餘為後備，陣亡後後備依序入場；不憑空增加編制。
+          低功績仍可單人出征累積。官職依功績升降。
+        </p>
+      </details>
+    </section>
 
-<div id="hotbar"></div>
-<div class="msg" id="msg"></div>
-<div id="crosshair"></div>
-<div id="mineProgress"><div id="mineProgressFill"></div></div>
+    <section class="panel">
+      <canvas id="portrait"></canvas>
+      <div class="section-title">
+        <h2 id="heroTitle"></h2>
+        <small id="heroDesc"></small>
+      </div>
 
-<div id="bagPanel" class="panel">
-  <h2>背包 / 基礎合成 / 裝備</h2>
-  <div class="tabs">
-    <button class="tabBtn active" id="tabBag">材料</button>
-    <button class="tabBtn" id="tabCraft">基礎合成</button>
-    <button class="tabBtn" id="tabEquip">裝備</button>
+      <div class="loadout">
+        <label>兵器<select id="weapon"></select></label>
+        <label>兵法<select id="tactic"></select></label>
+        <label>坐騎<select id="mount"></select></label>
+        <label>出戰寵物<select id="pet"></select></label>
+        <label>戰役<select id="stage"></select></label>
+        <label>
+          難度
+          <select id="difficulty">
+            <option value="0.8">初入沙場</option>
+            <option value="1">群雄逐鹿</option>
+            <option value="1.35">一騎當千</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <small>累積功績</small>
+          <b id="merit"></b>
+        </div>
+        <div class="stat">
+          <small>出征兵力</small>
+          <b id="troops"></b>
+        </div>
+        <div class="stat">
+          <small>官職</small>
+          <b id="rank" style="font-size:20px"></b>
+        </div>
+      </div>
+
+      <div class="bar-actions">
+        <button class="primary" id="start">擂鼓 · 出征 →</button>
+        <button id="export">匯出存檔</button>
+        <button id="import">載入存檔</button>
+        <input type="file" accept="application/json,.json" id="savefile" hidden>
+        <span id="savehint"></span>
+      </div>
+    </section>
   </div>
-  <div id="bagView">
-    <div class="grid" id="bagGrid"></div>
-    <div class="toolBox" id="toolBox"></div>
-  </div>
-  <div id="craftView" style="display:none"></div>
-  <div id="equipView" style="display:none"></div>
-  <button class="closeBtn" id="closeBag">關閉背包</button>
+
+  <footer>
+    電腦：WASD／方向鍵移動 · J 攻擊 · K 無雙 · L 兵法 ·
+    空白跳躍 · Shift 閃避 · I 格擋 · F 集合／進攻 · P 暫停。
+    <br>
+    平板：左側搖桿移動，右側招式鍵戰鬥。
+    擊敗各波敵軍與敵將即獲勝；
+    戰績會嘗試儲存在目前瀏覽器，也可匯出備份。
+  </footer>
 </div>
 
-<div id="chestPanel" class="panel">
-  <h2>箱子儲物</h2>
-  <div class="twoCol">
-    <div><h3 style="color:#9dd7ff">背包</h3><div class="grid" id="chestInvGrid"></div></div>
-    <div><h3 style="color:#ffd38a">箱子</h3><div class="grid" id="chestGrid"></div></div>
-  </div>
-  <button class="closeBtn" id="closeChest">關閉箱子</button>
-</div>
+<div id="game">
+  <canvas id="world"></canvas>
 
-<div id="furnacePanel" class="panel">
-  <h2>熔爐</h2>
-  <div class="furnaceBox">
-    <div>配方：<b style="color:#ffe08a">1 鐵礦 + 1 煤礦 → 1 鐵錠</b></div>
-    <button class="wideBtn" id="smeltBtn">熔煉 1 個鐵錠</button>
-    <button class="wideBtn" id="smeltAllBtn">全部熔煉</button>
-  </div>
-  <div class="grid" id="furnaceGrid" style="margin-top:12px"></div>
-  <button class="closeBtn" id="closeFurnace">關閉熔爐</button>
-</div>
+  <div id="hud">
+    <div class="hudbox">
+      <b id="playername"></b>
+      <span id="healthtext" style="float:right"></span>
+      <div class="meter"><i id="hpbar"></i></div>
+      <div class="meter energy"><i id="mpbar"></i></div>
+      <small id="resource"></small>
+    </div>
 
-<div id="workPanel" class="panel">
-  <h2>工作台｜進階合成</h2>
-  <p style="color:#cfd7e8">靠近工作台按 X 開啟。工作台可以做武器與防具。</p>
-  <div id="workCraftView"></div>
-  <button class="closeBtn" id="closeWork">關閉工作台</button>
+    <div class="hudbox" id="objective"></div>
+
+    <div class="hudbox">
+      <div id="status"></div>
+      <button id="pause">暫停 Ⅱ</button>
+      <button id="sound">音效：開</button>
+    </div>
+  </div>
+
+  <div id="bossbar" hidden>
+    <span id="bossname"></span>
+    <div class="meter"><i id="bosshp"></i></div>
+  </div>
+
+  <div id="combo"></div>
+  <div id="toast"></div>
+
+  <div class="orders">
+    <button id="order">F · 全軍進攻</button>
+    <button id="fullscreen">全螢幕</button>
+  </div>
+
+  <div id="controls">
+    <div id="stick">
+      <div id="knob"></div>
+      <span>拖曳移動</span>
+    </div>
+
+    <div class="actions">
+      <button data-key="j">攻擊<small>J · 連擊</small></button>
+      <button data-key="k">無雙<small>K · 60 氣</small></button>
+      <button data-key="l">兵法<small>L · 35 氣</small></button>
+      <button data-key=" ">跳躍<small>Space</small></button>
+      <button data-key="shift">閃避<small>Shift</small></button>
+      <button data-key="i">格擋<small>按住 I</small></button>
+    </div>
+  </div>
+
+  <div class="help">
+    靠近敵軍，自動朝最近敵人出招<br>
+    紅軍為敵 · 青軍為友 · 金色光環是你
+  </div>
+
+  <div id="overlay">
+    <div id="dialog">
+      <h2 id="dialogtitle"></h2>
+      <p id="dialogtext"></p>
+      <button class="primary" id="resume">繼續戰鬥</button>
+      <button id="back">返回軍營</button>
+    </div>
+  </div>
 </div>
 
 <script>
-const $=id=>document.getElementById(id);
-const canvas=$("game"),ctx=canvas.getContext("2d");
-const info=$("info"),hotbar=$("hotbar"),msgBox=$("msg"),modeText=$("modeText"),toolText=$("toolText"),equipText=$("equipText");
-const modeBtn=$("modeBtn"),toolBtn=$("toolBtn"),attackBtn=$("attackBtn"),eatBtn=$("eatBtn"),sleepBtn=$("sleepBtn"),chestBtn=$("chestBtn"),furnaceBtn=$("furnaceBtn"),workBtn=$("workBtn");
-const crosshair=$("crosshair"),mineProgress=$("mineProgress"),mineProgressFill=$("mineProgressFill");
-const bagPanel=$("bagPanel"),bagGrid=$("bagGrid"),craftView=$("craftView"),equipView=$("equipView"),toolBox=$("toolBox"),tabBag=$("tabBag"),tabCraft=$("tabCraft"),tabEquip=$("tabEquip"),bagView=$("bagView");
-const chestPanel=$("chestPanel"),chestInvGrid=$("chestInvGrid"),chestGrid=$("chestGrid");
-const furnacePanel=$("furnacePanel"),furnaceGrid=$("furnaceGrid");
-const workPanel=$("workPanel"),workCraftView=$("workCraftView");
-const hpText=$("hpText"),hpFill=$("hpFill"),hungerText=$("hungerText"),hungerFill=$("hungerFill");
+"use strict";
 
-const SAVE_KEY="block_adventure_step11_save_v1";
-const TILE=32,WORLD_W=260,WORLD_H=72,ACTION_RANGE=TILE*5;
+// ---------- 基本工具與資料 ----------
 
-const BLOCK={AIR:0,GRASS:1,DIRT:2,STONE:3,WOOD:4,LEAF:5,COAL:6,IRON:7,TORCH:8,PLANK:9,APPLE:10,MEAT:11,BED:12,CHEST:13,FURNACE:14,IRON_INGOT:15,WORKBENCH:16,LEATHER:17};
-const BLOCK_NAME={1:"草地",2:"泥土",3:"石頭",4:"木頭",5:"樹葉",6:"煤礦",7:"鐵礦",8:"火把",9:"木板",10:"蘋果",11:"肉",12:"床",13:"箱子",14:"熔爐",15:"鐵錠",16:"工作台",17:"皮革"};
-const EQUIP_NAME={woodSword:"木劍",stoneSword:"石劍",ironSword:"鐵劍",leatherArmor:"皮甲",ironArmor:"鐵甲"};
-const HOTBAR_BLOCKS=[1,2,3,4,9,8,12,13,14,16,10,11];
-const ALL_ITEMS=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
-const EQUIP_ITEMS=["woodSword","stoneSword","ironSword","leatherArmor","ironArmor"];
-const FOOD={10:{name:"蘋果",hunger:18,hp:5},11:{name:"肉",hunger:32,hp:10}};
-const TOOLS={hand:{name:"手",speed:1,canIron:false,atk:8},stonePick:{name:"石鎬",speed:2.1,canIron:true,atk:18},ironPick:{name:"鐵鎬",speed:3.4,canIron:true,atk:30}};
-const TOOL_ORDER=["hand","stonePick","ironPick"];
-const WEAPONS={none:{name:"空手",atk:0},woodSword:{name:"木劍",atk:10},stoneSword:{name:"石劍",atk:22},ironSword:{name:"鐵劍",atk:42}};
-const ARMORS={none:{name:"無甲",def:0},leatherArmor:{name:"皮甲",def:5},ironArmor:{name:"鐵甲",def:16}};
-const BLOCK_HARDNESS={1:22,2:18,3:52,4:32,5:10,6:64,7:88,8:8,9:24,12:18,13:26,14:42,16:24};
+const $ = id => document.getElementById(id);
+const TAU = Math.PI * 2;
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+const rand = (a,b) => a + Math.random() * (b-a);
 
-let keys={},touch={left:false,right:false,jump:false};
-let world=[],groundMap=[],camX=0,camY=0,selectedSlot=1,actionMode="mine",bagTab="bag",currentTool="hand";
-let inventory={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:12,9:0,10:3,11:0,12:0,13:0,14:0,15:0,16:0,17:0,stonePick:0,ironPick:0,woodSword:0,stoneSword:0,ironSword:0,leatherArmor:0,ironArmor:0};
-let equipment={weapon:"none",armor:"none"};
-let chests={},furnaces={},currentChestKey=null,currentFurnaceKey=null;
-let player={x:TILE*10,y:TILE*18,w:22,h:44,vx:0,vy:0,speed:3.2,jumpPower:10.5,onGround:false,face:1,swing:0,hp:100,maxHp:100,hunger:100,maxHunger:100,inv:0,atkCd:0,regenTick:0,hungerTick:0};
-let spawnPoint={x:TILE*10,y:TILE*18,hasBed:false};
-let cracks=[],particles=[],placeEffects=[],hitEffects=[],monsters=[],animals=[];
-let mouse={x:0,y:0,worldX:0,worldY:0,tx:0,ty:0,inside:false};
-let mining={active:false,tx:null,ty:null,block:0,progress:0,need:1};
-let timeOfDay=0,dayCount=1,spawnTick=0,animalTick=0,saveTick=0;
+const baseHeroes = [
+  ["趙雲","蜀","武將","#e8ece4"],
+  ["關羽","蜀","武將","#3d9967"],
+  ["張飛","蜀","武將","#344249"],
+  ["劉備","蜀","君主","#5faf87"],
+  ["諸葛亮","蜀","智將","#dddccb"],
+  ["黃忠","蜀","武將","#b99b52"],
+  ["馬超","蜀","武將","#b8c2dc"],
+  ["姜維","蜀","智將","#70a397"],
+  ["魏延","蜀","武將","#9d524b"],
+  ["龐統","蜀","智將","#9b8064"],
 
-const RECIPES=[
-{id:"plank",name:"木板 x4",desc:"1 木頭 → 4 木板。",cost:{4:1},gain:{9:4}},
-{id:"torch",name:"火把 x4",desc:"1 木頭 + 1 煤礦 → 4 火把。",cost:{4:1,6:1},gain:{8:4}},
-{id:"stonePick",name:"石鎬 x1",desc:"2 木板 + 3 石頭。可有效挖鐵礦。",cost:{9:2,3:3},gain:{stonePick:1}},
-{id:"ironPick",name:"鐵鎬 x1",desc:"2 木板 + 3 鐵錠。挖礦最快。",cost:{9:2,15:3},gain:{ironPick:1}},
-{id:"bed",name:"床 x1",desc:"3 木板 + 2 樹葉。夜晚可睡覺。",cost:{9:3,5:2},gain:{12:1}},
-{id:"chest",name:"箱子 x1",desc:"8 木板。靠近按 C 開啟。",cost:{9:8},gain:{13:1}},
-{id:"furnace",name:"熔爐 x1",desc:"8 石頭。靠近按 V 熔煉。",cost:{3:8},gain:{14:1}},
-{id:"workbench",name:"工作台 x1",desc:"4 木板。靠近按 X 開啟進階合成。",cost:{9:4},gain:{16:1}}
+  ["曹操","魏","君主","#5b78b1"],
+  ["夏侯惇","魏","武將","#5868a3"],
+  ["張遼","魏","武將","#6b88ab"],
+  ["許褚","魏","武將","#8d7969"],
+  ["典韋","魏","武將","#946448"],
+  ["司馬懿","魏","智將","#736c9e"],
+  ["郭嘉","魏","智將","#87a4ce"],
+  ["荀彧","魏","智將","#8196ad"],
+  ["甄姬","魏","智將","#91afcf"],
+
+  ["孫權","吳","君主","#cf7659"],
+  ["孫策","吳","武將","#d3754b"],
+  ["孫尚香","吳","武將","#d98578"],
+  ["周瑜","吳","智將","#c26a6b"],
+  ["陸遜","吳","智將","#d78665"],
+  ["甘寧","吳","武將","#e2ac6c"],
+  ["太史慈","吳","武將","#bc8160"],
+  ["大喬","吳","智將","#e1a3aa"],
+  ["小喬","吳","智將","#d598b8"],
+
+  ["呂布","群","武將","#9c5aa1"],
+  ["貂蟬","群","刺客","#c688b1"],
+  ["董卓","群","君主","#856748"],
+  ["燎原火","群","刺客","#697f80"]
 ];
 
-const WORK_RECIPES=[
-{id:"woodSword",name:"木劍 x1",desc:"前期武器，攻擊力 +10。",cost:{9:2},gain:{woodSword:1}},
-{id:"stoneSword",name:"石劍 x1",desc:"中期武器，攻擊力 +22。",cost:{9:1,3:2},gain:{stoneSword:1}},
-{id:"ironSword",name:"鐵劍 x1",desc:"高傷害武器，攻擊力 +42。",cost:{9:1,15:2},gain:{ironSword:1}},
-{id:"leatherArmor",name:"皮甲 x1",desc:"初階防具，防禦 +5。",cost:{17:4},gain:{leatherArmor:1}},
-{id:"ironArmor",name:"鐵甲 x1",desc:"高防具，防禦 +16。",cost:{15:6},gain:{ironArmor:1}}
+// 名稱、類型、攻擊距離、傷害、攻擊間隔。
+const weapons = [
+  ["青龍偃月刀","刀",3.4,32,.6],
+  ["雙股劍","劍",2.4,23,.36],
+  ["龍膽亮銀槍","槍",4.6,26,.5],
+  ["方天畫戟","戟",4.4,38,.75],
+  ["戰斧","斧",2.8,45,.9],
+  ["長弓","弓",24,27,.7],
+  ["連弩","弩",20,17,.35],
+  ["羽扇法杖","杖",19,32,.8],
+  ["刺客雙匕","匕",1.9,19,.24]
 ];
 
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
-addEventListener("resize",resize);resize();
+const tactics = [
+  "火攻｜範圍持續傷害",
+  "八卦陣｜減速與護陣",
+  "空城計｜敵軍暫停進攻",
+  "鼓舞｜全軍治療",
+  "伏兵｜召回已損失兵員"
+];
 
-function keyOf(tx,ty){return tx+","+ty}
-function emptyStorage(){let o={};ALL_ITEMS.forEach(i=>o[i]=0);EQUIP_ITEMS.forEach(i=>o[i]=0);return o}
-function showMsg(t){msgBox.textContent=t;clearTimeout(showMsg.timer);showMsg.timer=setTimeout(()=>msgBox.textContent="",1200)}
-function isNight(){return timeOfDay>0.55}
-function timeName(){return isNight()?"夜晚":"白天"}
-function itemName(k){return BLOCK_NAME[k]||EQUIP_NAME[k]||({stonePick:"石鎬",ironPick:"鐵鎬"}[k]||k)}
+const mounts = [
+  "徒步",
+  "赤兔｜奔馳",
+  "的盧｜靈巧",
+  "絕影｜耐戰"
+];
 
-function saveGame(){
- const data={world,groundMap,inventory,equipment,chests,furnaces,player:{x:player.x,y:player.y,hp:player.hp,hunger:player.hunger},spawnPoint,selectedSlot,actionMode,currentTool,timeOfDay,dayCount};
- localStorage.setItem(SAVE_KEY,JSON.stringify(data));
+const pets = [
+  "白虎｜近戰撲擊",
+  "蒼鷹｜遠程攻擊",
+  "靈鹿｜持續治療"
+];
+
+const stages = [
+  {
+    name:"虎牢關 · 破陣",
+    waves:3,n:24,boss:"呂布",color:"#677a69"
+  },
+  {
+    name:"長坂坡 · 突圍",
+    waves:4,n:30,boss:"張遼",color:"#78826b"
+  },
+  {
+    name:"赤壁 · 決戰",
+    waves:5,n:32,boss:"曹操",color:"#606f68"
+  }
+];
+
+// ---------- 存檔 ----------
+
+let profile = {merit:10000,wins:0,custom:[]};
+let storageOK = true;
+
+function validateSave(o){
+  if(
+    !o ||
+    !Number.isFinite(o.merit) ||
+    o.merit < 0 ||
+    o.merit > 10000000 ||
+    !Number.isInteger(o.merit) ||
+    !Number.isInteger(o.wins) ||
+    o.wins < 0 ||
+    !Array.isArray(o.custom) ||
+    o.custom.length > 100
+  ){
+    throw Error("存檔格式不正確");
+  }
+
+  return {
+    merit:o.merit,
+    wins:o.wins,
+    custom:o.custom.map(h=>{
+      if(
+        !Array.isArray(h) ||
+        typeof h[0] !== "string" ||
+        !h[0].trim() ||
+        h[0].length > 12 ||
+        !["武將","智將","君主","刺客"].includes(h[2])
+      ){
+        throw Error("人物資料不正確");
+      }
+      return [h[0],"自訂",h[2],"#86b7a3"];
+    })
+  };
 }
-function loadGame(){
- const raw=localStorage.getItem(SAVE_KEY);
- if(!raw)return false;
- try{
-  const d=JSON.parse(raw);
-  if(!d.world||!d.inventory)return false;
-  world=d.world;groundMap=d.groundMap||[];
-  inventory=Object.assign(inventory,d.inventory);
-  equipment=Object.assign(equipment,d.equipment||{});
-  chests=d.chests||{};furnaces=d.furnaces||{};
-  selectedSlot=d.selectedSlot||1;actionMode=d.actionMode||"mine";currentTool=d.currentTool||"hand";
-  timeOfDay=d.timeOfDay||0;dayCount=d.dayCount||1;spawnPoint=d.spawnPoint||spawnPoint;
-  if(d.player){player.x=d.player.x||player.x;player.y=d.player.y||player.y;player.hp=d.player.hp||player.maxHp;player.hunger=d.player.hunger||player.maxHunger}
-  showMsg("已讀取上次存檔");
+
+try{
+  const raw = localStorage.getItem("tk-fire-v1");
+  if(raw) profile = validateSave(JSON.parse(raw));
+}catch(e){
+  storageOK = false;
+}
+
+let heroes = baseHeroes.concat(profile.custom);
+let selected = 0;
+let filter = "全部";
+
+function save(){
+  try{
+    localStorage.setItem("tk-fire-v1",JSON.stringify(profile));
+    storageOK = true;
+  }catch(e){
+    storageOK = false;
+  }
+
+  $("savehint").textContent = storageOK
+    ? "戰績已在此瀏覽器自動保存"
+    : "此環境無法自動保存，請使用匯出存檔";
+}
+
+function rank(m){
+  return m >= 50000 ? "大將軍"
+    : m >= 25000 ? "驃騎將軍"
+    : m >= 15000 ? "偏將軍"
+    : m >= 10000 ? "校尉"
+    : m >= 5000 ? "都尉"
+    : "軍士";
+}
+
+function menuStats(){
+  $("merit").textContent = profile.merit.toLocaleString();
+  $("troops").textContent = Math.floor(profile.merit/100);
+  $("rank").textContent = rank(profile.merit);
+  $("count").textContent = heroes.length+" 位可選人物";
+}
+
+function renderHeroes(){
+  $("heroes").replaceChildren();
+
+  heroes.forEach((h,i)=>{
+    if(filter !== "全部" && h[1] !== filter) return;
+
+    const b = document.createElement("button");
+    b.className = "hero"+(i === selected ? " active" : "");
+
+    const name = document.createElement("b");
+    name.textContent = h[0];
+
+    const sub = document.createElement("small");
+    sub.textContent = h[1]+" · "+h[2];
+
+    b.append(name,sub);
+    b.onclick = ()=>{
+      selected = i;
+      renderHeroes();
+      updateHero();
+    };
+
+    $("heroes").append(b);
+  });
+}
+
+["全部","蜀","魏","吳","群","自訂"].forEach(f=>{
+  const b = document.createElement("button");
+  b.textContent = f;
+  b.className = f === filter ? "active" : "";
+
+  b.onclick = ()=>{
+    filter = f;
+    for(const n of $("filters").children){
+      n.classList.toggle("active",n === b);
+    }
+    renderHeroes();
+  };
+
+  $("filters").append(b);
+});
+
+function updateHero(){
+  const h = heroes[selected];
+  $("heroTitle").textContent = h[0];
+  $("heroDesc").textContent = {
+    武將:"武力 +20% · 生命 260",
+    智將:"兵法消耗 −10 · 生命 200",
+    君主:"友軍戰力 +20% · 生命 240",
+    刺客:"移動 +20% · 生命 190"
+  }[h[2]];
+}
+
+[
+  ["weapon",weapons.map(w=>w[0])],
+  ["tactic",tactics],
+  ["mount",mounts],
+  ["pet",pets],
+  ["stage",stages.map(s=>s.name)]
+].forEach(([id,list])=>{
+  list.forEach((v,i)=>{
+    const o = document.createElement("option");
+    o.value = i;
+    o.textContent = v;
+    $(id).append(o);
+  });
+});
+
+$("weapon").value = 2;
+$("mount").value = 1;
+
+$("addHero").onclick = ()=>{
+  const name = $("customName").value.trim();
+  if(!name) return;
+  if(profile.custom.length >= 100){
+    alert("自訂角色最多 100 位");
+    return;
+  }
+
+  const h = [name,"自訂",$("customRole").value,"#86b7a3"];
+  profile.custom.push(h);
+  heroes.push(h);
+  selected = heroes.length-1;
+  $("customName").value = "";
+  filter = "全部";
+
+  for(const b of $("filters").children){
+    b.classList.toggle("active",b.textContent === filter);
+  }
+
+  renderHeroes();
+  updateHero();
+  menuStats();
+  save();
+};
+
+$("export").onclick = ()=>{
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(
+    new Blob(
+      [JSON.stringify(profile,null,2)],
+      {type:"application/json"}
+    )
+  );
+  a.download = "三國烽火英雄存檔.json";
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
+
+$("import").onclick = ()=>$("savefile").click();
+
+$("savefile").onchange = async e=>{
+  try{
+    if(!e.target.files[0]) return;
+    if(e.target.files[0].size > 100000){
+      throw Error("檔案過大");
+    }
+
+    const next = validateSave(
+      JSON.parse(await e.target.files[0].text())
+    );
+
+    if(!confirm("載入將取代目前功績與自訂角色，確定嗎？")){
+      return;
+    }
+
+    profile = next;
+    heroes = baseHeroes.concat(profile.custom);
+    selected = 0;
+    renderHeroes();
+    updateHero();
+    menuStats();
+    save();
+  }catch(err){
+    alert("無法載入："+err.message);
+  }finally{
+    e.target.value = "";
+  }
+};
+
+// ---------- 畫面、聲音與三維投影 ----------
+
+const canvas = $("world");
+const ctx = canvas.getContext("2d");
+const pc = $("portrait");
+const px = pc.getContext("2d");
+
+let W = 0;
+let H = 0;
+let cam = {x:0,z:0};
+let faces = [];
+let labels = [];
+let time = 0;
+let G = null;
+let keys = {};
+let touches = new Map();
+let joy = {x:0,z:0,id:null};
+let paused = false;
+let silent = false;
+let audioCtx = null;
+
+function tone(f,d=.08){
+  if(silent) return;
+
+  try{
+    audioCtx ??= new (
+      window.AudioContext || window.webkitAudioContext
+    )();
+
+    if(audioCtx.state === "suspended") audioCtx.resume();
+
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+
+    o.type = "triangle";
+    o.frequency.setValueAtTime(f,audioCtx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(
+      f*.5,audioCtx.currentTime+d
+    );
+
+    g.gain.setValueAtTime(.035,audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(
+      .001,audioCtx.currentTime+d
+    );
+
+    o.connect(g).connect(audioCtx.destination);
+    o.start();
+    o.stop(audioCtx.currentTime+d);
+  }catch(e){}
+}
+
+function resize(){
+  const d = Math.min(devicePixelRatio || 1,1.7);
+  W = innerWidth;
+  H = innerHeight;
+  canvas.width = W*d;
+  canvas.height = H*d;
+  ctx.setTransform(d,0,0,d,0,0);
+  pc.width = 600;
+  pc.height = 260;
+}
+
+window.addEventListener("resize",resize);
+resize();
+
+function project(x,y,z){
+  const dz = z-cam.z;
+  const dx = x-cam.x;
+  const depth = 38+dz*.8-y*.6;
+  const f = Math.min(700,Math.max(390,H*1.05));
+
+  return {
+    x:W/2+dx*f/depth,
+    y:H*.58+(-dz*.6-y*.8)*f/depth,
+    d:depth
+  };
+}
+
+function face(verts,color){
+  const p = verts.map(v=>project(...v));
+  if(p.some(v=>v.d<3)) return;
+
+  faces.push({
+    p,
+    c:color,
+    d:p.reduce((s,v)=>s+v.d,0)/p.length
+  });
+}
+
+function shade(hex,k){
+  const n = parseInt(hex.slice(1),16);
+  return "#"+[n>>16,(n>>8)&255,n&255]
+    .map(c=>clamp(Math.floor(c*k),0,255)
+      .toString(16).padStart(2,"0"))
+    .join("");
+}
+
+function box(x,y,z,w,h,d,c,rot=0){
+  const cs = Math.cos(rot);
+  const sn = Math.sin(rot);
+  const v = [];
+
+  for(const yy of [0,h]){
+    for(const zz of [-d/2,d/2]){
+      for(const xx of [-w/2,w/2]){
+        v.push([
+          x+xx*cs+zz*sn,
+          y+yy,
+          z+zz*cs-xx*sn
+        ]);
+      }
+    }
+  }
+
+  [
+    [0,1,3,2],
+    [4,6,7,5],
+    [0,4,5,1],
+    [2,3,7,6],
+    [0,2,6,4],
+    [1,5,7,3]
+  ].forEach((a,i)=>{
+    face(
+      a.map(j=>v[j]),
+      shade(c,[.55,1.15,.83,1,.7,.95][i])
+    );
+  });
+}
+
+function limb(a,b,width,c){
+  const dx = b[0]-a[0];
+  const dy = b[1]-a[1];
+  const dz = b[2]-a[2];
+  const len = Math.hypot(dx,dy,dz)||1;
+
+  let ux = dz;
+  let uz = -dx;
+  let ul = Math.hypot(ux,uz)||1;
+
+  if(Math.hypot(dx,dz)<.01){
+    ux = 1;
+    uz = 0;
+    ul = 1;
+  }
+
+  ux = ux/ul*width;
+  uz = uz/ul*width;
+
+  const vx = dy*uz/len;
+  const vy = (dz*ux-dx*uz)/len;
+  const vz = -dy*ux/len;
+  const vs = [];
+
+  for(const p of [a,b]){
+    for(const [s,t] of [[-1,-1],[1,-1],[1,1],[-1,1]]){
+      vs.push([
+        p[0]+s*ux+t*vx,
+        p[1]+t*vy,
+        p[2]+s*uz+t*vz
+      ]);
+    }
+  }
+
+  [
+    [0,1,2,3],
+    [4,7,6,5],
+    [0,4,5,1],
+    [1,5,6,2],
+    [2,6,7,3],
+    [3,7,4,0]
+  ].forEach((a,i)=>{
+    face(a.map(j=>vs[j]),shade(c,.7+i*.065));
+  });
+}
+
+function ring(x,z,r,c,y=.08){
+  const ps = [];
+
+  for(let i=0;i<=32;i++){
+    ps.push(project(
+      x+Math.cos(i/32*TAU)*r,
+      y,
+      z+Math.sin(i/32*TAU)*r
+    ));
+  }
+
+  ctx.strokeStyle = c;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+
+  ps.forEach((p,i)=>{
+    if(i) ctx.lineTo(p.x,p.y);
+    else ctx.moveTo(p.x,p.y);
+  });
+
+  ctx.stroke();
+}
+
+// ---------- 人物與武器模型 ----------
+
+function model(u){
+  const x = u.x;
+  const z = u.z;
+  let y = u.y || 0;
+  const s = u.big ? 1.5 : u.player ? 1.3 : 1;
+  const rot = u.dir || 0;
+  const c = u.color || "#7798a1";
+
+  const walk = u.moving
+    ? Math.sin(time*11+u.seed)*.3
+    : 0;
+
+  const atk = u.swing > 0
+    ? Math.sin(Math.PI*(1-u.swing/(u.swingMax||.3)))
+    : 0;
+
+  function pos(a,b,d){
+    return [
+      x+(a*Math.cos(rot)+d*Math.sin(rot))*s,
+      y+b*s,
+      z+(d*Math.cos(rot)-a*Math.sin(rot))*s
+    ];
+  }
+
+  function b(a,h,d,w,ht,dp,col){
+    box(...pos(a,h,d),w*s,ht*s,dp*s,col,rot);
+  }
+
+  function l(a,b,w,col){
+    limb(pos(...a),pos(...b),w*s,col);
+  }
+
+  if(u.mount){
+    const hc = ["","#985438","#d9d0b3","#36434a"][u.mount];
+
+    b(0,.75,0,.78,.65,1.65,hc);
+    b(0,1.24,.67,.4,.64,.48,hc);
+    b(0,1.64,.98,.4,.32,.6,hc);
+
+    for(const a of [-1,1]){
+      for(const q of [-1,1]){
+        l(
+          [a*.29,.85,q*.6],
+          [a*.29,.12,q*.6+walk*q],
+          .1,hc
+        );
+      }
+    }
+
+    l([0,1.1,-.8],[0,.65,-1.3],.1,"#303134");
+    y += .9;
+  }
+
+  b(0,.72,0,.73,.73,.4,c);
+  b(0,.6,0,.87,.3,.53,shade(c,.75));
+  b(0,1.47,0,.45,.46,.4,"#dcb48c");
+
+  b(0,1.85,-.04,.56,.18,.5,shade(c,.65));
+  b(0,2.03,-.06,.12,.24,.12,"#d7b569");
+
+  l([-.22,.7,0],[-.25,.09,walk],.13,"#253b40");
+  l([.22,.7,0],[.25,.09,-walk],.13,"#253b40");
+
+  if(u.player || u.big){
+    b(-.16,1.66,.213,.07,.05,.035,"#1b2a2b");
+    b(.16,1.66,.213,.07,.05,.035,"#1b2a2b");
+    b(0,.97,-.3,.66,.52,.08,shade(c,.55));
+    b(0,.84,.225,.7,.08,.04,"#d0ac67");
+    b(-.45,1.22,0,.3,.25,.48,"#b9a574");
+    b(.45,1.22,0,.3,.25,.48,"#b9a574");
+
+    if(["關羽","張飛","曹操","劉備"].includes(u.name)){
+      b(0,1.2,.25,.27,.4,.12,"#263337");
+    }
+
+    if(u.name === "呂布"){
+      for(const a of [-1,1]){
+        l(
+          [a*.2,2,0],
+          [a*.5,2.7,-.4],
+          .04,"#e3b484"
+        );
+        l(
+          [a*.5,2.7,-.4],
+          [a*.85,2.5,-.9],
+          .04,"#aa4d4d"
+        );
+      }
+    }
+
+    if(u.role === "智將"){
+      b(0,1.98,0,.38,.38,.35,shade(c,.65));
+    }
+
+    if(u.role === "刺客"){
+      b(0,1.5,.23,.44,.15,.07,shade(c,.4));
+    }
+  }
+
+  const type = u.weapon || "槍";
+  const thrust = ["槍","戟","匕"].includes(type);
+  const hand = [
+    .64-atk*.38,
+    1.12+atk*.3,
+    .25+atk*(thrust?1:.45)
+  ];
+
+  l([-.45,1.3,0],[-.6,1.05,.25],.12,c);
+  l([.45,1.3,0],hand,.12,c);
+
+  const metal = "#d8e3dc";
+  const wood = "#ad844c";
+
+  function wp(a,b,d){
+    return [hand[0]+a,hand[1]+b,hand[2]+d];
+  }
+
+  if(type === "弓"){
+    l(wp(0,-.55,0),wp(.16,0,.18),.04,wood);
+    l(wp(.16,0,.18),wp(0,.55,0),.04,wood);
+    l(wp(0,-.55,0),wp(0,.55,0),.01,metal);
+  }else if(type === "弩"){
+    l(wp(-.5,0,.2),wp(.5,0,.2),.055,wood);
+    l(wp(0,0,-.25),wp(0,0,.8),.08,wood);
+  }else if(type === "槍" || type === "戟"){
+    l(wp(0,-.15,-.8),wp(0,.13,1.75),.04,wood);
+    l(wp(0,.13,1.75),wp(0,.16,2.15),.09,metal);
+
+    if(type === "戟"){
+      l(wp(-.3,.12,1.6),wp(.3,.12,1.6),.07,metal);
+    }
+  }else if(type === "杖"){
+    l(wp(0,-.5,0),wp(0,.7,0),.035,wood);
+
+    for(let i=-2;i<=2;i++){
+      l(
+        wp(0,.3,0),
+        wp(i*.18,.9-Math.abs(i)*.09,0),
+        .075,"#d1eddf"
+      );
+    }
+  }else{
+    const tip = wp(
+      .25-atk*.85,
+      1.05-atk*.5,
+      .2+atk*.55
+    );
+
+    l(wp(0,-.2,0),wp(0,.15,0),.055,wood);
+    l(
+      wp(0,.12,0),
+      tip,
+      type === "斧" ? .17 : .07,
+      metal
+    );
+
+    if(type === "斧"){
+      l(
+        [tip[0]-.23,tip[1],tip[2]],
+        [tip[0]+.23,tip[1],tip[2]],
+        .17,metal
+      );
+    }
+
+    if(type === "劍" || type === "匕"){
+      l(
+        [-.6,1.05,.25],
+        [-.65,.9,type === "匕" ? .85 : 1.25],
+        .06,metal
+      );
+    }
+  }
+
+  if(u.block){
+    b(-.65,.85,.43,.55,.7,.16,"#b29863");
+  }
+
+  const p = project(x,y+2.5*s,z);
+
+  if(u.player || u.big){
+    labels.push({
+      x:p.x,y:p.y,
+      text:u.name||"",
+      c:u.player ? "#ffdf92" : "#ffb0a0"
+    });
+  }
+
+  if(u.hp > 0 && u.hp < u.max){
+    labels.push({
+      x:p.x,y:p.y+7,
+      health:clamp(u.hp/u.max,0,1),
+      c:u.enemy ? "#e78d72" : "#76ccba"
+    });
+  }
+}
+
+// ---------- 建立戰場 ----------
+
+function makeUnit(x,z,enemy,big=false){
+  return {
+    x,z,y:0,
+    hp:big ? 600 : enemy ? 55 : 70,
+    max:big ? 600 : enemy ? 55 : 70,
+    enemy,big,
+    seed:rand(0,10),
+    dir:enemy ? Math.PI : 0,
+    color:enemy
+      ? (big ? "#994c68" : "#bd6553")
+      : "#499a93",
+    cd:rand(.1,1),
+    swing:0,
+    weapon:enemy && !big && Math.random()<.22 ? "弓" : "槍",
+    name:big ? G.stage.boss : "",
+    moving:false,
+    windup:0,
+    special:rand(3,5)
+  };
+}
+
+function nearest(u,list,max=Infinity){
+  let best = null;
+  let d = max;
+
+  for(const v of list){
+    if(v.hp <= 0) continue;
+    const n = Math.hypot(v.x-u.x,v.z-u.z);
+
+    if(n<d){
+      best = v;
+      d = n;
+    }
+  }
+
+  return best;
+}
+
+function announce(s){
+  $("toast").textContent = s;
+  G.toast = 2.8;
+}
+
+function spawnWave(){
+  G.wave++;
+  G.enemies = [];
+
+  const n = G.stage.n+G.wave*7;
+
+  for(let i=0;i<n;i++){
+    const a = rand(0,TAU);
+    const r = rand(14,24);
+
+    G.enemies.push(makeUnit(
+      clamp(G.player.x+Math.sin(a)*r,-32,32),
+      clamp(G.player.z+Math.cos(a)*r,-32,32),
+      true
+    ));
+  }
+
+  if(G.wave === G.stage.waves){
+    const u = makeUnit(0,19,true,true);
+    u.hp = u.max = Math.round(G.difficulty*1100);
+    G.enemies.push(u);
+  }
+
+  announce(
+    "第 "+G.wave+" 波敵軍"+
+    (G.wave === G.stage.waves
+      ? " · 敵將 "+G.stage.boss+" 出陣"
+      : "")
+  );
+}
+
+function start(){
+  const h = heroes[selected];
+  const max = {
+    武將:260,
+    智將:200,
+    君主:240,
+    刺客:190
+  }[h[2]];
+
+  const w = weapons[+$("weapon").value];
+  const capacity = Math.floor(profile.merit/100);
+
+  G = {
+    player:{
+      x:0,z:0,y:0,vy:0,
+      hp:max,max,mp:100,
+      dir:0,seed:0,
+      player:true,
+      name:h[0],
+      role:h[2],
+      color:h[3],
+      mount:+$("mount").value,
+      weapon:w[1],
+      swing:0,cd:0,
+      dodge:0,dodgeCD:0,
+      moving:false,block:false,
+      pending:null,
+      comboStep:0,comboClock:0
+    },
+    stage:stages[+$("stage").value],
+    difficulty:+$("difficulty").value,
+    weapon:w,
+    tactic:+$("tactic").value,
+    pet:+$("pet").value,
+    petPos:{x:-2,z:-2},
+    petCD:0,
+    capacity,
+    reserve:Math.max(0,capacity-100),
+    allies:[],
+    enemies:[],
+    fx:[],
+    shots:[],
+    fields:[],
+    wave:0,
+    kills:0,
+    earned:0,
+    elapsed:0,
+    tacticCD:0,
+    toast:0,
+    transition:0,
+    ended:false,
+    order:"attack",
+    combo:0,
+    comboTime:0,
+    autosave:0
+  };
+
+  for(let i=0;i<Math.min(capacity,100);i++){
+    G.allies.push(makeUnit(
+      (i%12-5.5)*1.2,
+      -3-Math.floor(i/12)*1.1,
+      false
+    ));
+  }
+
+  cam = {x:0,z:0};
+  clearInput();
+  paused = false;
+
+  $("order").textContent = "F · 全軍進攻";
+  $("overlay").style.display = "none";
+  $("menu").style.display = "none";
+  $("game").style.display = "block";
+  $("playername").textContent = h[0]+" · "+h[2];
+  $("bossbar").hidden = true;
+  $("combo").textContent = "";
+
+  spawnWave();
+  tone(240,.25);
+}
+
+// ---------- 傷害與招式 ----------
+
+function damage(u,d){
+  if(G.ended || u.hp<=0) return false;
+
+  if(u.player){
+    if(u.dodge>0 || u.y>.9) return false;
+    d *= u.block ? .5 : 1;
+    d *= u.mount === 3 ? .85 : 1;
+  }
+
+  if(
+    !u.enemy &&
+    G.fields.some(f=>
+      f.type === 1 &&
+      Math.hypot(u.x-f.x,u.z-f.z)<f.r
+    )
+  ){
+    d *= .5;
+  }
+
+  u.hp = Math.max(0,u.hp-d);
+
+  G.fx.push({
+    x:u.x,y:1.7,z:u.z,
+    t:.5,max:.5,
+    text:Math.round(d),
+    c:u.enemy ? "#ffd49b" : "#9df6d3"
+  });
+
+  if(u.hp === 0 && u.enemy){
+    const reward = u.big ? 100 : 10;
+    profile.merit += reward;
+    G.earned += reward;
+    G.kills++;
+    G.player.mp = clamp(G.player.mp+2,0,100);
+  }
+
+  if(u.player && u.hp === 0) finish(false);
   return true;
- }catch(e){return false}
-}
-function wipeSave(){if(confirm("確定清除存檔並重新生成世界？")){localStorage.removeItem(SAVE_KEY);location.reload()}}
-$("wipeBtn").onclick=wipeSave;
-
-function updateModeUI(){
- if(actionMode==="mine"){
-  modeText.textContent="挖掘";modeText.style.color="#ffe08a";modeBtn.textContent="挖";modeBtn.style.borderColor="#ffe08a";modeBtn.style.color="#ffe08a";modeBtn.style.background="#5a3000cc";
- }else{
-  modeText.textContent="放置";modeText.style.color="#4dff85";modeBtn.textContent="放";modeBtn.style.borderColor="#4dff85";modeBtn.style.color="#4dff85";modeBtn.style.background="#063a16cc";cancelMining();
- }
- updateToolUI();
-}
-function updateToolUI(){
- toolText.textContent=TOOLS[currentTool].name;
- toolBtn.textContent=TOOLS[currentTool].name;
- let w=WEAPONS[equipment.weapon]||WEAPONS.none,a=ARMORS[equipment.armor]||ARMORS.none;
- equipText.textContent=w.name+" / "+a.name+"｜攻+"+w.atk+" 防+"+a.def;
-}
-function toggleMode(){actionMode=actionMode==="mine"?"place":"mine";updateModeUI();showMsg(actionMode==="mine"?"切換：挖掘模式":"切換：放置模式")}
-function cycleTool(){
- let a=["hand"];if(inventory.stonePick>0)a.push("stonePick");if(inventory.ironPick>0)a.push("ironPick");
- currentTool=a[(a.indexOf(currentTool)+1)%a.length];updateToolUI();renderToolBox();showMsg("工具："+TOOLS[currentTool].name);
 }
 
-function toggleBag(){let open=bagPanel.style.display!=="block";bagPanel.style.display=open?"block":"none";if(open)renderBagPanel()}
-$("bagBtn").onclick=toggleBag;$("closeBag").onclick=toggleBag;
-tabBag.onclick=()=>{bagTab="bag";renderBagPanel()};
-tabCraft.onclick=()=>{bagTab="craft";renderBagPanel()};
-tabEquip.onclick=()=>{bagTab="equip";renderBagPanel()};
-$("closeChest").onclick=()=>{chestPanel.style.display="none";currentChestKey=null;saveGame()};
-$("closeFurnace").onclick=()=>{furnacePanel.style.display="none";currentFurnaceKey=null;saveGame()};
-$("closeWork").onclick=()=>{workPanel.style.display="none";saveGame()};
-
-function generateWorld(){
- world=[];groundMap=[];
- for(let y=0;y<WORLD_H;y++){world[y]=[];for(let x=0;x<WORLD_W;x++)world[y][x]=0}
- for(let x=0;x<WORLD_W;x++){
-  let hill=Math.floor(Math.sin(x*.13)*3)+Math.floor(Math.sin(x*.045)*5)+Math.floor(Math.sin(x*.31)*1);
-  let gy=27+hill;groundMap[x]=gy;
-  for(let y=gy;y<WORLD_H;y++)world[y][x]=y===gy?1:y<gy+5?2:3;
- }
- createSpawnFlat();generateCaves();generateOres();generateTrees();
-}
-function createSpawnFlat(){
- for(let x=6;x<=16;x++){
-  for(let y=0;y<WORLD_H;y++)world[y][x]=0;
-  let fy=25;groundMap[x]=fy;world[fy][x]=1;
-  for(let y=fy+1;y<fy+5;y++)world[y][x]=2;
-  for(let y=fy+5;y<WORLD_H;y++)world[y][x]=3;
- }
-}
-function generateCaves(){
- for(let x=18;x<WORLD_W-10;x++)for(let y=34;y<WORLD_H-4;y++){
-  let n=Math.sin(x*.22+y*.13)+Math.sin(x*.071-y*.19)+Math.sin((x+y)*.113);
-  if(n>1.55-(y>45?.25:0)){world[y][x]=0;if(Math.random()<.18&&y+1<WORLD_H)world[y+1][x]=0}
- }
- for(let c=0;c<8;c++){
-  let cx=30+Math.floor(Math.random()*(WORLD_W-60)),cy=36+Math.floor(Math.random()*24),len=18+Math.floor(Math.random()*32);
-  for(let i=0;i<len;i++)carveCircle(cx+i,cy+Math.floor(Math.sin(i*.35)*2),2);
- }
-}
-function carveCircle(cx,cy,r){for(let y=cy-r;y<=cy+r;y++)for(let x=cx-r;x<=cx+r;x++){if(x<0||x>=WORLD_W||y<0||y>=WORLD_H)continue;if(Math.hypot(x-cx,y-cy)<=r)world[y][x]=0}}
-function generateOres(){
- for(let x=0;x<WORLD_W;x++)for(let y=0;y<WORLD_H;y++){
-  if(world[y][x]!==3)continue;
-  let coal=y>32?.045:.012,iron=y>42?.032:y>34?.014:.002;
-  if(Math.random()<coal)makeOreVein(x,y,6,2+Math.floor(Math.random()*5));
-  else if(Math.random()<iron)makeOreVein(x,y,7,2+Math.floor(Math.random()*4));
- }
-}
-function makeOreVein(cx,cy,type,count){for(let i=0;i<count;i++){let x=cx+Math.floor(Math.random()*5)-2,y=cy+Math.floor(Math.random()*5)-2;if(x>=0&&x<WORLD_W&&y>=0&&y<WORLD_H&&world[y][x]===3)world[y][x]=type}}
-function generateTrees(){
- for(let x=20;x<WORLD_W-8;x+=7){
-  if(Math.random()>.58)continue;let gy=groundMap[x];if(!gy||world[gy][x]!==1)continue;
-  let h=4+Math.floor(Math.random()*3);for(let i=1;i<=h;i++)if(gy-i>1)world[gy-i][x]=4;
-  let top=gy-h;
-  for(let ly=-2;ly<=2;ly++)for(let lx=-2;lx<=2;lx++){let d=Math.abs(lx)+Math.abs(ly),tx=x+lx,ty=top+ly;if(tx>=0&&tx<WORLD_W&&ty>=0&&ty<WORLD_H&&d<=3&&world[ty][tx]===0)world[ty][tx]=5}
-  if(top-2>0){world[top-2][x]=5;world[top-1][x-1]=5;world[top-1][x+1]=5}
- }
-}
-function resetPlayer(){
- player.x=spawnPoint.x;player.y=spawnPoint.y;player.vx=0;player.vy=0;player.hp=player.maxHp;player.hunger=Math.max(70,player.hunger);player.inv=90;cancelMining();
- showMsg(spawnPoint.hasBed?"在床旁邊重生":"重生完成");
-}
-$("resetBtn").onclick=resetPlayer;
-
-addEventListener("keydown",e=>{
- keys[e.key.toLowerCase()]=true;if(e.key===" ")keys.space=true;
- if(e.key>="1"&&e.key<="9")selectedSlot=HOTBAR_BLOCKS[Number(e.key)-1]||selectedSlot;
- if(e.key.toLowerCase()==="0")selectedSlot=16;
- if(e.key.toLowerCase()==="e")toggleMode();
- if(e.key.toLowerCase()==="b")toggleBag();
- if(e.key.toLowerCase()==="t")cycleTool();
- if(e.key.toLowerCase()==="f")attack();
- if(e.key.toLowerCase()==="r")eatSelected();
- if(e.key.toLowerCase()==="q")trySleep();
- if(e.key.toLowerCase()==="c")openNearestChest();
- if(e.key.toLowerCase()==="v")openNearestFurnace();
- if(e.key.toLowerCase()==="x")openNearestWorkbench();
- renderHotbar();
-});
-addEventListener("keyup",e=>{keys[e.key.toLowerCase()]=false;if(e.key===" ")keys.space=false});
-
-function bindTouchButton(id,key,fn){
- let el=$(id);
- el.addEventListener("touchstart",e=>{e.preventDefault();touch[key]=true;if(fn)fn()},{passive:false});
- el.addEventListener("touchend",e=>{e.preventDefault();touch[key]=false},{passive:false});
- el.addEventListener("touchcancel",e=>{e.preventDefault();touch[key]=false},{passive:false});
- el.addEventListener("mousedown",e=>{e.preventDefault();touch[key]=true;if(fn)fn()});
- el.addEventListener("mouseup",e=>{e.preventDefault();touch[key]=false});
- el.addEventListener("mouseleave",()=>touch[key]=false);
-}
-bindTouchButton("leftBtn","left");
-bindTouchButton("rightBtn","right");
-bindTouchButton("jumpBtn","jump");
-bindTouchButton("attackBtn","attack",attack);
-bindTouchButton("eatBtn","eat",eatSelected);
-bindTouchButton("sleepBtn","sleep",trySleep);
-bindTouchButton("chestBtn","chest",openNearestChest);
-bindTouchButton("furnaceBtn","furnace",openNearestFurnace);
-bindTouchButton("workBtn","work",openNearestWorkbench);
-modeBtn.addEventListener("touchstart",e=>{e.preventDefault();toggleMode()},{passive:false});
-modeBtn.addEventListener("mousedown",e=>{e.preventDefault();toggleMode()});
-toolBtn.addEventListener("touchstart",e=>{e.preventDefault();cycleTool()},{passive:false});
-toolBtn.addEventListener("mousedown",e=>{e.preventDefault();cycleTool()});
-document.addEventListener("touchmove",e=>e.preventDefault(),{passive:false});
-
-function getBlock(tx,ty){if(tx<0||tx>=WORLD_W||ty<0||ty>=WORLD_H)return 3;return world[ty][tx]}
-function setBlock(tx,ty,b){if(tx<0||tx>=WORLD_W||ty<0||ty>=WORLD_H)return;world[ty][tx]=b}
-function isSolidBlock(b){return b!==0&&b!==8&&b!==12&&b!==13&&b!==14&&b!==16}
-function isPlaceableBlock(b){return (b>=1&&b<=9)||b===12||b===13||b===14||b===16}
-function isSolidAtPixel(px,py){return isSolidBlock(getBlock(Math.floor(px/TILE),Math.floor(py/TILE)))}
-function screenToWorld(clientX,clientY){let r=canvas.getBoundingClientRect();return{x:clientX-r.left+camX,y:clientY-r.top+camY}}
-function blockCenter(tx,ty){return{x:tx*TILE+TILE/2,y:ty*TILE+TILE/2}}
-function distanceToBlock(tx,ty){let c=blockCenter(tx,ty);return Math.hypot(c.x-player.x,c.y-player.y)}
-function blockOverlapsPlayer(tx,ty){
- let pl=player.x-player.w/2,pr=player.x+player.w/2,pt=player.y-player.h/2,pb=player.y+player.h/2;
- let bl=tx*TILE,br=bl+TILE,bt=ty*TILE,bb=bt+TILE;
- return pl<br&&pr>bl&&pt<bb&&pb>bt;
-}
-function findNearestBlock(type,rangeTiles){
- let best=null,bestD=999999,px=Math.floor(player.x/TILE),py=Math.floor(player.y/TILE);
- for(let y=Math.max(0,py-rangeTiles);y<=Math.min(WORLD_H-1,py+rangeTiles);y++){
-  for(let x=Math.max(0,px-rangeTiles);x<=Math.min(WORLD_W-1,px+rangeTiles);x++){
-   if(getBlock(x,y)===type){
-    let d=distanceToBlock(x,y);if(d<bestD){bestD=d;best={x,y,d,key:keyOf(x,y)}}
-   }
-  }
- }
- return best;
-}
-function findNearestBed(){return findNearestBlock(12,8)}
-function trySleep(){
- const bed=findNearestBed();
- if(!bed||bed.d>TILE*4)return showMsg("附近沒有床，靠近床才能睡");
- if(!isNight())return showMsg("現在是白天，還不用睡");
- timeOfDay=0.08;dayCount++;monsters=[];player.hp=Math.min(player.maxHp,player.hp+25);player.hunger=Math.max(0,player.hunger-8);
- spawnPoint={x:bed.x*TILE+TILE/2,y:(bed.y-1)*TILE,hasBed:true};saveGame();showMsg("睡了一覺，天亮了！重生點已設定");
-}
-function openNearestChest(){
- const ch=findNearestBlock(13,6);
- if(!ch||ch.d>TILE*4)return showMsg("附近沒有箱子");
- currentChestKey=ch.key;if(!chests[currentChestKey])chests[currentChestKey]=emptyStorage();
- renderChestPanel();chestPanel.style.display="block";
-}
-function openNearestFurnace(){
- const fu=findNearestBlock(14,6);
- if(!fu||fu.d>TILE*4)return showMsg("附近沒有熔爐");
- currentFurnaceKey=fu.key;if(!furnaces[currentFurnaceKey])furnaces[currentFurnaceKey]={made:0};
- renderFurnacePanel();furnacePanel.style.display="block";
-}
-function openNearestWorkbench(){
- const wk=findNearestBlock(16,6);
- if(!wk||wk.d>TILE*4)return showMsg("附近沒有工作台");
- renderWorkbenchPanel();workPanel.style.display="block";
+function slash(x,z,r,c){
+  G.fx.push({
+    x,z,y:.7,t:.35,max:.35,r,c
+  });
 }
 
-function smeltOne(){
- if((inventory[7]||0)<=0)return showMsg("鐵礦不足");
- if((inventory[6]||0)<=0)return showMsg("煤礦不足");
- inventory[7]--;inventory[6]--;inventory[15]=(inventory[15]||0)+1;
- if(currentFurnaceKey){furnaces[currentFurnaceKey]=furnaces[currentFurnaceKey]||{made:0};furnaces[currentFurnaceKey].made++}
- showMsg("熔煉成功：鐵錠 +1");renderHotbar();renderFurnacePanel();if(bagPanel.style.display==="block")renderBagPanel();saveGame();
-}
-function smeltAll(){
- let n=Math.min(inventory[7]||0,inventory[6]||0);
- if(n<=0)return showMsg("鐵礦或煤礦不足");
- inventory[7]-=n;inventory[6]-=n;inventory[15]=(inventory[15]||0)+n;
- if(currentFurnaceKey){furnaces[currentFurnaceKey]=furnaces[currentFurnaceKey]||{made:0};furnaces[currentFurnaceKey].made+=n}
- showMsg("全部熔煉：鐵錠 +"+n);renderHotbar();renderFurnacePanel();if(bagPanel.style.display==="block")renderBagPanel();saveGame();
-}
-$("smeltBtn").onclick=smeltOne;$("smeltAllBtn").onclick=smeltAll;
+function fire(
+  u,target,amount,color,
+  enemy=false,speed=23,range=24
+){
+  const dir = target
+    ? Math.atan2(target.x-u.x,target.z-u.z)
+    : u.dir;
 
-function doActionAtScreen(clientX,clientY){
- let p=screenToWorld(clientX,clientY),tx=Math.floor(p.x/TILE),ty=Math.floor(p.y/TILE);
- actionMode==="mine"?startMining(tx,ty):placeBlock(tx,ty);
-}
-function startMining(tx,ty){
- let b=getBlock(tx,ty);if(b===0)return;
- if(distanceToBlock(tx,ty)>ACTION_RANGE)return showMsg("太遠了，挖不到");
- if(blockOverlapsPlayer(tx,ty)&&![8,12,13,14,16].includes(b))return showMsg("身體卡住的位置不能挖");
- if(b===7&&!TOOLS[currentTool].canIron)return showMsg("鐵礦太硬，至少要石鎬");
- if(!mining.active||mining.tx!==tx||mining.ty!==ty)mining={active:true,tx,ty,block:b,progress:0,need:getMiningNeed(b)};
- player.swing=14;
-}
-function getMiningNeed(b){
- let base=BLOCK_HARDNESS[b]||30,speed=TOOLS[currentTool].speed;
- if(currentTool==="hand"&&(b===3||b===6))speed=.55;
- if(currentTool==="hand"&&b===7)speed=.2;
- if(currentTool==="stonePick"&&(b===3||b===6||b===7))speed=2.4;
- if(currentTool==="ironPick"&&(b===3||b===6||b===7))speed=4;
- return Math.max(8,Math.floor(base/speed));
-}
-function updateMining(){
- if(!mining.active)return;
- let b=getBlock(mining.tx,mining.ty);
- if(b!==mining.block||b===0)return cancelMining();
- if(distanceToBlock(mining.tx,mining.ty)>ACTION_RANGE){showMsg("太遠了，挖掘中斷");return cancelMining()}
- mining.progress++;player.swing=Math.max(player.swing,4);
- if(mining.progress>=mining.need)finishMining();
-}
-function finishMining(){
- let tx=mining.tx,ty=mining.ty,b=getBlock(tx,ty),k=keyOf(tx,ty);if(b===0)return cancelMining();
- setBlock(tx,ty,0);
- if(b===5&&Math.random()<.16){inventory[10]=(inventory[10]||0)+1;showMsg("樹葉掉落：蘋果")}
- else{inventory[b]=(inventory[b]||0)+1;showMsg("取得："+BLOCK_NAME[b])}
- if(b===12&&spawnPoint.hasBed&&Math.abs(spawnPoint.x-(tx*TILE+TILE/2))<80){spawnPoint={x:TILE*10,y:TILE*18,hasBed:false};showMsg("床被拆掉，重生點回到出生點")}
- if(b===13){delete chests[k];if(currentChestKey===k){chestPanel.style.display="none";currentChestKey=null}}
- if(b===14){delete furnaces[k];if(currentFurnaceKey===k){furnacePanel.style.display="none";currentFurnaceKey=null}}
- cracks.push({tx,ty,life:18,max:18});createBlockParticles(tx,ty,b);
- renderHotbar();if(bagPanel.style.display==="block")renderBagPanel();saveGame();cancelMining();
-}
-function cancelMining(){mining={active:false,tx:null,ty:null,block:0,progress:0,need:1};mineProgress.style.display="none"}
-function placeBlock(tx,ty){
- cancelMining();
- let cur=getBlock(tx,ty);
- if(FOOD[selectedSlot])return showMsg("食物不能當方塊放，按 R 或吃鍵食用");
- if(selectedSlot===15||selectedSlot===17)return showMsg(BLOCK_NAME[selectedSlot]+"是材料，不能放置");
- if(!isPlaceableBlock(selectedSlot))return showMsg("這個不能放置");
- if(cur!==0)return showMsg("這裡已經有方塊");
- if(distanceToBlock(tx,ty)>ACTION_RANGE)return showMsg("太遠了，放不到");
- if((inventory[selectedSlot]||0)<=0)return showMsg(BLOCK_NAME[selectedSlot]+" 不足");
- if(![8,12,13,14,16].includes(selectedSlot)&&blockOverlapsPlayer(tx,ty))return showMsg("不能放在自己身上");
- let has=getBlock(tx+1,ty)!==0||getBlock(tx-1,ty)!==0||getBlock(tx,ty+1)!==0||getBlock(tx,ty-1)!==0;
- if(!has)return showMsg("要貼著其他方塊才能放");
- if([12,13,14,16].includes(selectedSlot)&&getBlock(tx,ty+1)===0)return showMsg(BLOCK_NAME[selectedSlot]+"要放在地面上");
- setBlock(tx,ty,selectedSlot);inventory[selectedSlot]--;
- if(selectedSlot===13)chests[keyOf(tx,ty)]=emptyStorage();
- if(selectedSlot===14)furnaces[keyOf(tx,ty)]={made:0};
- placeEffects.push({tx,ty,life:20,max:20});createPlaceParticles(tx,ty,selectedSlot);player.swing=10;
- showMsg("放置："+BLOCK_NAME[selectedSlot]);
- renderHotbar();if(bagPanel.style.display==="block")renderBagPanel();saveGame();
+  G.shots.push({
+    x:u.x,z:u.z,y:1.25,
+    vx:Math.sin(dir)*speed,
+    vz:Math.cos(dir)*speed,
+    t:range/speed,
+    damage:amount,
+    c:color,
+    enemy
+  });
 }
 
-canvas.addEventListener("mousedown",e=>doActionAtScreen(e.clientX,e.clientY));
-canvas.addEventListener("mousemove",e=>{
- mouse.inside=true;mouse.x=e.clientX;mouse.y=e.clientY;
- let p=screenToWorld(e.clientX,e.clientY);mouse.worldX=p.x;mouse.worldY=p.y;mouse.tx=Math.floor(p.x/TILE);mouse.ty=Math.floor(p.y/TILE);
-});
-canvas.addEventListener("mouseleave",()=>mouse.inside=false);
-canvas.addEventListener("touchstart",e=>{
- if(e.target.closest(".btn")||e.target.closest("#hotbar")||e.target.closest("#resetBtn")||e.target.closest("#bagBtn")||e.target.closest("#wipeBtn")||e.target.closest(".panel"))return;
- if(e.changedTouches.length){let t=e.changedTouches[0];doActionAtScreen(t.clientX,t.clientY)}
-},{passive:false});
-
-function canCraft(r){for(let k in r.cost)if((inventory[k]||0)<r.cost[k])return false;return true}
-function craftFrom(list,id){
- let r=list.find(x=>x.id===id);if(!r)return;if(!canCraft(r))return showMsg("材料不足");
- for(let k in r.cost)inventory[k]-=r.cost[k];
- for(let k in r.gain)inventory[k]=(inventory[k]||0)+r.gain[k];
- if(r.gain.stonePick&&currentTool==="hand")currentTool="stonePick";
- if(r.gain.ironPick)currentTool="ironPick";
- showMsg("合成成功："+r.name);
- renderHotbar();renderBagPanel();renderWorkbenchPanel();updateToolUI();saveGame();
-}
-function eatSelected(){
- let f=FOOD[selectedSlot];if(!f)return showMsg("目前選擇的不是食物");
- if((inventory[selectedSlot]||0)<=0)return showMsg(f.name+" 不足");
- if(player.hunger>=player.maxHunger&&player.hp>=player.maxHp)return showMsg("現在不需要吃");
- inventory[selectedSlot]--;player.hunger=Math.min(player.maxHunger,player.hunger+f.hunger);player.hp=Math.min(player.maxHp,player.hp+f.hp);
- showMsg("吃下："+f.name);renderHotbar();if(bagPanel.style.display==="block")renderBagPanel();saveGame();
-}
-function equipItem(id){
- if((inventory[id]||0)<=0)return showMsg("沒有 "+itemName(id));
- if(["woodSword","stoneSword","ironSword"].includes(id))equipment.weapon=id;
- if(["leatherArmor","ironArmor"].includes(id))equipment.armor=id;
- showMsg("已裝備："+itemName(id));
- updateToolUI();renderBagPanel();saveGame();
-}
-function unequip(type){
- if(type==="weapon")equipment.weapon="none";
- if(type==="armor")equipment.armor="none";
- showMsg("已卸下裝備");
- updateToolUI();renderBagPanel();saveGame();
-}
-function moveItemToChest(id){
- if(!currentChestKey)return;
- if((inventory[id]||0)<=0)return;
- chests[currentChestKey]=chests[currentChestKey]||emptyStorage();
- inventory[id]--;chests[currentChestKey][id]=(chests[currentChestKey][id]||0)+1;
- renderHotbar();renderChestPanel();saveGame();
-}
-function moveItemFromChest(id){
- if(!currentChestKey)return;
- let chest=chests[currentChestKey]||emptyStorage();
- if((chest[id]||0)<=0)return;
- chest[id]--;inventory[id]=(inventory[id]||0)+1;
- renderHotbar();renderChestPanel();saveGame();
-}
-
-function createBlockParticles(tx,ty,b){let c=blockColor(b),color=c?c.main:"#fff";for(let i=0;i<14;i++)particles.push({x:tx*TILE+TILE/2,y:ty*TILE+TILE/2,vx:(Math.random()-.5)*5,vy:(Math.random()-.7)*5,size:3+Math.random()*5,color,life:30+Math.random()*20})}
-function createPlaceParticles(tx,ty,b){let c=blockColor(b),color=c?c.top:"#fff";for(let i=0;i<10;i++)particles.push({x:tx*TILE+TILE/2,y:ty*TILE+TILE/2,vx:(Math.random()-.5)*3,vy:(Math.random()-.5)*3,size:3+Math.random()*4,color,life:20+Math.random()*12})}
-
-function moveAndCollideX(p){
- p.x+=p.vx;
- if(p.vx>0){let r=p.x+p.w/2,t=p.y-p.h/2+4,b=p.y+p.h/2-4;if(isSolidAtPixel(r,t)||isSolidAtPixel(r,b)){p.x=Math.floor(r/TILE)*TILE-p.w/2-.01;p.vx=0}}
- else if(p.vx<0){let l=p.x-p.w/2,t=p.y-p.h/2+4,b=p.y+p.h/2-4;if(isSolidAtPixel(l,t)||isSolidAtPixel(l,b)){p.x=Math.floor(l/TILE+1)*TILE+p.w/2+.01;p.vx=0}}
-}
-function moveAndCollideY(p){
- p.y+=p.vy;p.onGround=false;
- if(p.vy>0){let b=p.y+p.h/2,l=p.x-p.w/2+4,r=p.x+p.w/2-4;if(isSolidAtPixel(l,b)||isSolidAtPixel(r,b)){p.y=Math.floor(b/TILE)*TILE-p.h/2-.01;p.vy=0;p.onGround=true}}
- else if(p.vy<0){let t=p.y-p.h/2,l=p.x-p.w/2+4,r=p.x+p.w/2-4;if(isSolidAtPixel(l,t)||isSolidAtPixel(r,t)){p.y=Math.floor(t/TILE+1)*TILE+p.h/2+.01;p.vy=0}}
-}
-function findSurface(tx){tx=Math.max(0,Math.min(WORLD_W-1,tx));for(let y=0;y<WORLD_H;y++)if(isSolidBlock(getBlock(tx,y)))return y;return 25}
-function spawnMonster(){
- if(monsters.length>12)return;
- let side=Math.random()<.5?-1:1,x=player.x+side*(500+Math.random()*500);x=Math.max(50,Math.min(WORLD_W*TILE-50,x));
- let tx=Math.floor(x/TILE),gy=findSurface(tx);
- monsters.push({x,y:(gy-1)*TILE,w:24,h:38,vx:0,vy:0,hp:45+dayCount*8,maxHp:45+dayCount*8,atk:8+dayCount*1.2,face:-side,hit:0});
-}
-function spawnAnimal(){
- if(animals.length>18||isNight())return;
- let side=Math.random()<.5?-1:1,x=player.x+side*(350+Math.random()*800);x=Math.max(50,Math.min(WORLD_W*TILE-50,x));
- let tx=Math.floor(x/TILE),gy=findSurface(tx),type=Math.random()<.55?"pig":"chicken";
- animals.push({type,x,y:(gy-1)*TILE,w:type==="pig"?28:18,h:type==="pig"?22:20,vx:0,vy:0,hp:type==="pig"?28:14,maxHp:type==="pig"?28:14,face:side,walk:Math.random()*120,hit:0});
-}
-function entityCollideX(e){
- e.x+=e.vx;
- if(e.vx>0){let r=e.x+e.w/2,t=e.y-e.h/2+4,b=e.y+e.h/2-2;if(isSolidAtPixel(r,t)||isSolidAtPixel(r,b)){e.x=Math.floor(r/TILE)*TILE-e.w/2-.01;e.vx=0;e.face*=-1;e.vy=-5}}
- else if(e.vx<0){let l=e.x-e.w/2,t=e.y-e.h/2+4,b=e.y+e.h/2-2;if(isSolidAtPixel(l,t)||isSolidAtPixel(l,b)){e.x=Math.floor(l/TILE+1)*TILE+e.w/2+.01;e.vx=0;e.face*=-1;e.vy=-5}}
-}
-function entityCollideY(e){
- e.y+=e.vy;
- if(e.vy>0){let b=e.y+e.h/2,l=e.x-e.w/2+3,r=e.x+e.w/2-3;if(isSolidAtPixel(l,b)||isSolidAtPixel(r,b)){e.y=Math.floor(b/TILE)*TILE-e.h/2-.01;e.vy=0}}
- else if(e.vy<0){let t=e.y-e.h/2,l=e.x-e.w/2+3,r=e.x+e.w/2-3;if(isSolidAtPixel(l,t)||isSolidAtPixel(r,t)){e.y=Math.floor(t/TILE+1)*TILE+e.h/2+.01;e.vy=0}}
-}
-function updateMonsters(){
- spawnTick++;
- if(isNight()&&spawnTick>90){spawnTick=0;if(Math.random()<.65)spawnMonster()}
- if(!isNight()&&spawnTick%120===0&&monsters.length)monsters.shift();
- monsters.forEach(m=>{
-  if(m.hit>0)m.hit--;
-  let dx=player.x-m.x,dist=Math.abs(dx);m.face=dx>=0?1:-1;m.vx=dist<650?m.face*(1.05+dayCount*.05):0;m.vy+=.5;if(m.vy>14)m.vy=14;
-  entityCollideX(m);entityCollideY(m);
-  if(Math.hypot(player.x-m.x,player.y-m.y)<34&&player.inv<=0){
-   let armor=ARMORS[equipment.armor]||ARMORS.none;
-   let raw=m.atk;
-   let dmg=Math.max(1,raw-armor.def);
-   player.hp-=dmg;player.inv=45;
-   hitEffects.push({x:player.x,y:player.y,t:"-"+Math.floor(dmg),life:30,c:"#ff5555"});
-   if(player.hp<=0){showMsg("你被怪物擊倒");resetPlayer()}
-  }
- });
- monsters=monsters.filter(m=>m.hp>0&&m.y<WORLD_H*TILE+300);
-}
-function updateAnimals(){
- animalTick++;if(animalTick>150){animalTick=0;if(Math.random()<.7)spawnAnimal()}
- animals.forEach(a=>{
-  if(a.hit>0)a.hit--;a.walk--;if(a.walk<=0){a.walk=60+Math.random()*160;a.face=Math.random()<.5?-1:1}
-  a.vx=a.face*(a.type==="pig"?.55:.75);if(Math.random()<.006&&a.type==="chicken")a.vy=-5;a.vy+=.42;if(a.vy>12)a.vy=12;
-  entityCollideX(a);entityCollideY(a);
- });
- animals=animals.filter(a=>a.hp>0&&a.y<WORLD_H*TILE+300);
-}
 function attack(){
- if(player.atkCd>0)return;
- player.atkCd=24;player.swing=16;cancelMining();
- let weapon=WEAPONS[equipment.weapon]||WEAPONS.none;
- let range=equipment.weapon==="ironSword"?88:equipment.weapon==="stoneSword"?78:70;
- let damage=TOOLS[currentTool].atk+weapon.atk;
- monsters.forEach(m=>{
-  let dx=m.x-player.x,dy=m.y-player.y;
-  if(Math.abs(dx)<range&&Math.abs(dy)<58&&Math.sign(dx||player.face)===player.face){
-   m.hp-=damage;m.hit=12;m.x+=player.face*18;m.vy=-3;hitEffects.push({x:m.x,y:m.y,t:"-"+damage,life:28,c:"#ffe08a"});
-   if(m.hp<=0&&Math.random()<.45){inventory[6]=(inventory[6]||0)+1;renderHotbar();saveGame()}
+  const p = G.player;
+  if(p.cd>0 || p.block || p.dodge>0) return;
+
+  const w = G.weapon;
+  p.comboStep = p.comboClock>0 ? (p.comboStep+1)%3 : 0;
+  p.comboClock = 1.5;
+  p.cd = w[4];
+  p.swing = p.swingMax = .32;
+  p.pending = {t:.12,step:p.comboStep};
+
+  const target = nearest(p,G.enemies,w[2]+3);
+
+  if(target){
+    p.dir = Math.atan2(target.x-p.x,target.z-p.z);
   }
- });
- animals.forEach(a=>{
-  let dx=a.x-player.x,dy=a.y-player.y;
-  if(Math.abs(dx)<range&&Math.abs(dy)<58&&Math.sign(dx||player.face)===player.face){
-   a.hp-=damage;a.hit=12;a.x+=player.face*18;a.vy=-4;a.face=player.face;hitEffects.push({x:a.x,y:a.y,t:"-"+damage,life:24,c:"#fff"});
-   if(a.hp<=0){
-    inventory[11]=(inventory[11]||0)+(a.type==="pig"?2:1);
-    inventory[17]=(inventory[17]||0)+(a.type==="pig"?1:0);
-    showMsg(a.type==="pig"?"取得：肉 x2、皮革 x1":"取得：肉 x1");
-    renderHotbar();if(bagPanel.style.display==="block")renderBagPanel();saveGame();
-   }
+
+  tone(180+p.comboStep*60);
+}
+
+function resolveAttack(step){
+  const p = G.player;
+  const w = G.weapon;
+  const amount = w[3]
+    * (p.role === "武將" ? 1.2 : 1)
+    * (step === 2 ? 1.5 : 1);
+
+  let hit = false;
+
+  if(["弓","弩","杖"].includes(w[1])){
+    fire(
+      p,null,amount,
+      w[1] === "杖" ? "#8ae6f1" : "#ffde9b",
+      false,23,w[2]
+    );
+  }else{
+    slash(
+      p.x,p.z,w[2],
+      step === 2 ? "#fff3bb" : "#f4dba0"
+    );
+
+    for(const e of G.enemies){
+      const d = Math.hypot(e.x-p.x,e.z-p.z);
+      const dot = (
+        Math.sin(p.dir)*(e.x-p.x)+
+        Math.cos(p.dir)*(e.z-p.z)
+      )/(d||1);
+
+      if(d<w[2] && dot>-.2 && damage(e,amount)){
+        hit = true;
+        const push = step === 2 ? .85 : .25;
+
+        e.x = clamp(e.x+Math.sin(p.dir)*push,-34,34);
+        e.z = clamp(e.z+Math.cos(p.dir)*push,-34,34);
+      }
+    }
   }
- });
-}
-function updateHungerAndRegen(){
- player.hungerTick++;
- if(player.hungerTick>=180){player.hungerTick=0;let moving=Math.abs(player.vx)>0.1||Math.abs(player.vy)>1;player.hunger=Math.max(0,player.hunger-(moving?.55:.28))}
- player.regenTick++;
- if(player.hunger>=80&&player.hp<player.maxHp&&player.regenTick>=90){player.regenTick=0;player.hp=Math.min(player.maxHp,player.hp+1.2);player.hunger=Math.max(0,player.hunger-.45)}
- if(player.hunger<=0&&player.regenTick>=120){player.regenTick=0;player.hp-=1.5;hitEffects.push({x:player.x,y:player.y-28,t:"餓",life:28,c:"#ffe08a"});if(player.hp<=0){showMsg("餓倒了");resetPlayer()}}
-}
-function update(){
- timeOfDay+=1/3600;if(timeOfDay>=1){timeOfDay=0;dayCount++}
- let left=keys.a||keys.arrowleft||touch.left,right=keys.d||keys.arrowright||touch.right,jump=keys.w||keys.arrowup||keys.space||touch.jump;
- player.vx=0;if(left){player.vx=-player.speed;player.face=-1}if(right){player.vx=player.speed;player.face=1}
- if(jump&&player.onGround){player.vy=-player.jumpPower;player.onGround=false;player.hunger=Math.max(0,player.hunger-.08)}
- player.vy+=.52;if(player.vy>16)player.vy=16;
- moveAndCollideX(player);moveAndCollideY(player);
- if(player.y>WORLD_H*TILE+500)resetPlayer();
- if(player.swing>0)player.swing--;if(player.inv>0)player.inv--;if(player.atkCd>0)player.atkCd--;
- updateMining();updateMonsters();updateAnimals();updateHungerAndRegen();
- cracks=cracks.filter(c=>c.life-->0);placeEffects=placeEffects.filter(c=>c.life-->0);
- particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.25;p.vx*=.96;p.life--});particles=particles.filter(p=>p.life>0);
- hitEffects.forEach(h=>{h.y-=1.2;h.life--});hitEffects=hitEffects.filter(h=>h.life>0);
- camX=Math.max(0,Math.min(player.x-canvas.width/2,WORLD_W*TILE-canvas.width));
- camY=Math.max(0,Math.min(player.y-canvas.height/2,WORLD_H*TILE-canvas.height));
- let depth=Math.max(0,Math.floor(player.y/TILE)-30),bed=findNearestBed(),ch=findNearestBlock(13,6),fu=findNearestBlock(14,6),wk=findNearestBlock(16,6);
- let near=(bed&&bed.d<TILE*4?"｜床可睡":"")+(ch&&ch.d<TILE*4?"｜箱可開":"")+(fu&&fu.d<TILE*4?"｜爐可用":"")+(wk&&wk.d<TILE*4?"｜台可用":"");
- info.textContent="第 "+dayCount+" 天｜"+timeName()+"｜怪物 "+monsters.length+"｜動物 "+animals.length+"｜座標："+Math.floor(player.x/TILE)+", "+Math.floor(player.y/TILE)+"｜深度："+depth+"｜選擇："+BLOCK_NAME[selectedSlot]+near;
- hpText.textContent=Math.max(0,Math.floor(player.hp))+" / "+player.maxHp;hpFill.style.width=Math.max(0,player.hp/player.maxHp*100)+"%";
- hungerText.textContent=Math.max(0,Math.floor(player.hunger))+" / "+player.maxHunger;hungerFill.style.width=Math.max(0,player.hunger/player.maxHunger*100)+"%";
- saveTick++;if(saveTick>=300){saveTick=0;saveGame()}
+
+  if(hit){
+    G.combo++;
+    G.comboTime = 2;
+  }
 }
 
-function renderHotbar(){
- hotbar.innerHTML="";
- HOTBAR_BLOCKS.forEach((b,i)=>{
-  let div=document.createElement("div");div.className="slot"+(selectedSlot===b?" selected":"");div.onclick=()=>{selectedSlot=b;renderHotbar()};
-  let icon=document.createElement("div");icon.className="blockIcon";applyBlockIcon(icon,b);div.appendChild(icon);
-  let name=document.createElement("div");name.textContent=(i+1)+"."+BLOCK_NAME[b];div.appendChild(name);
-  let count=document.createElement("div");count.className="count";count.textContent=inventory[b]||0;div.appendChild(count);
-  hotbar.appendChild(div);
- });
-}
-function renderBagPanel(){
- let showBag=bagTab==="bag",showCraft=bagTab==="craft",showEquip=bagTab==="equip";
- tabBag.className="tabBtn"+(showBag?" active":"");
- tabCraft.className="tabBtn"+(showCraft?" active":"");
- tabEquip.className="tabBtn"+(showEquip?" active":"");
- bagView.style.display=showBag?"block":"none";
- craftView.style.display=showCraft?"block":"none";
- equipView.style.display=showEquip?"block":"none";
- if(showBag){renderBag();renderToolBox()}
- if(showCraft)renderCraft();
- if(showEquip)renderEquip();
-}
-function renderBag(){
- bagGrid.innerHTML="";
- ALL_ITEMS.forEach(b=>{
-  let item=document.createElement("div");item.className="item";
-  let icon=document.createElement("div");icon.className="blockIcon";applyBlockIcon(icon,b);item.appendChild(icon);
-  let name=document.createElement("div");name.textContent=BLOCK_NAME[b];item.appendChild(name);
-  let count=document.createElement("div");count.style.color="#ffe08a";count.style.fontSize="20px";count.textContent=inventory[b]||0;item.appendChild(count);
-  if(HOTBAR_BLOCKS.includes(b))item.onclick=()=>{selectedSlot=b;renderHotbar();renderBagPanel();showMsg("選擇："+BLOCK_NAME[b])};
-  bagGrid.appendChild(item);
- });
- EQUIP_ITEMS.forEach(id=>{
-  let item=document.createElement("div");item.className="item";
-  item.innerHTML=iconHtml(id)+"<div>"+itemName(id)+"</div><div style='color:#ffe08a;font-size:20px'>"+(inventory[id]||0)+"</div>";
-  let btn=document.createElement("button");btn.textContent="裝備";btn.disabled=(inventory[id]||0)<=0;btn.onclick=()=>equipItem(id);
-  item.appendChild(btn);bagGrid.appendChild(item);
- });
-}
-function renderToolBox(){
- toolBox.innerHTML="<b style='color:#9dd7ff'>工具選擇：</b><br>";
- TOOL_ORDER.forEach(k=>{
-  let owned=k==="hand"||(inventory[k]||0)>0,btn=document.createElement("button");
-  btn.className="toolBtn"+(currentTool===k?" active":"");btn.textContent=TOOLS[k].name+(owned?"":"（未擁有）");btn.disabled=!owned;
-  btn.onclick=()=>{currentTool=k;updateToolUI();renderToolBox();showMsg("工具："+TOOLS[k].name)};
-  toolBox.appendChild(btn);
- });
- let note=document.createElement("div");note.style.color="#cfd7e8";note.style.marginTop="8px";note.style.fontSize="13px";
- note.textContent="提示：X 開工作台。武器提高攻擊，防具降低怪物傷害。";toolBox.appendChild(note);
-}
-function renderCraft(){
- craftView.innerHTML="";
- RECIPES.forEach(r=>{
-  let div=document.createElement("div");div.className="recipe";
-  let left=document.createElement("div");left.innerHTML="<b>"+r.name+"</b><br><small>"+r.desc+"</small><br><small>需要："+costText(r.cost)+"</small>";
-  let btn=document.createElement("button");btn.textContent="合成";btn.disabled=!canCraft(r);btn.onclick=()=>craftFrom(RECIPES,r.id);
-  div.appendChild(left);div.appendChild(btn);craftView.appendChild(div);
- });
-}
-function renderEquip(){
- equipView.innerHTML="";
- let w=WEAPONS[equipment.weapon]||WEAPONS.none,a=ARMORS[equipment.armor]||ARMORS.none;
- let box=document.createElement("div");box.className="equipBox";
- box.innerHTML="<b style='color:#ffe08a'>目前裝備</b><br>武器："+w.name+"｜攻擊 +"+w.atk+"<br>防具："+a.name+"｜防禦 +"+a.def+"<br>";
- let bw=document.createElement("button");bw.className="wideBtn";bw.textContent="卸下武器";bw.onclick=()=>unequip("weapon");
- let ba=document.createElement("button");ba.className="wideBtn";ba.textContent="卸下防具";ba.onclick=()=>unequip("armor");
- box.appendChild(bw);box.appendChild(ba);equipView.appendChild(box);
- let grid=document.createElement("div");grid.className="grid";grid.style.marginTop="12px";
- EQUIP_ITEMS.forEach(id=>{
-  let item=document.createElement("div");item.className="item";
-  item.innerHTML=iconHtml(id)+"<div>"+itemName(id)+"</div><div style='color:#ffe08a;font-size:20px'>"+(inventory[id]||0)+"</div>";
-  let btn=document.createElement("button");btn.textContent="裝備";btn.disabled=(inventory[id]||0)<=0;btn.onclick=()=>equipItem(id);
-  item.appendChild(btn);grid.appendChild(item);
- });
- equipView.appendChild(grid);
-}
-function renderWorkbenchPanel(){
- workCraftView.innerHTML="";
- WORK_RECIPES.forEach(r=>{
-  let div=document.createElement("div");div.className="recipe";
-  let left=document.createElement("div");left.innerHTML="<b>"+r.name+"</b><br><small>"+r.desc+"</small><br><small>需要："+costText(r.cost)+"</small>";
-  let btn=document.createElement("button");btn.textContent="合成";btn.disabled=!canCraft(r);btn.onclick=()=>craftFrom(WORK_RECIPES,r.id);
-  div.appendChild(left);div.appendChild(btn);workCraftView.appendChild(div);
- });
-}
-function renderChestPanel(){
- if(!currentChestKey)return;
- let chest=chests[currentChestKey]||emptyStorage();chestInvGrid.innerHTML="";chestGrid.innerHTML="";
- [...ALL_ITEMS,...EQUIP_ITEMS].forEach(id=>{
-  let a=document.createElement("div");a.className="item";a.innerHTML=iconHtml(id)+"<div>"+itemName(id)+"</div><div style='color:#ffe08a;font-size:20px'>"+(inventory[id]||0)+"</div>";
-  let ab=document.createElement("button");ab.textContent="放入 1";ab.disabled=(inventory[id]||0)<=0;ab.onclick=()=>moveItemToChest(id);a.appendChild(ab);chestInvGrid.appendChild(a);
-  let b=document.createElement("div");b.className="item";b.innerHTML=iconHtml(id)+"<div>"+itemName(id)+"</div><div style='color:#ffe08a;font-size:20px'>"+(chest[id]||0)+"</div>";
-  let bb=document.createElement("button");bb.textContent="取出 1";bb.disabled=(chest[id]||0)<=0;bb.onclick=()=>moveItemFromChest(id);b.appendChild(bb);chestGrid.appendChild(b);
- });
-}
-function renderFurnacePanel(){
- furnaceGrid.innerHTML="";
- [6,7,15].forEach(id=>{
-  let item=document.createElement("div");item.className="item";
-  item.innerHTML=iconHtml(id)+"<div>"+BLOCK_NAME[id]+"</div><div style='color:#ffe08a;font-size:20px'>"+(inventory[id]||0)+"</div>";
-  furnaceGrid.appendChild(item);
- });
-}
-function iconHtml(id){let d=document.createElement("div");d.className="blockIcon";applyBlockIcon(d,id);return d.outerHTML}
-function costText(cost){let arr=[];for(let k in cost)arr.push(itemName(k)+" x"+cost[k]);return arr.join("、")}
+function skill(){
+  const p = G.player;
 
-function applyBlockIcon(icon,b){
- let c=blockColor(b);
- if(b===8){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:10px;top:5px;width:8px;height:18px;background:#7b431d"></div><div style="position:absolute;left:7px;top:1px;width:14px;height:10px;border-radius:50%;background:#ffcc33;box-shadow:0 0 12px #ffcc33"></div>';return}
- if(b===10){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:6px;top:7px;width:18px;height:18px;border-radius:50%;background:#e22"></div><div style="position:absolute;left:17px;top:2px;width:8px;height:5px;background:#38b000"></div>';return}
- if(b===11){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:5px;top:9px;width:22px;height:14px;border-radius:50%;background:#b75a32"></div><div style="position:absolute;left:18px;top:5px;width:9px;height:9px;border-radius:50%;background:#f1d0a0"></div>';return}
- if(b===12){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:3px;top:14px;width:24px;height:10px;background:#c33"></div><div style="position:absolute;left:3px;top:8px;width:8px;height:6px;background:#eee"></div>';return}
- if(b===13){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:3px;top:7px;width:26px;height:21px;background:#9b5a23;border:2px solid #5b2a12"></div><div style="position:absolute;left:13px;top:15px;width:7px;height:5px;background:#ffd38a"></div>';return}
- if(b===14){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:4px;top:5px;width:24px;height:24px;background:#555;border:2px solid #222"></div><div style="position:absolute;left:9px;top:12px;width:14px;height:10px;background:#111"></div><div style="position:absolute;left:12px;top:15px;width:8px;height:5px;background:#ff7a22"></div>';return}
- if(b===15){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:5px;top:9px;width:22px;height:14px;background:linear-gradient(#ddd,#999);border:2px solid #eee"></div>';return}
- if(b===16){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:3px;top:6px;width:26px;height:22px;background:#a9672c;border:2px solid #5b2a12"></div><div style="position:absolute;left:5px;top:8px;width:22px;height:5px;background:#d6a15d"></div><div style="position:absolute;left:14px;top:6px;width:3px;height:22px;background:#5b2a12"></div></div>';return}
- if(b===17){icon.style.background="#111";icon.innerHTML='<div style="position:absolute;left:5px;top:6px;width:22px;height:22px;background:#8b5a2b;border-radius:8px 10px 7px 9px;border:2px solid #5c3518"></div>';return}
- if(EQUIP_ITEMS.includes(b)){icon.style.background="#111";drawEquipIcon(icon,b);return}
- icon.innerHTML="";icon.style.background=c?`linear-gradient(${c.top} 0 28%, ${c.main} 28% 100%)`:"#fff";
-}
-function drawEquipIcon(icon,id){
- if(id.includes("Sword")){
-  let color=id==="ironSword"?"#ddd":id==="stoneSword"?"#aaa":"#c9853a";
-  icon.innerHTML='<div style="position:absolute;left:14px;top:3px;width:5px;height:23px;background:'+color+';transform:rotate(35deg);transform-origin:center"></div><div style="position:absolute;left:8px;top:21px;width:17px;height:4px;background:#7b431d;transform:rotate(35deg)"></div>';
- }else{
-  let color=id==="ironArmor"?"#bfc7d5":"#8b5a2b";
-  icon.innerHTML='<div style="position:absolute;left:8px;top:5px;width:16px;height:24px;background:'+color+';clip-path:polygon(20% 0,80% 0,100% 35%,80% 100%,20% 100%,0 35%)"></div>';
- }
+  if(p.mp<60){
+    announce("無雙需要 60 氣力");
+    return;
+  }
+
+  p.mp -= 60;
+  p.swing = p.swingMax = .8;
+  p.cd = .8;
+  p.pending = null;
+
+  slash(p.x,p.z,9,"#ffe890");
+
+  for(const e of G.enemies){
+    if(Math.hypot(e.x-p.x,e.z-p.z)<9){
+      damage(e,150);
+    }
+  }
+
+  tone(430,.4);
+  announce(p.name+" · 無雙亂舞！");
 }
 
-function drawSky(){
- let night=isNight()?Math.min(1,(timeOfDay-.55)/.15):0,g=ctx.createLinearGradient(0,0,0,canvas.height);
- g.addColorStop(0,night?"#07122b":"#6fc7ff");g.addColorStop(.55,night?"#101936":"#9ee2ff");g.addColorStop(1,night?"#1b2038":"#dff7ff");
- ctx.fillStyle=g;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle=night?"#e6e6ff":"#fff0a0";ctx.beginPath();ctx.arc(canvas.width-100,90,night?26:38,0,Math.PI*2);ctx.fill();
- drawCloud(120-camX*.12,80,1);drawCloud(420-camX*.1,130,.8);drawCloud(760-camX*.08,70,1.1);
-}
-function drawCloud(x,y,s){ctx.fillStyle="rgba(255,255,255,.58)";ctx.beginPath();ctx.arc(x,y,24*s,0,Math.PI*2);ctx.arc(x+26*s,y-10*s,30*s,0,Math.PI*2);ctx.arc(x+58*s,y,26*s,0,Math.PI*2);ctx.arc(x+30*s,y+10*s,30*s,0,Math.PI*2);ctx.fill()}
-function blockColor(b){
- if(b===1)return{top:"#4bbf42",main:"#3a9f35",side:"#2f7e2c"};if(b===2)return{top:"#8b5a2b",main:"#70451f",side:"#5c3518"};if(b===3)return{top:"#8d8d8d",main:"#666",side:"#4f4f4f"};if(b===4)return{top:"#b47734",main:"#7b431d",side:"#4f2a14"};if(b===5)return{top:"#55d94f",main:"#248c2d",side:"#17651f"};if(b===6)return{top:"#777",main:"#4f4f4f",side:"#2b2b2b",ore:"#111"};if(b===7)return{top:"#9a9a9a",main:"#686868",side:"#444",ore:"#d08745"};if(b===8)return{top:"#ffcc33",main:"#7b431d",side:"#4f2a14"};if(b===9)return{top:"#d6a15d",main:"#a9672c",side:"#744219"};if(b===12)return{top:"#dd4444",main:"#aa2222",side:"#5b2a12"};if(b===13)return{top:"#c9853a",main:"#9b5a23",side:"#5b2a12"};if(b===14)return{top:"#777",main:"#555",side:"#222"};if(b===16)return{top:"#d6a15d",main:"#a9672c",side:"#5b2a12"};return null;
-}
-function drawBlock(tx,ty,b){
- if(b===0)return;let px=tx*TILE-camX,py=ty*TILE-camY,c=blockColor(b);if(!c)return;
- if(b===8)return drawTorch(px,py);if(b===12)return drawBed(px,py);if(b===13)return drawChest(px,py);if(b===14)return drawFurnace(px,py);if(b===16)return drawWorkbench(px,py);
- ctx.fillStyle=c.main;ctx.fillRect(px,py,TILE,TILE);ctx.fillStyle=c.top;ctx.fillRect(px,py,TILE,8);ctx.fillStyle=c.side;ctx.fillRect(px+TILE-6,py,6,TILE);ctx.fillRect(px,py+TILE-6,TILE,6);
- let seed=Math.abs((tx*928371+ty*1237)%999);
- if(b===4||b===9){ctx.strokeStyle="rgba(30,10,0,.35)";ctx.lineWidth=2;for(let i=0;i<3;i++){let yy=py+10+i*7+(seed%3);ctx.beginPath();ctx.moveTo(px+4,yy);ctx.lineTo(px+TILE-5,yy+((i%2)?2:-2));ctx.stroke()}}
- else if(b===5){for(let i=0;i<5;i++){let rx=(seed*(i+4)*13)%TILE,ry=(seed*(i+6)*9)%TILE;ctx.fillStyle=i%2?"rgba(255,255,255,.14)":"rgba(0,0,0,.13)";ctx.fillRect(px+rx,py+ry,5,5)}}
- else{for(let i=0;i<3;i++){let rx=(seed*(i+3)*17)%TILE,ry=(seed*(i+5)*11)%TILE;ctx.fillStyle="rgba(0,0,0,.12)";ctx.fillRect(px+rx,py+ry,3,3)}}
- if(b===1){ctx.fillStyle="#67d85b";for(let i=0;i<5;i++){let gx=px+((seed+i*7)%TILE);ctx.fillRect(gx,py+3,3,7)}}
- if(b===6||b===7){ctx.fillStyle=c.ore;for(let i=0;i<5;i++){let ox=px+5+((seed+i*11)%20),oy=py+9+((seed+i*17)%16);ctx.fillRect(ox,oy,5,5)}}
- ctx.strokeStyle="rgba(0,0,0,.18)";ctx.strokeRect(px,py,TILE,TILE);
-}
-function drawTorch(px,py){ctx.fillStyle="#5c3518";ctx.fillRect(px+13,py+12,6,18);ctx.fillStyle="#9c5a22";ctx.fillRect(px+11,py+10,10,6);ctx.fillStyle="#ffcc33";ctx.beginPath();ctx.arc(px+16,py+8,8,0,Math.PI*2);ctx.fill();ctx.fillStyle="#ff6b1a";ctx.beginPath();ctx.arc(px+16,py+9,4,0,Math.PI*2);ctx.fill();ctx.strokeStyle="rgba(0,0,0,.18)";ctx.strokeRect(px,py,TILE,TILE)}
-function drawBed(px,py){ctx.fillStyle="#5b2a12";ctx.fillRect(px+3,py+22,4,8);ctx.fillRect(px+25,py+22,4,8);ctx.fillStyle="#8b3a22";ctx.fillRect(px+2,py+16,28,9);ctx.fillStyle="#cc3333";ctx.fillRect(px+2,py+10,28,12);ctx.fillStyle="#eeeeee";ctx.fillRect(px+3,py+10,9,9);ctx.strokeStyle="rgba(0,0,0,.35)";ctx.strokeRect(px+2,py+10,28,16)}
-function drawChest(px,py){ctx.fillStyle="#5b2a12";ctx.fillRect(px+3,py+8,26,20);ctx.fillStyle="#9b5a23";ctx.fillRect(px+4,py+9,24,18);ctx.fillStyle="#c9853a";ctx.fillRect(px+4,py+9,24,6);ctx.fillStyle="#ffd38a";ctx.fillRect(px+13,py+16,7,5);ctx.strokeStyle="#2b1207";ctx.strokeRect(px+3,py+8,26,20)}
-function drawFurnace(px,py){ctx.fillStyle="#222";ctx.fillRect(px+3,py+5,26,25);ctx.fillStyle="#555";ctx.fillRect(px+5,py+7,22,21);ctx.fillStyle="#111";ctx.fillRect(px+9,py+13,14,10);ctx.fillStyle="#ff7a22";ctx.fillRect(px+12,py+17,8,5);ctx.strokeStyle="#888";ctx.strokeRect(px+5,py+7,22,21)}
-function drawWorkbench(px,py){ctx.fillStyle="#5b2a12";ctx.fillRect(px+3,py+7,26,22);ctx.fillStyle="#a9672c";ctx.fillRect(px+4,py+8,24,20);ctx.fillStyle="#d6a15d";ctx.fillRect(px+4,py+8,24,6);ctx.strokeStyle="#5b2a12";ctx.beginPath();ctx.moveTo(px+16,py+8);ctx.lineTo(px+16,py+28);ctx.moveTo(px+4,py+17);ctx.lineTo(px+28,py+17);ctx.stroke();ctx.strokeStyle="#2b1207";ctx.strokeRect(px+3,py+7,26,22)}
-function drawWorld(){let sx=Math.floor(camX/TILE)-1,ex=Math.ceil((camX+canvas.width)/TILE)+1,sy=Math.floor(camY/TILE)-1,ey=Math.ceil((camY+canvas.height)/TILE)+1;for(let y=sy;y<=ey;y++)for(let x=sx;x<=ex;x++)if(x>=0&&x<WORLD_W&&y>=0&&y<WORLD_H)drawBlock(x,y,world[y][x])}
-function drawCracks(){cracks.forEach(c=>{let px=c.tx*TILE-camX,py=c.ty*TILE-camY,a=c.life/c.max;ctx.strokeStyle=`rgba(0,0,0,${a})`;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(px+7,py+7);ctx.lineTo(px+15,py+17);ctx.lineTo(px+10,py+25);ctx.moveTo(px+18,py+6);ctx.lineTo(px+16,py+16);ctx.lineTo(px+25,py+24);ctx.moveTo(px+4,py+18);ctx.lineTo(px+14,py+18);ctx.stroke()})}
-function drawMiningCrack(){if(!mining.active)return;let px=mining.tx*TILE-camX,py=mining.ty*TILE-camY,r=Math.min(1,mining.progress/mining.need);ctx.strokeStyle=`rgba(0,0,0,${.35+r*.55})`;ctx.lineWidth=2+r*3;ctx.beginPath();ctx.moveTo(px+5,py+6);ctx.lineTo(px+12+r*10,py+15);ctx.lineTo(px+8,py+28);ctx.moveTo(px+24,py+5);ctx.lineTo(px+16,py+16);ctx.lineTo(px+28,py+25);ctx.moveTo(px+4,py+20);ctx.lineTo(px+28,py+19);ctx.stroke()}
-function drawPlaceEffects(){placeEffects.forEach(c=>{let px=c.tx*TILE-camX,py=c.ty*TILE-camY,a=c.life/c.max;ctx.strokeStyle=`rgba(77,255,133,${a})`;ctx.lineWidth=4;ctx.strokeRect(px+2,py+2,TILE-4,TILE-4);ctx.fillStyle=`rgba(77,255,133,${a*.25})`;ctx.fillRect(px,py,TILE,TILE)})}
-function drawParticles(){particles.forEach(p=>{ctx.fillStyle=p.color;ctx.globalAlpha=Math.max(0,p.life/40);ctx.fillRect(p.x-camX,p.y-camY,p.size,p.size)});ctx.globalAlpha=1}
-function drawPlayer(){
- let x=player.x-camX,y=player.y-camY;ctx.save();ctx.translate(x,y);if(player.face<0)ctx.scale(-1,1);if(player.inv%8>4)ctx.globalAlpha=.55;
- ctx.fillStyle="rgba(0,0,0,.35)";ctx.beginPath();ctx.ellipse(0,player.h/2+4,18,6,0,0,Math.PI*2);ctx.fill();
- let armor=equipment.armor==="ironArmor"?"#bfc7d5":equipment.armor==="leatherArmor"?"#8b5a2b":"#2d7cff";
- ctx.fillStyle="#253047";ctx.fillRect(-9,12,7,20);ctx.fillRect(3,12,7,20);ctx.fillStyle=armor;ctx.fillRect(-12,-14,24,30);ctx.fillStyle="rgba(255,255,255,.22)";ctx.fillRect(-10,-12,8,26);
- ctx.fillStyle="#e8b27f";ctx.fillRect(-11,-36,22,22);ctx.fillStyle="#2b1b12";ctx.fillRect(-12,-39,24,8);ctx.fillRect(-12,-34,5,10);ctx.fillStyle="#111";ctx.fillRect(4,-28,4,4);
- ctx.fillStyle="#e8b27f";ctx.fillRect(-18,-10,7,20);
- ctx.save();ctx.translate(14,-6);let a=0;if(player.swing>0)a=-.9+Math.sin(player.swing/16*Math.PI)*2.1;ctx.rotate(a);ctx.fillStyle="#e8b27f";ctx.fillRect(-2,-2,7,20);actionMode==="mine"?drawHeldTool():drawHeldBlock();ctx.restore();ctx.restore();ctx.globalAlpha=1;
-}
-function drawHeldTool(){
- if(equipment.weapon!=="none"&&player.atkCd>0){
-  let color=equipment.weapon==="ironSword"?"#ddd":equipment.weapon==="stoneSword"?"#aaa":"#c9853a";
-  ctx.strokeStyle=color;ctx.lineWidth=6;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(8,4);ctx.lineTo(34,-28);ctx.stroke();
-  ctx.strokeStyle="#7b431d";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(5,6);ctx.lineTo(16,16);ctx.stroke();
-  return;
- }
- if(currentTool==="hand"){ctx.fillStyle="#e8b27f";ctx.beginPath();ctx.arc(18,-10,7,0,Math.PI*2);ctx.fill();return}
- let metal=currentTool==="ironPick"?"#d08745":"#b9b9b9";ctx.strokeStyle="#5a3516";ctx.lineWidth=4;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(5,5);ctx.lineTo(25,-22);ctx.stroke();ctx.strokeStyle=metal;ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(17,-20);ctx.lineTo(36,-21);ctx.moveTo(17,-20);ctx.lineTo(9,-13);ctx.stroke()
-}
-function drawHeldBlock(){let c=blockColor(selectedSlot);ctx.fillStyle=c?c.main:"#ddd";ctx.fillRect(12,-22,18,18);ctx.fillStyle=c?c.top:"#fff";ctx.fillRect(12,-22,18,5);ctx.strokeStyle="#0008";ctx.lineWidth=2;ctx.strokeRect(12,-22,18,18)}
-function drawMonsters(){monsters.forEach(m=>{let x=m.x-camX,y=m.y-camY;ctx.save();ctx.translate(x,y);if(m.face<0)ctx.scale(-1,1);ctx.fillStyle=m.hit>0?"#ffaaaa":"#4a1f68";ctx.fillRect(-12,-18,24,38);ctx.fillStyle="#2a0d3d";ctx.fillRect(-9,18,7,16);ctx.fillRect(3,18,7,16);ctx.fillStyle="#6d32a0";ctx.fillRect(-13,-38,26,22);ctx.fillStyle="#ff3333";ctx.fillRect(3,-30,5,5);ctx.restore();ctx.fillStyle="#111";ctx.fillRect(x-18,y-52,36,5);ctx.fillStyle="#ff4444";ctx.fillRect(x-18,y-52,36*Math.max(0,m.hp/m.maxHp),5)})}
-function drawAnimals(){animals.forEach(a=>{let x=a.x-camX,y=a.y-camY;ctx.save();ctx.translate(x,y);if(a.face<0)ctx.scale(-1,1);if(a.type==="pig"){ctx.fillStyle=a.hit>0?"#fff":"#ff9ecb";ctx.fillRect(-14,-12,28,20);ctx.fillRect(8,-20,14,13);ctx.fillStyle="#222";ctx.fillRect(14,-16,3,3);ctx.fillStyle="#d46c9b";ctx.fillRect(18,-11,7,5);ctx.fillStyle="#9b5570";ctx.fillRect(-10,8,4,10);ctx.fillRect(6,8,4,10)}else{ctx.fillStyle=a.hit>0?"#fff":"#f4f4f4";ctx.fillRect(-9,-12,18,20);ctx.fillRect(5,-20,12,12);ctx.fillStyle="#222";ctx.fillRect(11,-16,3,3);ctx.fillStyle="#ffb000";ctx.fillRect(16,-13,7,4);ctx.strokeStyle="#ffd15a";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-4,8);ctx.lineTo(-6,16);ctx.moveTo(4,8);ctx.lineTo(6,16);ctx.stroke()}ctx.restore()})}
-function drawHitEffects(){hitEffects.forEach(h=>{ctx.globalAlpha=h.life/30;ctx.fillStyle=h.c;ctx.font="bold 18px Arial";ctx.textAlign="center";ctx.fillText(h.t,h.x-camX,h.y-camY);ctx.globalAlpha=1})}
-function drawTargetHint(){
- if(!mouse.inside){crosshair.style.display="none";mineProgress.style.display="none";return}
- let tx=mouse.tx,ty=mouse.ty;if(tx<0||tx>=WORLD_W||ty<0||ty>=WORLD_H){crosshair.style.display="none";mineProgress.style.display="none";return}
- let px=tx*TILE-camX,py=ty*TILE-camY,near=distanceToBlock(tx,ty)<=ACTION_RANGE;
- crosshair.style.display="block";crosshair.style.left=px+"px";crosshair.style.top=py+"px";crosshair.style.width=TILE+"px";crosshair.style.height=TILE+"px";crosshair.className=actionMode==="mine"?"mine":"place";crosshair.style.opacity=near?"1":".25";
- if(mining.active){mineProgress.style.display="block";mineProgress.style.left=px+"px";mineProgress.style.top=(py-10)+"px";mineProgress.style.width=TILE+"px";mineProgressFill.style.width=Math.min(100,mining.progress/mining.need*100)+"%"}else mineProgress.style.display="none";
-}
-function drawLighting(){
- let playerTileY=Math.floor(player.y/TILE),baseDark=0;if(playerTileY>28)baseDark=Math.min(.82,(playerTileY-28)/30);if(isNight())baseDark=Math.max(baseDark,.45);if(baseDark<=.02)return;
- ctx.save();ctx.fillStyle=`rgba(0,0,0,${baseDark})`;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.globalCompositeOperation="destination-out";cutLight(player.x-camX,player.y-camY,150,.95);
- let sx=Math.floor(camX/TILE)-2,ex=Math.ceil((camX+canvas.width)/TILE)+2,sy=Math.floor(camY/TILE)-2,ey=Math.ceil((camY+canvas.height)/TILE)+2;
- for(let y=sy;y<=ey;y++)for(let x=sx;x<=ex;x++)if(x>=0&&x<WORLD_W&&y>=0&&y<WORLD_H&&world[y][x]===8)cutLight(x*TILE+TILE/2-camX,y*TILE+TILE/2-camY,190,1);
- ctx.restore();ctx.save();ctx.globalCompositeOperation="lighter";
- for(let y=sy;y<=ey;y++)for(let x=sx;x<=ex;x++)if(x>=0&&x<WORLD_W&&y>=0&&y<WORLD_H&&world[y][x]===8){let lx=x*TILE+TILE/2-camX,ly=y*TILE+TILE/2-camY,g=ctx.createRadialGradient(lx,ly,0,lx,ly,90);g.addColorStop(0,"rgba(255,190,60,.35)");g.addColorStop(1,"rgba(255,190,60,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(lx,ly,90,0,Math.PI*2);ctx.fill()}
- ctx.restore();
-}
-function cutLight(x,y,r,p){let g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(0,0,0,${p})`);g.addColorStop(.55,`rgba(0,0,0,${p*.65})`);g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}
-function draw(){drawSky();drawWorld();drawCracks();drawMiningCrack();drawPlaceEffects();drawParticles();drawAnimals();drawMonsters();drawPlayer();drawHitEffects();drawLighting();drawTargetHint()}
-function loop(){update();draw();requestAnimationFrame(loop)}
+function tactic(){
+  const p = G.player;
+  const cost = p.role === "智將" ? 25 : 35;
 
-if(!loadGame()){generateWorld();resetPlayer();showMsg("新世界已建立")}
-renderHotbar();updateModeUI();updateToolUI();loop();
+  if(G.tacticCD>0){
+    announce("兵法冷卻中");
+    return;
+  }
+
+  if(p.mp<cost){
+    announce("兵法需要 "+cost+" 氣力");
+    return;
+  }
+
+  p.mp -= cost;
+  G.tacticCD = 13;
+  const type = G.tactic;
+
+  if(type<=2){
+    G.fields.push({
+      x:p.x,z:p.z,
+      r:type === 2 ? 50 : 10,
+      t:7,type,tick:0
+    });
+  }
+
+  if(type === 3){
+    p.hp = Math.min(p.max,p.hp+85);
+
+    for(const a of G.allies){
+      if(a.hp>0) a.hp = Math.min(a.max,a.hp+45);
+    }
+
+    slash(p.x,p.z,13,"#79efae");
+  }
+
+  if(type === 4){
+    const missing = G.capacity
+      - G.allies.filter(a=>a.hp>0).length
+      - G.reserve;
+
+    const count = Math.max(0,Math.min(20,missing));
+    G.reserve += count;
+    announce("伏兵歸隊 "+count+" 人");
+  }else{
+    announce(tactics[type].split("｜")[0]+"！");
+  }
+
+  tone(560,.3);
+}
+
+function action(key){
+  if(!G || paused || G.ended) return;
+
+  const p = G.player;
+
+  if(key === "k") skill();
+  if(key === "l") tactic();
+
+  if(key === " " && p.y === 0){
+    p.vy = 8;
+  }
+
+  if(key === "shift" && p.dodgeCD<=0){
+    p.pending = null;
+    p.dodge = .35;
+    p.dodgeCD = p.mount === 2 ? .9 : 1.5;
+    tone(90);
+  }
+}
+
+// ---------- 鍵盤、觸控、搖桿 ----------
+
+function clearInput(){
+  keys = {};
+  touches.clear();
+  joy = {x:0,z:0,id:null};
+  $("knob").style.transform = "";
+
+  document.querySelectorAll("[data-key]").forEach(b=>{
+    b.classList.remove("pressed");
+  });
+}
+
+function isDown(k){
+  return !!keys[k] || [...touches.values()].includes(k);
+}
+
+function bindKey(k,down){
+  if(down && !isDown(k)) action(k);
+  keys[k] = down;
+}
+
+function order(){
+  if(!G || paused || G.ended) return;
+
+  G.order = G.order === "attack" ? "follow" : "attack";
+
+  $("order").textContent = "F · "+
+    (G.order === "attack" ? "全軍進攻" : "集合護衛");
+
+  announce(
+    G.order === "attack"
+      ? "全軍進攻！"
+      : "全軍集合，護衛主將！"
+  );
+}
+
+window.addEventListener("keydown",e=>{
+  if(!G) return;
+  const k = e.key.toLowerCase();
+
+  if([
+    " ","arrowup","arrowdown",
+    "arrowleft","arrowright","shift"
+  ].includes(k)){
+    e.preventDefault();
+  }
+
+  if(!e.repeat && k === "p"){
+    togglePause();
+    return;
+  }
+
+  if(!e.repeat && k === "f"){
+    order();
+    return;
+  }
+
+  bindKey(k,true);
+});
+
+window.addEventListener("keyup",e=>{
+  bindKey(e.key.toLowerCase(),false);
+});
+
+window.addEventListener("blur",()=>{
+  clearInput();
+  if(G && !G.ended && !paused) togglePause();
+});
+
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){
+    clearInput();
+
+    if(G && !G.ended){
+      save();
+      if(!paused) togglePause();
+    }
+  }
+});
+
+document.querySelectorAll("[data-key]").forEach(b=>{
+  b.onpointerdown = e=>{
+    e.preventDefault();
+    b.setPointerCapture(e.pointerId);
+
+    if(!isDown(b.dataset.key)){
+      action(b.dataset.key);
+    }
+
+    touches.set(e.pointerId,b.dataset.key);
+    b.classList.add("pressed");
+  };
+
+  b.onpointerup =
+  b.onpointercancel =
+  b.onlostpointercapture = e=>{
+    touches.delete(e.pointerId);
+
+    if(!isDown(b.dataset.key)){
+      b.classList.remove("pressed");
+    }
+  };
+});
+
+function moveStick(e){
+  const r = $("stick").getBoundingClientRect();
+  const x = e.clientX-r.left-r.width/2;
+  const y = e.clientY-r.top-r.height/2;
+  const l = Math.hypot(x,y);
+  const max = r.width*.32;
+  const k = l>max ? max/l : 1;
+
+  joy.x = x*k/max;
+  joy.z = -y*k/max;
+
+  $("knob").style.transform =
+    `translate(${x*k}px,${y*k}px)`;
+}
+
+$("stick").onpointerdown = e=>{
+  if(joy.id !== null) return;
+
+  e.preventDefault();
+  joy.id = e.pointerId;
+  $("stick").setPointerCapture(e.pointerId);
+  moveStick(e);
+};
+
+$("stick").onpointermove = e=>{
+  if(e.pointerId === joy.id) moveStick(e);
+};
+
+$("stick").onpointerup =
+$("stick").onpointercancel =
+$("stick").onlostpointercapture = e=>{
+  if(e.pointerId === joy.id){
+    joy = {x:0,z:0,id:null};
+    $("knob").style.transform = "";
+  }
+};
+
+$("order").onclick = order;
+
+$("fullscreen").onclick = async ()=>{
+  try{
+    if(document.fullscreenElement){
+      await document.exitFullscreen();
+    }else if($("game").requestFullscreen){
+      await $("game").requestFullscreen();
+    }else{
+      announce("此瀏覽器不支援全螢幕，建議橫向遊玩");
+    }
+  }catch{
+    announce("無法切換全螢幕，仍可直接遊玩");
+  }
+};
+
+// ---------- 暫停與結算 ----------
+
+function showDialog(title,text,canResume){
+  $("dialogtitle").textContent = title;
+  $("dialogtext").textContent = text;
+  $("resume").style.display = canResume ? "inline-block" : "none";
+  $("overlay").style.display = "grid";
+}
+
+function togglePause(){
+  if(!G || G.ended) return;
+
+  paused = !paused;
+  clearInput();
+
+  if(paused){
+    showDialog(
+      "軍令暫歇",
+      "戰場已暫停。返回軍營視為撤退，不扣陣亡功績，已獲得功績保留。",
+      true
+    );
+  }else{
+    $("overlay").style.display = "none";
+  }
+}
+
+function finish(win){
+  if(G.ended) return;
+
+  G.ended = true;
+  clearInput();
+
+  if(win){
+    profile.wins++;
+  }else{
+    profile.merit = Math.max(0,profile.merit-1000);
+  }
+
+  save();
+
+  showDialog(
+    win ? "大捷 · 凱旋而歸" : "兵敗 · 整軍再戰",
+    "擊破 "+G.kills+" 人，獲得 "+G.earned+" 功績。"+
+    (win
+      ? "戰役完成！"
+      : "主將陣亡，功績扣除 1,000（最低 0）。")+
+    " 目前功績 "+profile.merit+
+    "，下次可率 "+Math.floor(profile.merit/100)+" 兵出征。",
+    false
+  );
+
+  tone(win ? 660 : 100,.6);
+}
+
+$("start").onclick = start;
+$("pause").onclick = togglePause;
+$("resume").onclick = togglePause;
+
+$("back").onclick = ()=>{
+  save();
+  G = null;
+  paused = false;
+  clearInput();
+  $("game").style.display = "none";
+  $("menu").style.display = "block";
+  menuStats();
+};
+
+$("sound").onclick = ()=>{
+  silent = !silent;
+  $("sound").textContent = "音效："+(silent ? "關" : "開");
+};
+
+// ---------- 戰鬥更新 ----------
+
+function update(dt){
+  const p = G.player;
+
+  G.elapsed += dt;
+  G.autosave += dt;
+
+  if(G.autosave>5){
+    G.autosave = 0;
+    save();
+  }
+
+  G.comboTime -= dt;
+  if(G.comboTime<=0) G.combo = 0;
+
+  for(const key of [
+    "cd","swing","dodge","dodgeCD","comboClock"
+  ]){
+    p[key] = Math.max(0,p[key]-dt);
+  }
+
+  G.tacticCD = Math.max(0,G.tacticCD-dt);
+  G.toast -= dt;
+
+  if(G.toast<=0) $("toast").textContent = "";
+
+  p.mp = Math.min(100,p.mp+dt*3);
+  p.block = isDown("i") && p.dodge<=0;
+
+  let dx =
+    (isDown("d") || isDown("arrowright") ? 1 : 0)-
+    (isDown("a") || isDown("arrowleft") ? 1 : 0)+joy.x;
+
+  let dz =
+    (isDown("w") || isDown("arrowup") ? 1 : 0)-
+    (isDown("s") || isDown("arrowdown") ? 1 : 0)+joy.z;
+
+  const len = Math.hypot(dx,dz);
+  p.moving = len>0;
+
+  if(len){
+    if(len>1){
+      dx /= len;
+      dz /= len;
+    }
+
+    if(!p.pending){
+      p.dir = Math.atan2(dx,dz);
+    }
+  }else if(p.dodge>0){
+    dx = Math.sin(p.dir);
+    dz = Math.cos(p.dir);
+  }
+
+  const speed =
+    (p.mount === 1 ? 8.5 : p.mount ? 7 : 5.5) *
+    (p.role === "刺客" ? 1.2 : 1) *
+    (p.block ? .4 : 1) *
+    (p.dodge>0 ? 3 : 1);
+
+  p.x = clamp(p.x+dx*speed*dt,-34,34);
+  p.z = clamp(p.z+dz*speed*dt,-34,34);
+
+  p.vy -= 20*dt;
+  p.y += p.vy*dt;
+
+  if(p.y<=0){
+    p.y = 0;
+    p.vy = 0;
+  }
+
+  if(p.pending){
+    p.pending.t -= dt;
+
+    if(p.pending.t<=0){
+      resolveAttack(p.pending.step);
+      p.pending = null;
+    }
+  }
+
+  if(isDown("j")) attack();
+
+  cam.x += (p.x-cam.x)*dt*4;
+  cam.z += (p.z-cam.z)*dt*4;
+
+  const enemies = G.enemies.filter(e=>e.hp>0);
+  const allies = G.allies.filter(a=>a.hp>0);
+
+  G.allies = allies;
+  G.enemies = enemies;
+
+  while(G.reserve>0 && allies.length<100){
+    allies.push(makeUnit(
+      p.x+rand(-5,5),
+      clamp(p.z-9,-32,32),
+      false
+    ));
+    G.reserve--;
+  }
+
+  const friends = [p,...allies];
+
+  // 敵我雙方 AI。
+  for(const u of [...allies,...enemies]){
+    if(u.hp<=0) continue;
+
+    u.cd -= dt;
+    u.swing = Math.max(0,u.swing-dt);
+    u.moving = false;
+
+    if(u.enemy && G.fields.some(f=>f.type === 2)){
+      u.windup = 0;
+      continue;
+    }
+
+    if(u.windup>0){
+      u.windup -= dt;
+
+      if(u.windup<=0){
+        if(u.big){
+          slash(u.aim.x,u.aim.z,3.8,"#ed9678");
+
+          for(const a of friends){
+            if(Math.hypot(a.x-u.aim.x,a.z-u.aim.z)<3.8){
+              damage(a,34*G.difficulty);
+            }
+          }
+
+          u.special = 5;
+        }else{
+          fire(
+            u,u.aim,12*G.difficulty,
+            "#f4a888",true,16,22
+          );
+        }
+
+        u.cd = 1.7;
+        u.swing = u.swingMax = .3;
+      }
+
+      continue;
+    }
+
+    let target = u.enemy
+      ? nearest(u,friends)
+      : nearest(u,enemies);
+
+    if(!target) continue;
+
+    let dist = Math.hypot(u.x-target.x,u.z-target.z);
+
+    if(!u.enemy && G.order === "follow" && dist>2){
+      target = {
+        x:p.x+Math.sin(u.seed*4)*3,
+        z:p.z+Math.cos(u.seed*4)*3
+      };
+
+      dist = Math.hypot(u.x-target.x,u.z-target.z);
+      if(dist<1) continue;
+    }
+
+    u.dir = Math.atan2(target.x-u.x,target.z-u.z);
+
+    if(u.big){
+      u.special -= dt;
+
+      if(u.special<=0 && dist<5){
+        u.windup = .9;
+        u.aim = {x:target.x,z:target.z};
+        continue;
+      }
+    }
+
+    const ranged = u.weapon === "弓";
+    const reach = ranged ? 17 : 1.9;
+
+    if(dist>reach || target.hp === undefined){
+      const slow = u.enemy && G.fields.some(f=>
+        f.type === 1 &&
+        Math.hypot(u.x-f.x,u.z-f.z)<f.r
+      );
+
+      const sp = (u.big ? 3.4 : 2.7)*(slow ? .35 : 1);
+      u.x += Math.sin(u.dir)*sp*dt;
+      u.z += Math.cos(u.dir)*sp*dt;
+      u.moving = true;
+    }else if(u.cd<=0){
+      if(ranged){
+        u.windup = .6;
+        u.aim = {x:target.x,z:target.z};
+      }else{
+        u.cd = u.big ? 1.3 : rand(1.1,1.7);
+        u.swing = u.swingMax = .3;
+
+        damage(
+          target,
+          (u.big ? 28 : u.enemy ? 9 : 10) *
+          (u.enemy
+            ? G.difficulty
+            : p.role === "君主" ? 1.2 : 1)
+        );
+      }
+    }
+  }
+
+  if(G.ended) return;
+
+  // 友軍與敵軍各自保持些許間距。
+  for(const team of [allies,enemies]){
+    for(let i=0;i<team.length;i++){
+      for(let j=i+1;j<team.length;j++){
+        const a = team[i];
+        const b = team[j];
+        const dx = a.x-b.x;
+        const dz = a.z-b.z;
+        const d = Math.hypot(dx,dz);
+
+        if(d<.65 && d>.001){
+          const k = (.65-d)*dt*3/d;
+          a.x += dx*k;
+          a.z += dz*k;
+          b.x -= dx*k;
+          b.z -= dz*k;
+        }
+      }
+    }
+  }
+
+  // 線段碰撞，避免快速箭矢跨過敵人。
+  for(const shot of G.shots){
+    const oldX = shot.x;
+    const oldZ = shot.z;
+    const travel = Math.min(dt,shot.t);
+
+    shot.t -= dt;
+    shot.x += shot.vx*travel;
+    shot.z += shot.vz*travel;
+
+    const targets = shot.enemy ? friends : enemies;
+    let hit = null;
+    let best = Infinity;
+
+    for(const u of targets){
+      if(u.hp<=0) continue;
+
+      const dx = shot.x-oldX;
+      const dz = shot.z-oldZ;
+      const l = dx*dx+dz*dz;
+      const t = l
+        ? clamp(((u.x-oldX)*dx+(u.z-oldZ)*dz)/l,0,1)
+        : 0;
+
+      if(
+        Math.hypot(
+          oldX+dx*t-u.x,
+          oldZ+dz*t-u.z
+        )<.8 &&
+        t<best
+      ){
+        best = t;
+        hit = u;
+      }
+    }
+
+    if(hit){
+      if(damage(hit,shot.damage) && !shot.enemy){
+        G.combo++;
+        G.comboTime = 2;
+      }
+
+      shot.t = 0;
+      slash(hit.x,hit.z,.8,shot.c);
+    }
+  }
+
+  G.shots = G.shots.filter(s=>s.t>0);
+  if(G.ended) return;
+
+  // 持續兵法。
+  for(const f of G.fields){
+    f.t -= dt;
+    f.tick -= dt;
+
+    if(f.type === 0 && f.tick<=0){
+      f.tick = .5;
+
+      for(const e of enemies){
+        if(Math.hypot(e.x-f.x,e.z-f.z)<f.r){
+          damage(e,17);
+        }
+      }
+    }
+  }
+
+  G.fields = G.fields.filter(f=>f.t>0);
+
+  for(const f of G.fx) f.t -= dt;
+  G.fx = G.fx.filter(f=>f.t>0);
+
+  // 寵物跟隨與攻擊。
+  G.petCD -= dt;
+
+  const pp = G.petPos;
+  const target = nearest(p,enemies,12);
+  const dest = G.pet === 0 && target
+    ? target
+    : {x:p.x-2,z:p.z+1};
+
+  pp.x += (dest.x-pp.x)*dt*3;
+  pp.z += (dest.z-pp.z)*dt*3;
+
+  if(G.petCD<=0){
+    G.petCD = G.pet === 2 ? 3 : 1.5;
+
+    if(G.pet === 2){
+      p.hp = Math.min(p.max,p.hp+9);
+      slash(pp.x,pp.z,1.4,"#91ffcd");
+    }else if(target){
+      if(
+        G.pet === 0 &&
+        Math.hypot(pp.x-target.x,pp.z-target.z)<2
+      ){
+        damage(target,20);
+        slash(target.x,target.z,1.1,"#fff2ca");
+      }else if(G.pet === 1){
+        fire(pp,target,14,"#9cdff1",false,24,25);
+      }
+    }
+  }
+
+  if(p.hp<=0 || G.ended){
+    finish(false);
+    return;
+  }
+
+  // 下一波與勝利。
+  if(enemies.length === 0){
+    G.transition += dt;
+
+    if(G.transition>2){
+      G.transition = 0;
+
+      if(G.wave<G.stage.waves){
+        spawnWave();
+        p.hp = Math.min(p.max,p.hp+35);
+        save();
+      }else{
+        finish(true);
+      }
+    }
+  }
+
+  // HUD。
+  $("healthtext").textContent =
+    Math.ceil(Math.max(0,p.hp))+" / "+p.max;
+
+  $("hpbar").style.width =
+    clamp(p.hp/p.max*100,0,100)+"%";
+
+  $("mpbar").style.width = p.mp+"%";
+
+  $("resource").textContent =
+    "氣力 "+Math.floor(p.mp)+" · 兵法 "+
+    (G.tacticCD>0 ? Math.ceil(G.tacticCD)+"秒" : "就緒");
+
+  $("objective").textContent =
+    G.stage.name+" ｜ 第 "+G.wave+" / "+
+    G.stage.waves+" 波 · 殲滅敵軍與敵將";
+
+  $("status").textContent =
+    "敵 "+enemies.filter(e=>e.hp>0).length+
+    " · 我軍 "+allies.filter(a=>a.hp>0).length+
+    " + 後備 "+G.reserve+
+    " · 擊破 "+G.kills;
+
+  $("combo").textContent =
+    G.combo>1 ? G.combo+" 連擊" : "";
+
+  const boss = G.enemies.find(e=>e.big && e.hp>0);
+  $("bossbar").hidden = !boss;
+
+  if(boss){
+    $("bossname").textContent =
+      boss.name+" · "+Math.ceil(boss.hp)+" / "+boss.max;
+
+    $("bosshp").style.width =
+      boss.hp/boss.max*100+"%";
+  }
+
+  for(const b of document.querySelectorAll(".actions button")){
+    const key = b.dataset.key;
+
+    const cd = key === "l"
+      ? G.tacticCD
+      : key === "shift" ? p.dodgeCD : 0;
+
+    const cost = key === "k"
+      ? 60
+      : key === "l"
+        ? (p.role === "智將" ? 25 : 35)
+        : 0;
+
+    b.classList.toggle("unready",cd>0 || p.mp<cost);
+
+    if(key === "l" || key === "k" || key === "shift"){
+      b.querySelector("small").textContent =
+        cd>0 ? Math.ceil(cd)+" 秒"
+        : cost ? cost+" 氣"
+        : "就緒";
+    }
+  }
+}
+
+// ---------- 戰場繪圖 ----------
+
+function drawPet(){
+  const u = G.petPos;
+  const y = G.pet === 1 ? 3.2 : 0;
+  const col = ["#e9d5ad","#bca981","#b8dbc0"][G.pet];
+
+  if(G.pet === 1){
+    box(u.x,y,u.z,.4,.3,.7,col);
+    const flap = Math.sin(time*10)*.3;
+
+    limb(
+      [u.x,y,u.z],
+      [u.x-1.1,y+flap,u.z],
+      .1,col
+    );
+
+    limb(
+      [u.x,y,u.z],
+      [u.x+1.1,y+flap,u.z],
+      .1,col
+    );
+  }else{
+    box(u.x,.4,u.z,.55,.45,1,col);
+    box(u.x,.77,u.z+.45,.45,.4,.45,col);
+
+    for(const a of [-1,1]){
+      for(const b of [-1,1]){
+        box(u.x+a*.2,.05,u.z+b*.32,.13,.4,.13,col);
+      }
+    }
+
+    if(G.pet === 2){
+      limb(
+        [u.x-.15,1.1,u.z+.45],
+        [u.x-.4,1.7,u.z+.35],
+        .035,"#e4c894"
+      );
+      limb(
+        [u.x+.15,1.1,u.z+.45],
+        [u.x+.4,1.7,u.z+.35],
+        .035,"#e4c894"
+      );
+    }
+  }
+}
+
+function render(){
+  ctx.fillStyle = "#9eafa4";
+  ctx.fillRect(0,0,W,H);
+
+  const sky = ctx.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,"#284852");
+  sky.addColorStop(.5,"#849b90");
+  sky.addColorStop(1,"#354d43");
+
+  ctx.fillStyle = sky;
+  ctx.fillRect(0,0,W,H);
+
+  faces = [];
+  labels = [];
+
+  for(let z=-40;z<=40;z+=5){
+    for(let x=-40;x<=40;x+=5){
+      face(
+        [
+          [x,.01,z],
+          [x+5,.01,z],
+          [x+5,.01,z+5],
+          [x,.01,z+5]
+        ],
+        shade(G.stage.color,(x+z)%10 === 0 ? .96 : 1)
+      );
+    }
+  }
+
+  for(let x=-35;x<=35;x+=7){
+    box(x,0,36,6.8,4,2,"#626b60");
+    box(x,4,36,2,1,2,"#71796a");
+  }
+
+  for(const x of [-25,25]){
+    box(x,0,15,.16,7,.16,"#746246");
+    box(
+      x+1.1,5,15,2.1,1.7,.07,
+      x<0 ? "#427c79" : "#a35b4d"
+    );
+  }
+
+  for(const u of [...G.allies,...G.enemies,G.player]){
+    if(u.hp<=0) continue;
+    const p = project(u.x,1,u.z);
+
+    if(
+      p.x>-80 && p.x<W+80 &&
+      p.y>-100 && p.y<H+100
+    ){
+      model(u);
+    }
+  }
+
+  drawPet();
+
+  for(const s of G.shots){
+    limb(
+      [s.x,s.y,s.z],
+      [s.x-s.vx*.06,s.y,s.z-s.vz*.06],
+      .045,s.c
+    );
+  }
+
+  faces.sort((a,b)=>b.d-a.d);
+
+  for(const f of faces){
+    ctx.fillStyle = f.c;
+    ctx.beginPath();
+
+    f.p.forEach((p,i)=>{
+      if(i) ctx.lineTo(p.x,p.y);
+      else ctx.moveTo(p.x,p.y);
+    });
+
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  ring(G.player.x,G.player.z,1.3,"#fbe5a0");
+
+  // 敵將範圍預警與弓兵瞄準線。
+  for(const e of G.enemies){
+    if(e.windup<=0) continue;
+
+    if(e.big){
+      ring(e.aim.x,e.aim.z,3.8,"#ff665a");
+    }else{
+      const a = project(e.x,1.2,e.z);
+      const b = project(e.aim.x,1.2,e.aim.z);
+
+      ctx.strokeStyle = "#ec957880";
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      ctx.lineTo(b.x,b.y);
+      ctx.stroke();
+    }
+  }
+
+  for(const f of G.fields){
+    const c = ["#ff9e5e","#8ceada","#cebeed"][f.type];
+    ring(f.x,f.z,Math.min(f.r,15),c);
+
+    if(f.type === 0){
+      for(let i=0;i<18;i++){
+        const a = i/18*TAU+time*.2;
+        const p = project(
+          f.x+Math.cos(a)*f.r*.8,
+          .2+Math.abs(Math.sin(time*7+i))*1.6,
+          f.z+Math.sin(a)*f.r*.8
+        );
+
+        ctx.fillStyle = "#ffcb7c";
+        ctx.fillRect(p.x,p.y,4,10);
+      }
+    }
+  }
+
+  for(const f of G.fx){
+    ctx.globalAlpha = f.t/f.max;
+
+    if(f.text !== undefined){
+      const p = project(
+        f.x,
+        f.y+(1-f.t/f.max),
+        f.z
+      );
+
+      ctx.fillStyle = f.c;
+      ctx.font = "bold 14px system-ui";
+      ctx.fillText(f.text,p.x,p.y);
+    }else{
+      ring(
+        f.x,f.z,
+        f.r*(1-f.t/f.max)*1.1,
+        f.c,f.y
+      );
+    }
+
+    ctx.globalAlpha = 1;
+  }
+
+  ctx.font = "bold 13px system-ui";
+  ctx.textAlign = "center";
+
+  for(const l of labels){
+    if(l.health !== undefined){
+      ctx.fillStyle = "#162d30";
+      ctx.fillRect(l.x-15,l.y,30,4);
+      ctx.fillStyle = l.c;
+      ctx.fillRect(l.x-15,l.y,30*l.health,4);
+      continue;
+    }
+
+    const width = ctx.measureText(l.text).width;
+
+    ctx.fillStyle = "#102932b0";
+    ctx.fillRect(l.x-width/2-8,l.y-16,width+16,23);
+    ctx.fillStyle = l.c;
+    ctx.fillText(l.text,l.x,l.y);
+  }
+
+  ctx.textAlign = "left";
+  drawMap();
+}
+
+function drawMap(){
+  let size = 90;
+  let x = W-105;
+  let y = H-265;
+
+  if(W<600){
+    size = 65;
+    x = W-78;
+    y = H-252;
+  }
+
+  ctx.fillStyle = "#08212ecb";
+  ctx.fillRect(x,y,size,size);
+  ctx.strokeStyle = "#72978a";
+  ctx.strokeRect(x,y,size,size);
+
+  function dot(u,c,r){
+    ctx.fillStyle = c;
+    ctx.fillRect(
+      x+(u.x/80+.5)*size-r,
+      y+(.5-u.z/80)*size-r,
+      r*2,r*2
+    );
+  }
+
+  G.allies.forEach(a=>dot(a,"#6cc5bb",1));
+  G.enemies.forEach(a=>dot(a,"#f17b69",a.big?2:1));
+  dot(G.player,"#ffe393",3);
+}
+
+function portrait(){
+  const oldW = W;
+  const oldH = H;
+  const oldCam = cam;
+
+  W = 600;
+  H = 260;
+  cam = {x:0,z:0};
+  faces = [];
+  labels = [];
+
+  const h = heroes[selected];
+
+  model({
+    x:0,z:0,y:0,
+    dir:Math.PI+Math.sin(time*.35)*.5+.3,
+    color:h[3],
+    name:h[0],
+    role:h[2],
+    big:true,
+    seed:0,
+    weapon:weapons[+$("weapon").value][1],
+    mount:0
+  });
+
+  px.clearRect(0,0,600,260);
+  px.save();
+  px.translate(340,232);
+  px.scale(3.5,3.5);
+  px.translate(-300,-151);
+
+  faces.sort((a,b)=>b.d-a.d);
+
+  for(const f of faces){
+    px.fillStyle = f.c;
+    px.beginPath();
+
+    f.p.forEach((p,i)=>{
+      if(i) px.lineTo(p.x,p.y);
+      else px.moveTo(p.x,p.y);
+    });
+
+    px.closePath();
+    px.fill();
+  }
+
+  px.restore();
+  px.fillStyle = "#e6c17c";
+  px.font = "14px serif";
+  px.fillText("英雄無懼 · 逐鹿天下",24,36);
+
+  px.fillStyle = "#a2bcb4";
+  px.font = "12px system-ui";
+  px.fillText(
+    h[1]+"  /  "+h[2]+"  /  程式立體造型",
+    24,235
+  );
+
+  W = oldW;
+  H = oldH;
+  cam = oldCam;
+}
+
+// ---------- 主迴圈 ----------
+
+let last = performance.now();
+
+function loop(now){
+  const dt = Math.min((now-last)/1000,.035);
+  last = now;
+
+  if(!G || (!paused && !G.ended)){
+    time += dt;
+  }
+
+  if(G){
+    if(!paused && !G.ended) update(dt);
+    render();
+  }else{
+    portrait();
+  }
+
+  requestAnimationFrame(loop);
+}
+
+renderHeroes();
+updateHero();
+menuStats();
+
+$("savehint").textContent = storageOK
+  ? "支援自動存檔與手動匯出"
+  : "無法讀取本機存檔，請先匯入備份";
+
+requestAnimationFrame(loop);
 </script>
 </body>
 </html>
