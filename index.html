@@ -119,10 +119,19 @@ header{
 .hero.active{border-color:var(--gold);background:#3e4634}
 .hero b{font-family:serif;font-size:20px;display:block}
 .hero small{font-size:11px}
-.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.filters{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
 .filters button{font-size:12px;padding:6px 11px}
 .filters .active{background:#756442}
-.loadout{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.loadout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
 label{font-size:12px;color:#bacac3;display:block}
 label select{margin-top:7px}
 #portrait{
@@ -134,7 +143,11 @@ label select{margin-top:7px}
 }
 #heroDesc{max-width:180px;text-align:right}
 .stats{display:flex;gap:8px;margin:15px 0}
-.stat{flex:1;border-top:1px solid #415751;padding-top:10px}
+.stat{
+  flex:1;
+  border-top:1px solid #415751;
+  padding-top:10px;
+}
 .stat b{display:block;color:var(--gold);font-size:24px}
 .stat small{font-size:11px}
 .bar-actions{
@@ -152,8 +165,18 @@ details{
   line-height:1.9;
 }
 summary{cursor:pointer;color:var(--gold)}
-#game{display:none;position:fixed;inset:0;background:#0d2730}
-#world{width:100%;height:100%;display:block;touch-action:none}
+#game{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0d2730;
+}
+#world{
+  width:100%;
+  height:100%;
+  display:block;
+  touch-action:none;
+}
 #hud{
   position:absolute;
   left:18px;
@@ -179,7 +202,12 @@ summary{cursor:pointer;color:var(--gold)}
   margin:6px 0;
   overflow:hidden;
 }
-.meter i{display:block;height:100%;background:#69c59c;width:100%}
+.meter i{
+  display:block;
+  height:100%;
+  background:#69c59c;
+  width:100%;
+}
 .meter.energy i{background:#dcb96b}
 #objective{text-align:center;font-size:14px}
 #status{font-size:12px;color:#c0d0c5}
@@ -254,7 +282,12 @@ summary{cursor:pointer;color:var(--gold)}
 #custom{display:flex;gap:6px;margin-top:12px}
 #custom input{min-width:0}
 #custom select{width:100px}
-footer{font-size:12px;line-height:1.8;color:#90aaa5;margin:22px 0}
+footer{
+  font-size:12px;
+  line-height:1.8;
+  color:#90aaa5;
+  margin:22px 0;
+}
 #stick{
   width:126px;
   height:126px;
@@ -287,7 +320,13 @@ footer{font-size:12px;line-height:1.8;color:#90aaa5;margin:22px 0}
   color:#adc9bc;
   pointer-events:none;
 }
-.orders{position:absolute;left:18px;bottom:170px;display:flex;gap:7px}
+.orders{
+  position:absolute;
+  left:18px;
+  bottom:170px;
+  display:flex;
+  gap:7px;
+}
 .orders button{font-size:12px;padding:8px}
 #bossbar{
   position:absolute;
@@ -314,7 +353,12 @@ footer{font-size:12px;line-height:1.8;color:#90aaa5;margin:22px 0}
   header{align-items:start}
   .badge{display:none}
   .panel{padding:16px}
-  #hud{left:8px;right:8px;top:8px;flex-wrap:wrap}
+  #hud{
+    left:8px;
+    right:8px;
+    top:8px;
+    flex-wrap:wrap;
+  }
   .hudbox{padding:7px 9px;min-width:150px}
   #objective{order:3;width:100%;font-size:12px}
   .help{display:none}
@@ -368,28 +412,44 @@ footer{font-size:12px;line-height:1.8;color:#90aaa5;margin:22px 0}
       <details>
         <summary>照片需求與本版收錄範圍</summary>
         <p>
-          本作是依手稿製作的同人原型，採原創程式幾何人物、武器與特效，
-          沒有使用人物圖片。使用真正三維座標與透視投影，
-          但屬低多邊形風格，尚非《真・三國無雙》等級的寫實模型。
+          本作是依手稿製作的同人原型，採原創程式幾何人物、
+          武器與特效，沒有使用人物圖片。
+          使用真正三維座標與透視投影，但屬低多邊形風格，
+          尚非《真・三國無雙》等級的寫實模型。
         </p>
         <p>
           先收錄 32 位代表人物，含武將、智將、君主與刺客（燎原火）；
-          可新增人物姓名與職業。沒有宣稱已收齊《三國幻戰》
-          《真・三國無雙》《火鳳燎原》的全部角色、兵法、武器、
-          寵物或坐騎。戰寵與招式為本版原創／通用設計，非完整原作圖鑑。
+          可新增人物姓名與職業。
+          沒有宣稱已收齊《三國幻戰》《真・三國無雙》
+          《火鳳燎原》的全部角色、兵法、武器、寵物或坐騎。
+          戰寵與招式為本版原創／通用設計，非完整原作圖鑑。
         </p>
         <p>
-          規則：初始 10,000 功績；我方擊殺一名敵兵 +10，敵將 +100；
-          玩家陣亡一次 −1,000（最低 0）。每 100 功績可帶 1 兵，
-          出征時依功績決定編制，同時最多 100 名友軍在場，
-          其餘為後備，陣亡後後備依序入場；不憑空增加編制。
-          低功績仍可單人出征累積。官職依功績升降。
+          規則：初始 10,000 功績；
+          我方擊殺一名敵兵 +10，敵將 +100；
+          玩家陣亡一次 −1,000（最低 0）。
+          每 100 功績可帶 1 兵，出征時依功績決定編制。
+        </p>
+        <p>
+          我方全員於開局出場；
+          戰中功績增加不補兵，陣亡與換輪均不自動補兵。
+          只有伏兵可恢復損失士兵，每次最多 20 人，
+          不超過出征編制。
+        </p>
+        <p>
+          所有戰役共五輪。
+          每輪敵兵總數＝出征時我方兵數 × 輪次，
+          最後另有一名敵將；敵兵分批入場。
+          無士兵時，敵兵基數最低為 1，以便單人累積功績。
+          難度倍率同時作用於敵方生命與攻擊傷害，
+          移速與出手頻率不變。官職依功績升降。
         </p>
       </details>
     </section>
 
     <section class="panel">
       <canvas id="portrait"></canvas>
+
       <div class="section-title">
         <h2 id="heroTitle"></h2>
         <small id="heroDesc"></small>
@@ -401,12 +461,13 @@ footer{font-size:12px;line-height:1.8;color:#90aaa5;margin:22px 0}
         <label>坐騎<select id="mount"></select></label>
         <label>出戰寵物<select id="pet"></select></label>
         <label>戰役<select id="stage"></select></label>
+
         <label>
           難度
           <select id="difficulty">
-            <option value="0.8">初入沙場</option>
-            <option value="1">群雄逐鹿</option>
-            <option value="1.35">一騎當千</option>
+            <option value="1">初入沙場 · 能力 ×1</option>
+            <option value="1.5">群雄逐鹿 · 能力 ×1.5</option>
+            <option value="2">一騎當千 · 能力 ×2</option>
           </select>
         </label>
       </div>
@@ -514,7 +575,9 @@ footer{font-size:12px;line-height:1.8;color:#90aaa5;margin:22px 0}
 <script>
 "use strict";
 
-// ---------- 基本工具與資料 ----------
+// ============================================================
+// 基本工具與資料
+// ============================================================
 
 const $ = id => document.getElementById(id);
 const TAU = Math.PI * 2;
@@ -559,7 +622,7 @@ const baseHeroes = [
   ["燎原火","群","刺客","#697f80"]
 ];
 
-// 名稱、類型、攻擊距離、傷害、攻擊間隔。
+// 名稱、類型、距離、傷害、攻擊間隔。
 const weapons = [
   ["青龍偃月刀","刀",3.4,32,.6],
   ["雙股劍","劍",2.4,23,.36],
@@ -596,21 +659,34 @@ const pets = [
 const stages = [
   {
     name:"虎牢關 · 破陣",
-    waves:3,n:24,boss:"呂布",color:"#677a69"
+    waves:5,
+    boss:"呂布",
+    color:"#677a69"
   },
   {
     name:"長坂坡 · 突圍",
-    waves:4,n:30,boss:"張遼",color:"#78826b"
+    waves:5,
+    boss:"張遼",
+    color:"#78826b"
   },
   {
     name:"赤壁 · 決戰",
-    waves:5,n:32,boss:"曹操",color:"#606f68"
+    waves:5,
+    boss:"曹操",
+    color:"#606f68"
   }
 ];
 
-// ---------- 存檔 ----------
+// ============================================================
+// 存檔與選單
+// ============================================================
 
-let profile = {merit:10000,wins:0,custom:[]};
+let profile = {
+  merit:10000,
+  wins:0,
+  custom:[]
+};
+
 let storageOK = true;
 
 function validateSave(o){
@@ -641,6 +717,7 @@ function validateSave(o){
       ){
         throw Error("人物資料不正確");
       }
+
       return [h[0],"自訂",h[2],"#86b7a3"];
     })
   };
@@ -702,6 +779,7 @@ function renderHeroes(){
     sub.textContent = h[1]+" · "+h[2];
 
     b.append(name,sub);
+
     b.onclick = ()=>{
       selected = i;
       renderHeroes();
@@ -719,9 +797,11 @@ function renderHeroes(){
 
   b.onclick = ()=>{
     filter = f;
+
     for(const n of $("filters").children){
       n.classList.toggle("active",n === b);
     }
+
     renderHeroes();
   };
 
@@ -730,7 +810,9 @@ function renderHeroes(){
 
 function updateHero(){
   const h = heroes[selected];
+
   $("heroTitle").textContent = h[0];
+
   $("heroDesc").textContent = {
     武將:"武力 +20% · 生命 260",
     智將:"兵法消耗 −10 · 生命 200",
@@ -759,13 +841,21 @@ $("mount").value = 1;
 
 $("addHero").onclick = ()=>{
   const name = $("customName").value.trim();
+
   if(!name) return;
+
   if(profile.custom.length >= 100){
     alert("自訂角色最多 100 位");
     return;
   }
 
-  const h = [name,"自訂",$("customRole").value,"#86b7a3"];
+  const h = [
+    name,
+    "自訂",
+    $("customRole").value,
+    "#86b7a3"
+  ];
+
   profile.custom.push(h);
   heroes.push(h);
   selected = heroes.length-1;
@@ -784,14 +874,17 @@ $("addHero").onclick = ()=>{
 
 $("export").onclick = ()=>{
   const a = document.createElement("a");
+
   a.href = URL.createObjectURL(
     new Blob(
       [JSON.stringify(profile,null,2)],
       {type:"application/json"}
     )
   );
+
   a.download = "三國烽火英雄存檔.json";
   a.click();
+
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
 
@@ -800,6 +893,7 @@ $("import").onclick = ()=>$("savefile").click();
 $("savefile").onchange = async e=>{
   try{
     if(!e.target.files[0]) return;
+
     if(e.target.files[0].size > 100000){
       throw Error("檔案過大");
     }
@@ -815,6 +909,7 @@ $("savefile").onchange = async e=>{
     profile = next;
     heroes = baseHeroes.concat(profile.custom);
     selected = 0;
+
     renderHeroes();
     updateHero();
     menuStats();
@@ -826,7 +921,9 @@ $("savefile").onchange = async e=>{
   }
 };
 
-// ---------- 畫面、聲音與三維投影 ----------
+// ============================================================
+// 畫面、音效、三維投影
+// ============================================================
 
 const canvas = $("world");
 const ctx = canvas.getContext("2d");
@@ -855,20 +952,25 @@ function tone(f,d=.08){
       window.AudioContext || window.webkitAudioContext
     )();
 
-    if(audioCtx.state === "suspended") audioCtx.resume();
+    if(audioCtx.state === "suspended"){
+      audioCtx.resume();
+    }
 
     const o = audioCtx.createOscillator();
     const g = audioCtx.createGain();
 
     o.type = "triangle";
+
     o.frequency.setValueAtTime(f,audioCtx.currentTime);
     o.frequency.exponentialRampToValueAtTime(
-      f*.5,audioCtx.currentTime+d
+      f*.5,
+      audioCtx.currentTime+d
     );
 
     g.gain.setValueAtTime(.035,audioCtx.currentTime);
     g.gain.exponentialRampToValueAtTime(
-      .001,audioCtx.currentTime+d
+      .001,
+      audioCtx.currentTime+d
     );
 
     o.connect(g).connect(audioCtx.destination);
@@ -879,11 +981,15 @@ function tone(f,d=.08){
 
 function resize(){
   const d = Math.min(devicePixelRatio || 1,1.7);
+
   W = innerWidth;
   H = innerHeight;
+
   canvas.width = W*d;
   canvas.height = H*d;
+
   ctx.setTransform(d,0,0,d,0,0);
+
   pc.width = 600;
   pc.height = 260;
 }
@@ -906,6 +1012,7 @@ function project(x,y,z){
 
 function face(verts,color){
   const p = verts.map(v=>project(...v));
+
   if(p.some(v=>v.d<3)) return;
 
   faces.push({
@@ -917,9 +1024,13 @@ function face(verts,color){
 
 function shade(hex,k){
   const n = parseInt(hex.slice(1),16);
+
   return "#"+[n>>16,(n>>8)&255,n&255]
-    .map(c=>clamp(Math.floor(c*k),0,255)
-      .toString(16).padStart(2,"0"))
+    .map(c=>
+      clamp(Math.floor(c*k),0,255)
+        .toString(16)
+        .padStart(2,"0")
+    )
     .join("");
 }
 
@@ -977,6 +1088,7 @@ function limb(a,b,width,c){
   const vx = dy*uz/len;
   const vy = (dz*ux-dx*uz)/len;
   const vz = -dy*ux/len;
+
   const vs = [];
 
   for(const p of [a,b]){
@@ -1024,12 +1136,15 @@ function ring(x,z,r,c,y=.08){
   ctx.stroke();
 }
 
-// ---------- 人物與武器模型 ----------
+// ============================================================
+// 人物、坐騎、武器模型
+// ============================================================
 
 function model(u){
   const x = u.x;
   const z = u.z;
   let y = u.y || 0;
+
   const s = u.big ? 1.5 : u.player ? 1.3 : 1;
   const rot = u.dir || 0;
   const c = u.color || "#7798a1";
@@ -1038,7 +1153,7 @@ function model(u){
     ? Math.sin(time*11+u.seed)*.3
     : 0;
 
-  const atk = u.swing > 0
+  const atk = u.swing>0
     ? Math.sin(Math.PI*(1-u.swing/(u.swingMax||.3)))
     : 0;
 
@@ -1058,8 +1173,14 @@ function model(u){
     limb(pos(...a),pos(...b),w*s,col);
   }
 
+  // 坐騎。
   if(u.mount){
-    const hc = ["","#985438","#d9d0b3","#36434a"][u.mount];
+    const hc = [
+      "",
+      "#985438",
+      "#d9d0b3",
+      "#36434a"
+    ][u.mount];
 
     b(0,.75,0,.78,.65,1.65,hc);
     b(0,1.24,.67,.4,.64,.48,hc);
@@ -1070,7 +1191,8 @@ function model(u){
         l(
           [a*.29,.85,q*.6],
           [a*.29,.12,q*.6+walk*q],
-          .1,hc
+          .1,
+          hc
         );
       }
     }
@@ -1079,16 +1201,17 @@ function model(u){
     y += .9;
   }
 
+  // 身體、頭部、雙腿。
   b(0,.72,0,.73,.73,.4,c);
   b(0,.6,0,.87,.3,.53,shade(c,.75));
   b(0,1.47,0,.45,.46,.4,"#dcb48c");
-
   b(0,1.85,-.04,.56,.18,.5,shade(c,.65));
   b(0,2.03,-.06,.12,.24,.12,"#d7b569");
 
   l([-.22,.7,0],[-.25,.09,walk],.13,"#253b40");
   l([.22,.7,0],[.25,.09,-walk],.13,"#253b40");
 
+  // 主將裝飾。
   if(u.player || u.big){
     b(-.16,1.66,.213,.07,.05,.035,"#1b2a2b");
     b(.16,1.66,.213,.07,.05,.035,"#1b2a2b");
@@ -1106,12 +1229,14 @@ function model(u){
         l(
           [a*.2,2,0],
           [a*.5,2.7,-.4],
-          .04,"#e3b484"
+          .04,
+          "#e3b484"
         );
         l(
           [a*.5,2.7,-.4],
           [a*.85,2.5,-.9],
-          .04,"#aa4d4d"
+          .04,
+          "#aa4d4d"
         );
       }
     }
@@ -1127,10 +1252,11 @@ function model(u){
 
   const type = u.weapon || "槍";
   const thrust = ["槍","戟","匕"].includes(type);
+
   const hand = [
     .64-atk*.38,
     1.12+atk*.3,
-    .25+atk*(thrust?1:.45)
+    .25+atk*(thrust ? 1 : .45)
   ];
 
   l([-.45,1.3,0],[-.6,1.05,.25],.12,c);
@@ -1140,7 +1266,11 @@ function model(u){
   const wood = "#ad844c";
 
   function wp(a,b,d){
-    return [hand[0]+a,hand[1]+b,hand[2]+d];
+    return [
+      hand[0]+a,
+      hand[1]+b,
+      hand[2]+d
+    ];
   }
 
   if(type === "弓"){
@@ -1164,7 +1294,8 @@ function model(u){
       l(
         wp(0,.3,0),
         wp(i*.18,.9-Math.abs(i)*.09,0),
-        .075,"#d1eddf"
+        .075,
+        "#d1eddf"
       );
     }
   }else{
@@ -1175,6 +1306,7 @@ function model(u){
     );
 
     l(wp(0,-.2,0),wp(0,.15,0),.055,wood);
+
     l(
       wp(0,.12,0),
       tip,
@@ -1186,7 +1318,8 @@ function model(u){
       l(
         [tip[0]-.23,tip[1],tip[2]],
         [tip[0]+.23,tip[1],tip[2]],
-        .17,metal
+        .17,
+        metal
       );
     }
 
@@ -1194,7 +1327,8 @@ function model(u){
       l(
         [-.6,1.05,.25],
         [-.65,.9,type === "匕" ? .85 : 1.25],
-        .06,metal
+        .06,
+        metal
       );
     }
   }
@@ -1207,37 +1341,51 @@ function model(u){
 
   if(u.player || u.big){
     labels.push({
-      x:p.x,y:p.y,
+      x:p.x,
+      y:p.y,
       text:u.name||"",
       c:u.player ? "#ffdf92" : "#ffb0a0"
     });
   }
 
-  if(u.hp > 0 && u.hp < u.max){
+  if(u.hp>0 && u.hp<u.max){
     labels.push({
-      x:p.x,y:p.y+7,
+      x:p.x,
+      y:p.y+7,
       health:clamp(u.hp/u.max,0,1),
       c:u.enemy ? "#e78d72" : "#76ccba"
     });
   }
 }
 
-// ---------- 建立戰場 ----------
+// ============================================================
+// 士兵、波次、開戰
+// ============================================================
 
 function makeUnit(x,z,enemy,big=false){
   return {
     x,z,y:0,
-    hp:big ? 600 : enemy ? 55 : 70,
-    max:big ? 600 : enemy ? 55 : 70,
-    enemy,big,
+
+    // 敵方生命依難度 ×1、×1.5、×2。
+    hp:enemy ? (big ? 600 : 55)*G.difficulty : 70,
+    max:enemy ? (big ? 600 : 55)*G.difficulty : 70,
+
+    enemy,
+    big,
     seed:rand(0,10),
     dir:enemy ? Math.PI : 0,
+
     color:enemy
       ? (big ? "#994c68" : "#bd6553")
       : "#499a93",
+
     cd:rand(.1,1),
     swing:0,
-    weapon:enemy && !big && Math.random()<.22 ? "弓" : "槍",
+
+    weapon:enemy && !big && Math.random()<.22
+      ? "弓"
+      : "槍",
+
     name:big ? G.stage.boss : "",
     moving:false,
     windup:0,
@@ -1250,7 +1398,8 @@ function nearest(u,list,max=Infinity){
   let d = max;
 
   for(const v of list){
-    if(v.hp <= 0) continue;
+    if(v.hp<=0) continue;
+
     const n = Math.hypot(v.x-u.x,v.z-u.z);
 
     if(n<d){
@@ -1267,39 +1416,58 @@ function announce(s){
   G.toast = 2.8;
 }
 
-function spawnWave(){
-  G.wave++;
-  G.enemies = [];
+// 敵兵分批入場。
+// 每輪總數固定，不按戰中我方存活數或功績重新計算。
+function fillEnemies(){
+  let live = G.enemies.reduce(
+    (n,u)=>n+(u.hp>0 ? 1 : 0),
+    0
+  );
 
-  const n = G.stage.n+G.wave*7;
-
-  for(let i=0;i<n;i++){
+  while(G.enemyPending>0 && live<100){
     const a = rand(0,TAU);
-    const r = rand(14,24);
+    const r = rand(18,26);
 
     G.enemies.push(makeUnit(
       clamp(G.player.x+Math.sin(a)*r,-32,32),
       clamp(G.player.z+Math.cos(a)*r,-32,32),
       true
     ));
-  }
 
+    G.enemyPending--;
+    live++;
+  }
+}
+
+function spawnWave(){
+  G.wave++;
+  G.enemies = [];
+
+  // 第 1～5 輪：出征我方兵數的 1～5 倍。
+  // 零兵單人模式使用最低基數 1。
+  G.waveTotal = Math.max(1,G.capacity)*G.wave;
+  G.enemyPending = G.waveTotal;
+
+  // 最後一輪另有一名敵將。
   if(G.wave === G.stage.waves){
     const u = makeUnit(0,19,true,true);
-    u.hp = u.max = Math.round(G.difficulty*1100);
+    u.hp = u.max = G.difficulty*1100;
     G.enemies.push(u);
   }
 
+  fillEnemies();
+
   announce(
-    "第 "+G.wave+" 波敵軍"+
+    "第 "+G.wave+" / 5 輪 · 敵兵 "+G.waveTotal+" 人"+
     (G.wave === G.stage.waves
-      ? " · 敵將 "+G.stage.boss+" 出陣"
+      ? " ＋ 敵將 "+G.stage.boss
       : "")
   );
 }
 
 function start(){
   const h = heroes[selected];
+
   const max = {
     武將:260,
     智將:200,
@@ -1308,25 +1476,38 @@ function start(){
   }[h[2]];
 
   const w = weapons[+$("weapon").value];
+
+  // 出征編制固定，戰中功績增加不會增加我方士兵。
   const capacity = Math.floor(profile.merit/100);
 
   G = {
     player:{
-      x:0,z:0,y:0,vy:0,
-      hp:max,max,mp:100,
-      dir:0,seed:0,
+      x:0,
+      z:0,
+      y:0,
+      vy:0,
+      hp:max,
+      max,
+      mp:100,
+      dir:0,
+      seed:0,
       player:true,
       name:h[0],
       role:h[2],
       color:h[3],
       mount:+$("mount").value,
       weapon:w[1],
-      swing:0,cd:0,
-      dodge:0,dodgeCD:0,
-      moving:false,block:false,
+      swing:0,
+      cd:0,
+      dodge:0,
+      dodgeCD:0,
+      moving:false,
+      block:false,
       pending:null,
-      comboStep:0,comboClock:0
+      comboStep:0,
+      comboClock:0
     },
+
     stage:stages[+$("stage").value],
     difficulty:+$("difficulty").value,
     weapon:w,
@@ -1334,13 +1515,17 @@ function start(){
     pet:+$("pet").value,
     petPos:{x:-2,z:-2},
     petCD:0,
+
     capacity,
-    reserve:Math.max(0,capacity-100),
+    enemyPending:0,
+    waveTotal:0,
+
     allies:[],
     enemies:[],
     fx:[],
     shots:[],
     fields:[],
+
     wave:0,
     kills:0,
     earned:0,
@@ -1355,10 +1540,14 @@ function start(){
     autosave:0
   };
 
-  for(let i=0;i<Math.min(capacity,100);i++){
+  // 我方全員只在開局生成，沒有後備自動補兵。
+  const columns = Math.max(1,Math.ceil(Math.sqrt(capacity)));
+  const spacing = Math.min(1.2,28/columns);
+
+  for(let i=0;i<capacity;i++){
     G.allies.push(makeUnit(
-      (i%12-5.5)*1.2,
-      -3-Math.floor(i/12)*1.1,
+      (i%columns-(columns-1)/2)*spacing,
+      -3-Math.floor(i/columns)*spacing,
       false
     ));
   }
@@ -1379,13 +1568,16 @@ function start(){
   tone(240,.25);
 }
 
-// ---------- 傷害與招式 ----------
+// ============================================================
+// 傷害、攻擊、兵法
+// ============================================================
 
 function damage(u,d){
   if(G.ended || u.hp<=0) return false;
 
   if(u.player){
     if(u.dodge>0 || u.y>.9) return false;
+
     d *= u.block ? .5 : 1;
     d *= u.mount === 3 ? .85 : 1;
   }
@@ -1403,8 +1595,11 @@ function damage(u,d){
   u.hp = Math.max(0,u.hp-d);
 
   G.fx.push({
-    x:u.x,y:1.7,z:u.z,
-    t:.5,max:.5,
+    x:u.x,
+    y:1.7,
+    z:u.z,
+    t:.5,
+    max:.5,
     text:Math.round(d),
     c:u.enemy ? "#ffd49b" : "#9df6d3"
   });
@@ -1417,13 +1612,19 @@ function damage(u,d){
     G.player.mp = clamp(G.player.mp+2,0,100);
   }
 
-  if(u.player && u.hp === 0) finish(false);
+  if(u.player && u.hp === 0){
+    finish(false);
+  }
+
   return true;
 }
 
 function slash(x,z,r,c){
   G.fx.push({
-    x,z,y:.7,t:.35,max:.35,r,c
+    x,z,y:.7,
+    t:.35,
+    max:.35,
+    r,c
   });
 }
 
@@ -1436,7 +1637,9 @@ function fire(
     : u.dir;
 
   G.shots.push({
-    x:u.x,z:u.z,y:1.25,
+    x:u.x,
+    z:u.z,
+    y:1.25,
     vx:Math.sin(dir)*speed,
     vz:Math.cos(dir)*speed,
     t:range/speed,
@@ -1448,10 +1651,15 @@ function fire(
 
 function attack(){
   const p = G.player;
+
   if(p.cd>0 || p.block || p.dodge>0) return;
 
   const w = G.weapon;
-  p.comboStep = p.comboClock>0 ? (p.comboStep+1)%3 : 0;
+
+  p.comboStep = p.comboClock>0
+    ? (p.comboStep+1)%3
+    : 0;
+
   p.comboClock = 1.5;
   p.cd = w[4];
   p.swing = p.swingMax = .32;
@@ -1469,6 +1677,7 @@ function attack(){
 function resolveAttack(step){
   const p = G.player;
   const w = G.weapon;
+
   const amount = w[3]
     * (p.role === "武將" ? 1.2 : 1)
     * (step === 2 ? 1.5 : 1);
@@ -1477,18 +1686,25 @@ function resolveAttack(step){
 
   if(["弓","弩","杖"].includes(w[1])){
     fire(
-      p,null,amount,
+      p,
+      null,
+      amount,
       w[1] === "杖" ? "#8ae6f1" : "#ffde9b",
-      false,23,w[2]
+      false,
+      23,
+      w[2]
     );
   }else{
     slash(
-      p.x,p.z,w[2],
+      p.x,
+      p.z,
+      w[2],
       step === 2 ? "#fff3bb" : "#f4dba0"
     );
 
     for(const e of G.enemies){
       const d = Math.hypot(e.x-p.x,e.z-p.z);
+
       const dot = (
         Math.sin(p.dir)*(e.x-p.x)+
         Math.cos(p.dir)*(e.z-p.z)
@@ -1496,10 +1712,18 @@ function resolveAttack(step){
 
       if(d<w[2] && dot>-.2 && damage(e,amount)){
         hit = true;
+
         const push = step === 2 ? .85 : .25;
 
-        e.x = clamp(e.x+Math.sin(p.dir)*push,-34,34);
-        e.z = clamp(e.z+Math.cos(p.dir)*push,-34,34);
+        e.x = clamp(
+          e.x+Math.sin(p.dir)*push,
+          -34,34
+        );
+
+        e.z = clamp(
+          e.z+Math.cos(p.dir)*push,
+          -34,34
+        );
       }
     }
   }
@@ -1551,33 +1775,49 @@ function tactic(){
 
   p.mp -= cost;
   G.tacticCD = 13;
+
   const type = G.tactic;
 
   if(type<=2){
     G.fields.push({
-      x:p.x,z:p.z,
+      x:p.x,
+      z:p.z,
       r:type === 2 ? 50 : 10,
-      t:7,type,tick:0
+      t:7,
+      type,
+      tick:0
     });
   }
 
+  // 鼓舞只治療活著的人，不復活士兵。
   if(type === 3){
     p.hp = Math.min(p.max,p.hp+85);
 
     for(const a of G.allies){
-      if(a.hp>0) a.hp = Math.min(a.max,a.hp+45);
+      if(a.hp>0){
+        a.hp = Math.min(a.max,a.hp+45);
+      }
     }
 
     slash(p.x,p.z,13,"#79efae");
   }
 
+  // 只有伏兵可以恢復損失兵員。
+  // 每次最多 20 人，且不超過出征時編制。
   if(type === 4){
     const missing = G.capacity
-      - G.allies.filter(a=>a.hp>0).length
-      - G.reserve;
+      - G.allies.filter(a=>a.hp>0).length;
 
     const count = Math.max(0,Math.min(20,missing));
-    G.reserve += count;
+
+    for(let i=0;i<count;i++){
+      G.allies.push(makeUnit(
+        clamp(p.x+rand(-4,4),-34,34),
+        clamp(p.z+rand(-4,4),-34,34),
+        false
+      ));
+    }
+
     announce("伏兵歸隊 "+count+" 人");
   }else{
     announce(tactics[type].split("｜")[0]+"！");
@@ -1606,7 +1846,9 @@ function action(key){
   }
 }
 
-// ---------- 鍵盤、觸控、搖桿 ----------
+// ============================================================
+// 鍵盤、觸控搖桿、軍令
+// ============================================================
 
 function clearInput(){
   keys = {};
@@ -1631,7 +1873,9 @@ function bindKey(k,down){
 function order(){
   if(!G || paused || G.ended) return;
 
-  G.order = G.order === "attack" ? "follow" : "attack";
+  G.order = G.order === "attack"
+    ? "follow"
+    : "attack";
 
   $("order").textContent = "F · "+
     (G.order === "attack" ? "全軍進攻" : "集合護衛");
@@ -1645,11 +1889,16 @@ function order(){
 
 window.addEventListener("keydown",e=>{
   if(!G) return;
+
   const k = e.key.toLowerCase();
 
   if([
-    " ","arrowup","arrowdown",
-    "arrowleft","arrowright","shift"
+    " ",
+    "arrowup",
+    "arrowdown",
+    "arrowleft",
+    "arrowright",
+    "shift"
   ].includes(k)){
     e.preventDefault();
   }
@@ -1673,7 +1922,10 @@ window.addEventListener("keyup",e=>{
 
 window.addEventListener("blur",()=>{
   clearInput();
-  if(G && !G.ended && !paused) togglePause();
+
+  if(G && !G.ended && !paused){
+    togglePause();
+  }
 });
 
 document.addEventListener("visibilitychange",()=>{
@@ -1713,6 +1965,7 @@ document.querySelectorAll("[data-key]").forEach(b=>{
 
 function moveStick(e){
   const r = $("stick").getBoundingClientRect();
+
   const x = e.clientX-r.left-r.width/2;
   const y = e.clientY-r.top-r.height/2;
   const l = Math.hypot(x,y);
@@ -1731,12 +1984,15 @@ $("stick").onpointerdown = e=>{
 
   e.preventDefault();
   joy.id = e.pointerId;
+
   $("stick").setPointerCapture(e.pointerId);
   moveStick(e);
 };
 
 $("stick").onpointermove = e=>{
-  if(e.pointerId === joy.id) moveStick(e);
+  if(e.pointerId === joy.id){
+    moveStick(e);
+  }
 };
 
 $("stick").onpointerup =
@@ -1764,12 +2020,18 @@ $("fullscreen").onclick = async ()=>{
   }
 };
 
-// ---------- 暫停與結算 ----------
+// ============================================================
+// 暫停、勝敗、返回選單
+// ============================================================
 
 function showDialog(title,text,canResume){
   $("dialogtitle").textContent = title;
   $("dialogtext").textContent = text;
-  $("resume").style.display = canResume ? "inline-block" : "none";
+
+  $("resume").style.display = canResume
+    ? "inline-block"
+    : "none";
+
   $("overlay").style.display = "grid";
 }
 
@@ -1806,12 +2068,14 @@ function finish(win){
 
   showDialog(
     win ? "大捷 · 凱旋而歸" : "兵敗 · 整軍再戰",
+
     "擊破 "+G.kills+" 人，獲得 "+G.earned+" 功績。"+
     (win
       ? "戰役完成！"
       : "主將陣亡，功績扣除 1,000（最低 0）。")+
     " 目前功績 "+profile.merit+
     "，下次可率 "+Math.floor(profile.merit/100)+" 兵出征。",
+
     false
   );
 
@@ -1827,8 +2091,10 @@ $("back").onclick = ()=>{
   G = null;
   paused = false;
   clearInput();
+
   $("game").style.display = "none";
   $("menu").style.display = "block";
+
   menuStats();
 };
 
@@ -1837,7 +2103,9 @@ $("sound").onclick = ()=>{
   $("sound").textContent = "音效："+(silent ? "關" : "開");
 };
 
-// ---------- 戰鬥更新 ----------
+// ============================================================
+// 戰鬥更新
+// ============================================================
 
 function update(dt){
   const p = G.player;
@@ -1854,7 +2122,11 @@ function update(dt){
   if(G.comboTime<=0) G.combo = 0;
 
   for(const key of [
-    "cd","swing","dodge","dodgeCD","comboClock"
+    "cd",
+    "swing",
+    "dodge",
+    "dodgeCD",
+    "comboClock"
   ]){
     p[key] = Math.max(0,p[key]-dt);
   }
@@ -1862,7 +2134,9 @@ function update(dt){
   G.tacticCD = Math.max(0,G.tacticCD-dt);
   G.toast -= dt;
 
-  if(G.toast<=0) $("toast").textContent = "";
+  if(G.toast<=0){
+    $("toast").textContent = "";
+  }
 
   p.mp = Math.min(100,p.mp+dt*3);
   p.block = isDown("i") && p.dodge<=0;
@@ -1918,29 +2192,26 @@ function update(dt){
     }
   }
 
-  if(isDown("j")) attack();
+  if(isDown("j")){
+    attack();
+  }
 
   cam.x += (p.x-cam.x)*dt*4;
   cam.z += (p.z-cam.z)*dt*4;
 
+  // 清掉死兵。我方不自動新增任何士兵。
   const enemies = G.enemies.filter(e=>e.hp>0);
   const allies = G.allies.filter(a=>a.hp>0);
 
   G.allies = allies;
   G.enemies = enemies;
 
-  while(G.reserve>0 && allies.length<100){
-    allies.push(makeUnit(
-      p.x+rand(-5,5),
-      clamp(p.z-9,-32,32),
-      false
-    ));
-    G.reserve--;
-  }
+  // 只有敵方有本輪待入場部隊。
+  fillEnemies();
 
   const friends = [p,...allies];
 
-  // 敵我雙方 AI。
+  // 敵我 AI。
   for(const u of [...allies,...enemies]){
     if(u.hp<=0) continue;
 
@@ -1948,11 +2219,13 @@ function update(dt){
     u.swing = Math.max(0,u.swing-dt);
     u.moving = false;
 
+    // 空城計中斷敵人蓄力。
     if(u.enemy && G.fields.some(f=>f.type === 2)){
       u.windup = 0;
       continue;
     }
 
+    // 敵將重擊／弓兵蓄力。
     if(u.windup>0){
       u.windup -= dt;
 
@@ -1969,8 +2242,13 @@ function update(dt){
           u.special = 5;
         }else{
           fire(
-            u,u.aim,12*G.difficulty,
-            "#f4a888",true,16,22
+            u,
+            u.aim,
+            12*G.difficulty,
+            "#f4a888",
+            true,
+            16,
+            22
           );
         }
 
@@ -1987,26 +2265,40 @@ function update(dt){
 
     if(!target) continue;
 
-    let dist = Math.hypot(u.x-target.x,u.z-target.z);
+    let dist = Math.hypot(
+      u.x-target.x,
+      u.z-target.z
+    );
 
+    // 集合軍令。
     if(!u.enemy && G.order === "follow" && dist>2){
       target = {
         x:p.x+Math.sin(u.seed*4)*3,
         z:p.z+Math.cos(u.seed*4)*3
       };
 
-      dist = Math.hypot(u.x-target.x,u.z-target.z);
+      dist = Math.hypot(
+        u.x-target.x,
+        u.z-target.z
+      );
+
       if(dist<1) continue;
     }
 
-    u.dir = Math.atan2(target.x-u.x,target.z-u.z);
+    u.dir = Math.atan2(
+      target.x-u.x,
+      target.z-u.z
+    );
 
     if(u.big){
       u.special -= dt;
 
       if(u.special<=0 && dist<5){
         u.windup = .9;
-        u.aim = {x:target.x,z:target.z};
+        u.aim = {
+          x:target.x,
+          z:target.z
+        };
         continue;
       }
     }
@@ -2020,18 +2312,24 @@ function update(dt){
         Math.hypot(u.x-f.x,u.z-f.z)<f.r
       );
 
-      const sp = (u.big ? 3.4 : 2.7)*(slow ? .35 : 1);
+      const sp = (u.big ? 3.4 : 2.7) *
+        (slow ? .35 : 1);
+
       u.x += Math.sin(u.dir)*sp*dt;
       u.z += Math.cos(u.dir)*sp*dt;
       u.moving = true;
     }else if(u.cd<=0){
       if(ranged){
         u.windup = .6;
-        u.aim = {x:target.x,z:target.z};
+        u.aim = {
+          x:target.x,
+          z:target.z
+        };
       }else{
         u.cd = u.big ? 1.3 : rand(1.1,1.7);
         u.swing = u.swingMax = .3;
 
+        // 敵方傷害依難度 ×1、×1.5、×2。
         damage(
           target,
           (u.big ? 28 : u.enemy ? 9 : 10) *
@@ -2045,18 +2343,20 @@ function update(dt){
 
   if(G.ended) return;
 
-  // 友軍與敵軍各自保持些許間距。
+  // 同陣營士兵保持基本間距。
   for(const team of [allies,enemies]){
     for(let i=0;i<team.length;i++){
       for(let j=i+1;j<team.length;j++){
         const a = team[i];
         const b = team[j];
+
         const dx = a.x-b.x;
         const dz = a.z-b.z;
         const d = Math.hypot(dx,dz);
 
         if(d<.65 && d>.001){
           const k = (.65-d)*dt*3/d;
+
           a.x += dx*k;
           a.z += dz*k;
           b.x -= dx*k;
@@ -2066,7 +2366,7 @@ function update(dt){
     }
   }
 
-  // 線段碰撞，避免快速箭矢跨過敵人。
+  // 箭矢／法術線段碰撞。
   for(const shot of G.shots){
     const oldX = shot.x;
     const oldZ = shot.z;
@@ -2077,6 +2377,7 @@ function update(dt){
     shot.z += shot.vz*travel;
 
     const targets = shot.enemy ? friends : enemies;
+
     let hit = null;
     let best = Infinity;
 
@@ -2086,8 +2387,13 @@ function update(dt){
       const dx = shot.x-oldX;
       const dz = shot.z-oldZ;
       const l = dx*dx+dz*dz;
+
       const t = l
-        ? clamp(((u.x-oldX)*dx+(u.z-oldZ)*dz)/l,0,1)
+        ? clamp(
+            ((u.x-oldX)*dx+(u.z-oldZ)*dz)/l,
+            0,
+            1
+          )
         : 0;
 
       if(
@@ -2114,9 +2420,10 @@ function update(dt){
   }
 
   G.shots = G.shots.filter(s=>s.t>0);
+
   if(G.ended) return;
 
-  // 持續兵法。
+  // 持續性兵法。
   for(const f of G.fields){
     f.t -= dt;
     f.tick -= dt;
@@ -2134,17 +2441,24 @@ function update(dt){
 
   G.fields = G.fields.filter(f=>f.t>0);
 
-  for(const f of G.fx) f.t -= dt;
+  for(const f of G.fx){
+    f.t -= dt;
+  }
+
   G.fx = G.fx.filter(f=>f.t>0);
 
-  // 寵物跟隨與攻擊。
+  // 寵物。
   G.petCD -= dt;
 
   const pp = G.petPos;
   const target = nearest(p,enemies,12);
+
   const dest = G.pet === 0 && target
     ? target
-    : {x:p.x-2,z:p.z+1};
+    : {
+        x:p.x-2,
+        z:p.z+1
+      };
 
   pp.x += (dest.x-pp.x)*dt*3;
   pp.z += (dest.z-pp.z)*dt*3;
@@ -2158,12 +2472,23 @@ function update(dt){
     }else if(target){
       if(
         G.pet === 0 &&
-        Math.hypot(pp.x-target.x,pp.z-target.z)<2
+        Math.hypot(
+          pp.x-target.x,
+          pp.z-target.z
+        )<2
       ){
         damage(target,20);
         slash(target.x,target.z,1.1,"#fff2ca");
       }else if(G.pet === 1){
-        fire(pp,target,14,"#9cdff1",false,24,25);
+        fire(
+          pp,
+          target,
+          14,
+          "#9cdff1",
+          false,
+          24,
+          25
+        );
       }
     }
   }
@@ -2173,8 +2498,11 @@ function update(dt){
     return;
   }
 
-  // 下一波與勝利。
-  if(enemies.length === 0){
+  // 必須消滅在場敵軍，且本輪待入場兵量歸零，才能換輪。
+  if(
+    enemies.every(e=>e.hp<=0) &&
+    G.enemyPending === 0
+  ){
     G.transition += dt;
 
     if(G.transition>2){
@@ -2182,6 +2510,8 @@ function update(dt){
 
       if(G.wave<G.stage.waves){
         spawnWave();
+
+        // 換輪僅恢復主將部分生命，不補我方士兵。
         p.hp = Math.min(p.max,p.hp+35);
         save();
       }else{
@@ -2201,16 +2531,21 @@ function update(dt){
 
   $("resource").textContent =
     "氣力 "+Math.floor(p.mp)+" · 兵法 "+
-    (G.tacticCD>0 ? Math.ceil(G.tacticCD)+"秒" : "就緒");
+    (G.tacticCD>0
+      ? Math.ceil(G.tacticCD)+"秒"
+      : "就緒");
 
   $("objective").textContent =
-    G.stage.name+" ｜ 第 "+G.wave+" / "+
-    G.stage.waves+" 波 · 殲滅敵軍與敵將";
+    G.stage.name+
+    " ｜ 第 "+G.wave+" / "+G.stage.waves+" 輪"+
+    " · 本輪敵兵 "+G.waveTotal+
+    " · 能力 ×"+G.difficulty;
 
   $("status").textContent =
-    "敵 "+enemies.filter(e=>e.hp>0).length+
-    " · 我軍 "+allies.filter(a=>a.hp>0).length+
-    " + 後備 "+G.reserve+
+    "敵方在場 "+G.enemies.filter(e=>e.hp>0).length+
+    "／待入場 "+G.enemyPending+
+    " · 我軍 "+G.allies.filter(a=>a.hp>0).length+
+    " / "+G.capacity+
     " · 擊破 "+G.kills;
 
   $("combo").textContent =
@@ -2232,7 +2567,9 @@ function update(dt){
 
     const cd = key === "l"
       ? G.tacticCD
-      : key === "shift" ? p.dodgeCD : 0;
+      : key === "shift"
+        ? p.dodgeCD
+        : 0;
 
     const cost = key === "k"
       ? 60
@@ -2240,38 +2577,57 @@ function update(dt){
         ? (p.role === "智將" ? 25 : 35)
         : 0;
 
-    b.classList.toggle("unready",cd>0 || p.mp<cost);
+    b.classList.toggle(
+      "unready",
+      cd>0 || p.mp<cost
+    );
 
-    if(key === "l" || key === "k" || key === "shift"){
+    if(
+      key === "l" ||
+      key === "k" ||
+      key === "shift"
+    ){
       b.querySelector("small").textContent =
-        cd>0 ? Math.ceil(cd)+" 秒"
-        : cost ? cost+" 氣"
-        : "就緒";
+        cd>0
+          ? Math.ceil(cd)+" 秒"
+          : cost
+            ? cost+" 氣"
+            : "就緒";
     }
   }
 }
 
-// ---------- 戰場繪圖 ----------
+// ============================================================
+// 寵物、戰場、小地圖繪製
+// ============================================================
 
 function drawPet(){
   const u = G.petPos;
   const y = G.pet === 1 ? 3.2 : 0;
-  const col = ["#e9d5ad","#bca981","#b8dbc0"][G.pet];
+
+  const col = [
+    "#e9d5ad",
+    "#bca981",
+    "#b8dbc0"
+  ][G.pet];
 
   if(G.pet === 1){
     box(u.x,y,u.z,.4,.3,.7,col);
+
     const flap = Math.sin(time*10)*.3;
 
     limb(
       [u.x,y,u.z],
       [u.x-1.1,y+flap,u.z],
-      .1,col
+      .1,
+      col
     );
 
     limb(
       [u.x,y,u.z],
       [u.x+1.1,y+flap,u.z],
-      .1,col
+      .1,
+      col
     );
   }else{
     box(u.x,.4,u.z,.55,.45,1,col);
@@ -2279,7 +2635,15 @@ function drawPet(){
 
     for(const a of [-1,1]){
       for(const b of [-1,1]){
-        box(u.x+a*.2,.05,u.z+b*.32,.13,.4,.13,col);
+        box(
+          u.x+a*.2,
+          .05,
+          u.z+b*.32,
+          .13,
+          .4,
+          .13,
+          col
+        );
       }
     }
 
@@ -2287,12 +2651,15 @@ function drawPet(){
       limb(
         [u.x-.15,1.1,u.z+.45],
         [u.x-.4,1.7,u.z+.35],
-        .035,"#e4c894"
+        .035,
+        "#e4c894"
       );
+
       limb(
         [u.x+.15,1.1,u.z+.45],
         [u.x+.4,1.7,u.z+.35],
-        .035,"#e4c894"
+        .035,
+        "#e4c894"
       );
     }
   }
@@ -2313,6 +2680,7 @@ function render(){
   faces = [];
   labels = [];
 
+  // 地面。
   for(let z=-40;z<=40;z+=5){
     for(let x=-40;x<=40;x+=5){
       face(
@@ -2322,31 +2690,46 @@ function render(){
           [x+5,.01,z+5],
           [x,.01,z+5]
         ],
-        shade(G.stage.color,(x+z)%10 === 0 ? .96 : 1)
+        shade(
+          G.stage.color,
+          (x+z)%10 === 0 ? .96 : 1
+        )
       );
     }
   }
 
+  // 城牆。
   for(let x=-35;x<=35;x+=7){
     box(x,0,36,6.8,4,2,"#626b60");
     box(x,4,36,2,1,2,"#71796a");
   }
 
+  // 軍旗。
   for(const x of [-25,25]){
     box(x,0,15,.16,7,.16,"#746246");
+
     box(
-      x+1.1,5,15,2.1,1.7,.07,
+      x+1.1,
+      5,
+      15,
+      2.1,
+      1.7,
+      .07,
       x<0 ? "#427c79" : "#a35b4d"
     );
   }
 
+  // 單位。
   for(const u of [...G.allies,...G.enemies,G.player]){
     if(u.hp<=0) continue;
+
     const p = project(u.x,1,u.z);
 
     if(
-      p.x>-80 && p.x<W+80 &&
-      p.y>-100 && p.y<H+100
+      p.x>-80 &&
+      p.x<W+80 &&
+      p.y>-100 &&
+      p.y<H+100
     ){
       model(u);
     }
@@ -2354,14 +2737,21 @@ function render(){
 
   drawPet();
 
+  // 飛行中的箭矢／法術。
   for(const s of G.shots){
     limb(
       [s.x,s.y,s.z],
-      [s.x-s.vx*.06,s.y,s.z-s.vz*.06],
-      .045,s.c
+      [
+        s.x-s.vx*.06,
+        s.y,
+        s.z-s.vz*.06
+      ],
+      .045,
+      s.c
     );
   }
 
+  // 由遠至近繪製立體面。
   faces.sort((a,b)=>b.d-a.d);
 
   for(const f of faces){
@@ -2377,9 +2767,14 @@ function render(){
     ctx.fill();
   }
 
-  ring(G.player.x,G.player.z,1.3,"#fbe5a0");
+  ring(
+    G.player.x,
+    G.player.z,
+    1.3,
+    "#fbe5a0"
+  );
 
-  // 敵將範圍預警與弓兵瞄準線。
+  // 敵將範圍攻擊預警、弓兵瞄準線。
   for(const e of G.enemies){
     if(e.windup<=0) continue;
 
@@ -2397,13 +2792,20 @@ function render(){
     }
   }
 
+  // 兵法效果。
   for(const f of G.fields){
-    const c = ["#ff9e5e","#8ceada","#cebeed"][f.type];
+    const c = [
+      "#ff9e5e",
+      "#8ceada",
+      "#cebeed"
+    ][f.type];
+
     ring(f.x,f.z,Math.min(f.r,15),c);
 
     if(f.type === 0){
       for(let i=0;i<18;i++){
         const a = i/18*TAU+time*.2;
+
         const p = project(
           f.x+Math.cos(a)*f.r*.8,
           .2+Math.abs(Math.sin(time*7+i))*1.6,
@@ -2416,6 +2818,7 @@ function render(){
     }
   }
 
+  // 傷害數字與攻擊光圈。
   for(const f of G.fx){
     ctx.globalAlpha = f.t/f.max;
 
@@ -2431,15 +2834,18 @@ function render(){
       ctx.fillText(f.text,p.x,p.y);
     }else{
       ring(
-        f.x,f.z,
+        f.x,
+        f.z,
         f.r*(1-f.t/f.max)*1.1,
-        f.c,f.y
+        f.c,
+        f.y
       );
     }
 
     ctx.globalAlpha = 1;
   }
 
+  // 名稱與單位血條。
   ctx.font = "bold 13px system-ui";
   ctx.textAlign = "center";
 
@@ -2447,6 +2853,7 @@ function render(){
     if(l.health !== undefined){
       ctx.fillStyle = "#162d30";
       ctx.fillRect(l.x-15,l.y,30,4);
+
       ctx.fillStyle = l.c;
       ctx.fillRect(l.x-15,l.y,30*l.health,4);
       continue;
@@ -2455,7 +2862,13 @@ function render(){
     const width = ctx.measureText(l.text).width;
 
     ctx.fillStyle = "#102932b0";
-    ctx.fillRect(l.x-width/2-8,l.y-16,width+16,23);
+    ctx.fillRect(
+      l.x-width/2-8,
+      l.y-16,
+      width+16,
+      23
+    );
+
     ctx.fillStyle = l.c;
     ctx.fillText(l.text,l.x,l.y);
   }
@@ -2477,22 +2890,35 @@ function drawMap(){
 
   ctx.fillStyle = "#08212ecb";
   ctx.fillRect(x,y,size,size);
+
   ctx.strokeStyle = "#72978a";
   ctx.strokeRect(x,y,size,size);
 
   function dot(u,c,r){
     ctx.fillStyle = c;
+
     ctx.fillRect(
       x+(u.x/80+.5)*size-r,
       y+(.5-u.z/80)*size-r,
-      r*2,r*2
+      r*2,
+      r*2
     );
   }
 
-  G.allies.forEach(a=>dot(a,"#6cc5bb",1));
-  G.enemies.forEach(a=>dot(a,"#f17b69",a.big?2:1));
+  G.allies.forEach(a=>{
+    dot(a,"#6cc5bb",1);
+  });
+
+  G.enemies.forEach(a=>{
+    dot(a,"#f17b69",a.big ? 2 : 1);
+  });
+
   dot(G.player,"#ffe393",3);
 }
+
+// ============================================================
+// 武將預覽
+// ============================================================
 
 function portrait(){
   const oldW = W;
@@ -2508,7 +2934,9 @@ function portrait(){
   const h = heroes[selected];
 
   model({
-    x:0,z:0,y:0,
+    x:0,
+    z:0,
+    y:0,
     dir:Math.PI+Math.sin(time*.35)*.5+.3,
     color:h[3],
     name:h[0],
@@ -2541,6 +2969,7 @@ function portrait(){
   }
 
   px.restore();
+
   px.fillStyle = "#e6c17c";
   px.font = "14px serif";
   px.fillText("英雄無懼 · 逐鹿天下",24,36);
@@ -2549,7 +2978,8 @@ function portrait(){
   px.font = "12px system-ui";
   px.fillText(
     h[1]+"  /  "+h[2]+"  /  程式立體造型",
-    24,235
+    24,
+    235
   );
 
   W = oldW;
@@ -2557,7 +2987,9 @@ function portrait(){
   cam = oldCam;
 }
 
-// ---------- 主迴圈 ----------
+// ============================================================
+// 主迴圈
+// ============================================================
 
 let last = performance.now();
 
@@ -2570,7 +3002,10 @@ function loop(now){
   }
 
   if(G){
-    if(!paused && !G.ended) update(dt);
+    if(!paused && !G.ended){
+      update(dt);
+    }
+
     render();
   }else{
     portrait();
