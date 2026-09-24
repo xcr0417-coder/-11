@@ -2,7 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>三國・烽火軍團</title>
 <style>
 :root{
@@ -45,11 +46,7 @@ h2{
   margin-bottom:14px;
 }
 small,.muted{color:#a1b9b8}
-#camp{
-  max-width:1250px;
-  margin:auto;
-  padding:28px 20px;
-}
+#camp{max-width:1250px;margin:auto;padding:28px 20px}
 header{
   display:flex;
   justify-content:space-between;
@@ -57,17 +54,9 @@ header{
   gap:15px;
   margin-bottom:22px;
 }
-header p{
-  margin-top:12px;
-  color:#acc6c0;
-  line-height:1.8;
-}
+header p{margin-top:12px;color:#acc6c0;line-height:1.8}
 .money{font-size:24px;color:var(--gold)}
-.grid{
-  display:grid;
-  grid-template-columns:1.25fr 1fr;
-  gap:18px;
-}
+.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}
 .panel{
   background:#112b34;
   border:1px solid var(--line);
@@ -75,33 +64,16 @@ header p{
   padding:20px;
   margin-bottom:18px;
 }
-.row{
-  display:flex;
-  gap:9px;
-  align-items:center;
-  flex-wrap:wrap;
-}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
 .row>*{max-width:100%}
 .settings{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
 }
-label{
-  display:block;
-  font-size:12px;
-  color:#a8c5c1;
-}
-label select{
-  display:block;
-  width:100%;
-  margin-top:6px;
-}
-table{
-  border-collapse:collapse;
-  width:100%;
-  font-size:13px;
-}
+label{display:block;font-size:12px;color:#a8c5c1}
+label select{display:block;width:100%;margin-top:6px}
+table{border-collapse:collapse;width:100%;font-size:13px}
 td,th{
   text-align:left;
   border-bottom:1px solid #304d54;
@@ -130,17 +102,8 @@ th{color:#a1b9b8}
   margin-bottom:5px;
 }
 .card small{font-size:11px}
-.card button{
-  margin-top:8px;
-  width:100%;
-  padding:7px;
-  font-size:12px;
-}
-#notice{
-  min-height:28px;
-  color:var(--gold);
-  margin:10px 0;
-}
+.card button{margin-top:8px;width:100%;padding:7px;font-size:12px}
+#notice{min-height:28px;color:var(--gold);margin:10px 0}
 #inventory{line-height:1.9;font-size:13px}
 details{line-height:1.9;font-size:13px}
 summary{cursor:pointer;color:var(--gold)}
@@ -150,23 +113,14 @@ summary{cursor:pointer;color:var(--gold)}
   background:radial-gradient(ellipse,#3d605c,#132f39);
   border-radius:9px;
 }
-#shopInfo{
-  line-height:1.8;
-  font-size:13px;
-  margin:12px 0;
-}
+#shopInfo{line-height:1.8;font-size:13px;margin:12px 0}
 #game{
   display:none;
   position:fixed;
   inset:0;
   background:#243e47;
 }
-#world{
-  width:100%;
-  height:100%;
-  display:block;
-  touch-action:none;
-}
+#world{width:100%;height:100%;display:block;touch-action:none}
 #hud{
   position:absolute;
   top:10px;
@@ -186,10 +140,7 @@ summary{cursor:pointer;color:var(--gold)}
   line-height:1.7;
   max-width:45%;
 }
-.box button{
-  pointer-events:auto;
-  padding:5px 9px;
-}
+.box button{pointer-events:auto;padding:5px 9px}
 .meter{
   height:7px;
   background:#34474e;
@@ -197,11 +148,7 @@ summary{cursor:pointer;color:var(--gold)}
   border-radius:8px;
   overflow:hidden;
 }
-.meter i{
-  display:block;
-  height:100%;
-  background:#71c8a4;
-}
+.meter i{display:block;height:100%;background:#71c8a4}
 .energy i{background:var(--gold)}
 #toast{
   position:absolute;
@@ -257,11 +204,7 @@ summary{cursor:pointer;color:var(--gold)}
   top:38px;
   pointer-events:none;
 }
-.actions{
-  display:grid;
-  grid-template-columns:repeat(3,67px);
-  gap:6px;
-}
+.actions{display:grid;grid-template-columns:repeat(3,67px);gap:6px}
 .actions button{
   pointer-events:auto;
   touch-action:none;
@@ -299,11 +242,7 @@ summary{cursor:pointer;color:var(--gold)}
   text-align:center;
   padding:30px;
 }
-#dialog p{
-  line-height:1.9;
-  margin:20px 0;
-  white-space:pre-line;
-}
+#dialog p{line-height:1.9;margin:20px 0;white-space:pre-line}
 footer{font-size:12px;line-height:1.8;color:#b1c5bf}
 #saveFile{display:none}
 @media(max-width:750px){
@@ -361,8 +300,30 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
         </div>
         <p class="muted" style="font-size:12px;margin-top:10px">
           第一組武將由你操作，其餘武將自動參戰。
-          未招募名將的組，由 650 血量的部將指揮。
+          未招募名將的組，由基本生命 650 的部將指揮。
         </p>
+      </section>
+
+      <section class="panel">
+        <h2>練兵與功績兌換</h2>
+        <p id="levelInfo"></p>
+        <div class="row">
+          <button id="upHero"></button>
+          <button id="upSoldier"></button>
+        </div>
+        <p>
+          升級全體同類單位，每級基礎生命與傷害 +10%，最高 50 級；
+          敵軍固定使用未升級數值。
+        </p>
+        <div class="row">
+          <label>
+            兌換金額（元）
+            <input id="exchangeAmount" type="number"
+                   min="1" step="1" value="1">
+          </label>
+          <button id="exchange">10 功績換 1 元</button>
+        </div>
+        <p id="exchangeInfo"></p>
       </section>
 
       <section class="panel">
@@ -383,8 +344,15 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
           繳獲數量湊足該組兵數即可換裝；換下裝備不退款。
         </p>
         <div id="notice" aria-live="polite"></div>
-        <h2>繳獲庫</h2>
+        <h2>繳獲庫 · 同款兩件出售</h2>
         <div id="inventory"></div>
+        <div class="row">
+          <button id="sellWeapon">出售所選武器 ×2</button>
+          <button id="sellArmor">出售所選防具 ×2</button>
+        </div>
+        <p class="muted">
+          販售上方選單所選的庫存裝備，穿戴中的裝備不出售。
+        </p>
       </section>
     </div>
 
@@ -392,28 +360,22 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
       <section class="panel">
         <canvas id="portrait"></canvas>
         <div class="settings">
-          <label>
-            戰役
+          <label>戰役
             <select id="stage">
               <option value="0">虎牢關</option>
               <option value="1">長坂坡</option>
               <option value="2">赤壁</option>
             </select>
           </label>
-
-          <label>
-            難度 · 敵兵數
+          <label>難度 · 敵兵數
             <select id="difficulty">
               <option value="1">初入沙場 ×1</option>
               <option value="1.5">群雄逐鹿 ×1.5</option>
               <option value="2">一騎當千 ×2</option>
             </select>
           </label>
-
           <label>兵法<select id="tactic"></select></label>
-
-          <label>
-            坐騎
+          <label>坐騎
             <select id="mount">
               <option value="0">徒步</option>
               <option value="1">赤兔 · 移動快</option>
@@ -421,9 +383,7 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
               <option value="3">絕影 · 減傷</option>
             </select>
           </label>
-
-          <label>
-            戰寵
+          <label>戰寵
             <select id="pet">
               <option value="0">白虎 · 近戰</option>
               <option value="1">蒼鷹 · 遠攻</option>
@@ -454,33 +414,44 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
     <details>
       <summary>遊戲規則與操作</summary>
       <p>
-        難度只決定每輪敵兵總數：出征兵數 × 1／1.5／2，
-        小數進位；零兵單人出征時基數最低為 1。
+        難度只決定每輪敵兵總數：出征兵數 × 1／1.5／2，小數進位；
+        零兵單人出征時基數最低為 1。
         五輪敵方生命及傷害倍率依序為 1.2／1.4／1.6／1.8／2，
-        敵方指揮將也適用。
-        敵方每組另有一名指揮將，不計入小兵數。
+        敵方指揮將也適用。敵方每組另有一名指揮將，不計入小兵數。
       </p>
       <p>
         武將基本生命至少 650，小兵基本生命 120。
-        每殺一名敵兵得 1 元、10 功績並繳獲一件其武器；
-        敵將同樣給 1 元與一件武器，功績為 100。
+        每殺一名敵兵得 1 元、10 功績，並繳獲其武器、防具各一件；
+        敵將同樣給 1 元及武器、防具各一件，功績為 100。
         全軍與戰寵擊殺都算，陣亡扣 1,000 功績，金錢不扣。
       </p>
       <p>
         每 100 功績可帶 1 兵，出征時固定編制。
-        每組先分 20 人，尾組不足 20 就併入前組；
-        總兵數不足 20 時為唯一殘部。
-        戰中小組不足 20 人會合併，原武器保留，
+        每組先分 50 人，尾組不足 50 就併入前組；
+        總兵數不足 50 時為唯一殘部。
+        戰中小組不足 50 人會合併，原武器保留，
         多餘存活指揮將退至後方，不再出戰。
         指揮將陣亡的組會併入主將組。
       </p>
       <p>
         我方士兵不自動補充，換輪也不補兵；
-        伏兵每次恢復最多 20 名本場陣亡士兵，保留原武器，不復活武將。
+        伏兵每次恢復最多 20 名本場陣亡士兵，
+        保留原裝備及等級，不復活武將。
         返回軍營再出征才重新按功績整軍。
-        新遊戲金錢為 0，全軍只有鐵劍；
-        趙雲免費，其餘名將可招募。
-        角色數值、技能與裝備為本作原創設定，並非《三國幻戰》官方數據。
+        新遊戲金錢為 0，全軍只有鐵劍；趙雲免費。
+      </p>
+      <p>
+        所有我方武將均有獨立氣力和兵法冷卻，
+        其他指揮將自動施放所選兵法與無雙。
+        敵方只能普通攻擊，不能用無雙或兵法。
+        每 10 功績可換 1 元，會影響下次出征兵數。
+        同款庫存武器／防具每次賣 2 件，價格見軍需坊。
+      </p>
+      <p>
+        升級限軍營，武將每次花 100×目前等級元，
+        士兵花 50×目前等級元，都是全體升級。
+        角色、技能與裝備數值為本作原創，
+        並非《三國幻戰》官方數據。
       </p>
       <p>
         WASD／方向鍵移動，J 攻擊，K 無雙，L 兵法，
@@ -547,122 +518,92 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
 </div>
 
 <script>
-"use strict";
+'use strict';
 
-// ============================================================
-// 資料
-// ============================================================
+const $ = id => document.getElementById(id);
+const TAU = Math.PI * 2;
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+const rand = (a,b) => a + Math.random() * (b-a);
 
-const $=id=>document.getElementById(id);
-const TAU=Math.PI*2;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const rand=(a,b)=>a+Math.random()*(b-a);
-
-// 名稱、種類、傷害、距離、間隔、整組價格、武器減傷。
-const WEAPONS=[
-  ["鐵劍","劍",14,2.6,.8,0,0],
-  ["精鋼劍","劍",21,2.8,.72,30,0],
-  ["長槍","槍",23,4,.85,45,0],
-  ["戰斧","斧",34,2.8,1.15,60,0],
-  ["長弓","弓",20,19,1.1,65,0],
-  ["連弩","弩",17,17,.62,100,0],
-  ["劍盾","盾",19,2.6,.85,85,.25],
-  ["雙匕","匕",17,2,.42,110,0],
-  ["軍師羽扇","杖",29,17,1.05,130,0],
-  ["青龍偃月刀","刀",39,4,1,200,0],
-  ["方天畫戟","戟",44,4.5,1.05,240,0],
-  ["龍膽亮銀槍","槍",36,4.4,.7,220,0],
-  ["烈焰弓","弓",36,23,1,260,0],
-  ["破軍雙劍","劍",29,3,.5,190,0],
-  ["玄鐵重斧","斧",62,3.1,1.4,280,0],
-  ["七星法杖","杖",48,21,1.1,300,0]
+// 名稱、種類、傷害、距離、攻擊間隔、整組價、武器減傷。
+const WEAPONS = [
+  ['鐵劍','劍',14,2.6,.8,0,0],
+  ['精鋼劍','劍',21,2.8,.72,30,0],
+  ['長槍','槍',23,4,.85,45,0],
+  ['戰斧','斧',34,2.8,1.15,60,0],
+  ['長弓','弓',20,19,1.1,65,0],
+  ['連弩','弩',17,17,.62,100,0],
+  ['劍盾','盾',19,2.6,.85,85,.25],
+  ['雙匕','匕',17,2,.42,110,0],
+  ['軍師羽扇','杖',29,17,1.05,130,0],
+  ['青龍偃月刀','刀',39,4,1,200,0],
+  ['方天畫戟','戟',44,4.5,1.05,240,0],
+  ['龍膽亮銀槍','槍',36,4.4,.7,220,0],
+  ['烈焰弓','弓',36,23,1,260,0],
+  ['破軍雙劍','劍',29,3,.5,190,0],
+  ['玄鐵重斧','斧',62,3.1,1.4,280,0],
+  ['七星法杖','杖',48,21,1.1,300,0]
 ];
 
-// 名稱、增加生命、減傷、移速倍率、整組價格、傷害倍率。
-const ARMOR=[
-  ["布衣",0,0,1,0,1],
-  ["皮甲",25,.08,1,25,1],
-  ["鎖子甲",65,.18,.96,80,1],
-  ["玄鐵甲",130,.3,.86,160,1],
-  ["兵符護衣",45,.1,1,130,1.2]
+// 名稱、加生命、減傷、速度倍率、整組價格、傷害倍率。
+const ARMOR = [
+  ['布衣',0,0,1,0,1],
+  ['皮甲',25,.08,1,25,1],
+  ['鎖子甲',65,.18,.96,80,1],
+  ['玄鐵甲',130,.3,.86,160,1],
+  ['兵符護衣',45,.1,1,130,1.2]
 ];
 
-const TACTICS=["火攻","八卦陣","空城計","鼓舞","伏兵"];
+const TACTICS = ['火攻','八卦陣','空城計','鼓舞','伏兵'];
 
-const NAMES=[
-  ["蜀","趙雲 關羽 張飛 劉備 諸葛亮 黃忠 馬超 姜維 魏延 龐統 徐庶 黃月英 關平 關興 張苞 馬岱"],
-  ["魏","曹操 夏侯惇 夏侯淵 張遼 許褚 典韋 司馬懿 郭嘉 荀彧 甄姬 曹仁 徐晃 張郃 樂進 于禁 鄧艾"],
-  ["吳","孫權 孫策 孫堅 孫尚香 周瑜 陸遜 甘寧 太史慈 大喬 小喬 呂蒙 魯肅 黃蓋 周泰 凌統"],
-  ["群","呂布 貂蟬 董卓 袁紹 袁術 張角 孟獲 祝融 燎原火 陳宮"]
+const NAMES = [
+  ['蜀','趙雲 關羽 張飛 劉備 諸葛亮 黃忠 馬超 姜維 魏延 龐統 徐庶 黃月英 關平 關興 張苞 馬岱'],
+  ['魏','曹操 夏侯惇 夏侯淵 張遼 許褚 典韋 司馬懿 郭嘉 荀彧 甄姬 曹仁 徐晃 張郃 樂進 于禁 鄧艾'],
+  ['吳','孫權 孫策 孫堅 孫尚香 周瑜 陸遜 甘寧 太史慈 大喬 小喬 呂蒙 魯肅 黃蓋 周泰 凌統'],
+  ['群','呂布 貂蟬 董卓 袁紹 袁術 張角 孟獲 祝融 燎原火 陳宮']
 ];
 
-const thinkers=
-  "諸葛亮 龐統 徐庶 黃月英 司馬懿 郭嘉 荀彧 周瑜 陸遜 呂蒙 魯肅 陳宮 張角 大喬 小喬 甄姬"
-  .split(" ");
+const thinkers =
+  '諸葛亮 龐統 徐庶 黃月英 司馬懿 郭嘉 荀彧 周瑜 陸遜 呂蒙 魯肅 陳宮 張角 大喬 小喬 甄姬'
+  .split(' ');
 
-const lords=
-  "劉備 曹操 孫權 孫策 孫堅 董卓 袁紹 袁術 孟獲"
-  .split(" ");
+const lords =
+  '劉備 曹操 孫權 孫策 孫堅 董卓 袁紹 袁術 孟獲'.split(' ');
 
-const HEROES=NAMES.flatMap(([f,names])=>
-  names.split(" ").map(name=>{
-    const role=thinkers.includes(name)
-      ? "智將"
-      : lords.includes(name)
-        ? "君主"
-        : ["貂蟬","燎原火"].includes(name)
-          ? "刺客"
-          : "武將";
+const HEROES = NAMES.flatMap(([f,names]) =>
+  names.split(' ').map(name => {
+    let role = thinkers.includes(name) ? '智將'
+      : lords.includes(name) ? '君主'
+      : ['貂蟬','燎原火'].includes(name) ? '刺客'
+      : '武將';
 
-    let hp={
-      智將:650,
-      君主:850,
-      刺客:700,
-      武將:800
-    }[role];
-
-    if(name==="呂布")hp=1000;
+    let hp = {智將:650,君主:850,刺客:700,武將:800}[role];
+    if(name === '呂布') hp = 1000;
 
     return {
-      name,
-      f,
-      role,
-      hp,
-      power:role==="武將"
-        ? 2.1
-        : role==="刺客" ? 1.9 : 1.7,
-      color:{
-        蜀:"#63a689",
-        魏:"#819acc",
-        吳:"#cf8468",
-        群:"#b18eb8"
-      }[f],
-      price:name==="趙雲"
-        ? 0
-        : name==="呂布"
-          ? 400
-          : role==="智將" ? 150 : 200
+      name,f,role,hp,
+      power:role === '武將' ? 2.1 : role === '刺客' ? 1.9 : 1.7,
+      color:{蜀:'#63a689',魏:'#819acc',吳:'#cf8468',群:'#b18eb8'}[f],
+      price:name === '趙雲' ? 0
+        : name === '呂布' ? 400
+        : role === '智將' ? 150 : 200
     };
   })
 );
 
-const GENERIC={
-  name:"部將",
-  role:"武將",
-  hp:650,
-  power:1.7,
-  color:"#85aaa5"
+const GENERIC = {
+  name:'部將',role:'武將',hp:650,power:1.7,color:'#85aaa5'
 };
 
-// ============================================================
-// 存檔
-// ============================================================
-
-const STORE="tk-legion-v3";
+// 保留舊版儲存位置，自動將 v3 資料升級成 v4。
+const STORE = 'tk-legion-v3';
 
 function fresh(){
   return {
-    v:3,
+    v:4,
+    heroLevel:1,
+    soldierLevel:1,
+    armorLoot:Array(ARMOR.length).fill(0),
     merit:10000,
     coins:0,
     wins:0,
@@ -672,68 +613,66 @@ function fresh(){
   };
 }
 
-let P=fresh();
-let storageOK=true;
+let P = fresh();
+let storageOK = true;
 
 function integer(v,min,max){
-  return Number.isInteger(v)&&v>=min&&v<=max;
+  return Number.isInteger(v) && v >= min && v <= max;
 }
 
 function validate(o){
-  if(
-    !o||
-    !integer(o.merit,0,10000000)||
-    !integer(o.wins,0,10000000)
-  ){
-    throw Error("功績或戰績不正確");
+  if(!o ||
+     !integer(o.merit,0,10000000) ||
+     !integer(o.wins,0,10000000)){
+    throw Error('功績或戰績不正確');
   }
 
-  // 舊版只保留功績與勝場，新系統從鐵劍、0 元開始。
-  if(o.v!==3){
-    if(o.v!==undefined){
-      throw Error("不支援此存檔版本");
-    }
-
-    const p=fresh();
-    p.merit=o.merit;
-    p.wins=o.wins;
+  if(o.v !== 3 && o.v !== 4){
+    if(o.v !== undefined) throw Error('不支援此存檔版本');
+    let p = fresh();
+    p.merit = o.merit;
+    p.wins = o.wins;
     return p;
   }
 
-  if(
-    !integer(o.coins,0,1000000000)||
-    !Array.isArray(o.owned)||
-    !o.owned.includes(0)||
-    o.owned.some(i=>!integer(i,0,HEROES.length-1))||
-    !Array.isArray(o.groups)||
-    o.groups.length>5000||
-    !Array.isArray(o.loot)||
-    o.loot.length!==WEAPONS.length||
-    o.loot.some(n=>!integer(n,0,1000000000))
-  ){
-    throw Error("軍團存檔不正確");
+  if(!integer(o.coins,0,1000000000) ||
+     !Array.isArray(o.owned) ||
+     !o.owned.includes(0) ||
+     o.owned.some(i => !integer(i,0,HEROES.length-1)) ||
+     !Array.isArray(o.groups) ||
+     o.groups.length > 5000 ||
+     !Array.isArray(o.loot) ||
+     o.loot.length !== WEAPONS.length ||
+     o.loot.some(n => !integer(n,0,1000000000))){
+    throw Error('軍團存檔不正確');
   }
 
-  const groups=o.groups.map(g=>{
-    if(
-      !g||
-      !integer(g.hero,-1,HEROES.length-1)||
-      !integer(g.weapon,0,WEAPONS.length-1)||
-      !integer(g.armor,0,ARMOR.length-1)||
-      (g.hero>=0&&!o.owned.includes(g.hero))
-    ){
-      throw Error("配裝資料不正確");
+  const groups = o.groups.map(g => {
+    if(!g ||
+       !integer(g.hero,-1,HEROES.length-1) ||
+       !integer(g.weapon,0,WEAPONS.length-1) ||
+       !integer(g.armor,0,ARMOR.length-1) ||
+       (g.hero >= 0 && !o.owned.includes(g.hero))){
+      throw Error('配裝資料不正確');
     }
-
-    return {
-      hero:g.hero,
-      weapon:g.weapon,
-      armor:g.armor
-    };
+    return {hero:g.hero,weapon:g.weapon,armor:g.armor};
   });
 
+  if(o.v === 4 &&
+     (!integer(o.heroLevel,1,50) ||
+      !integer(o.soldierLevel,1,50) ||
+      !Array.isArray(o.armorLoot) ||
+      o.armorLoot.length !== ARMOR.length ||
+      o.armorLoot.some(n => !integer(n,0,1000000000)))){
+    throw Error('升級或防具資料不正確');
+  }
+
   return {
-    v:3,
+    v:4,
+    heroLevel:o.v === 4 ? o.heroLevel : 1,
+    soldierLevel:o.v === 4 ? o.soldierLevel : 1,
+    armorLoot:o.v === 4
+      ? [...o.armorLoot] : Array(ARMOR.length).fill(0),
     merit:o.merit,
     wins:o.wins,
     coins:o.coins,
@@ -744,56 +683,46 @@ function validate(o){
 }
 
 try{
-  const raw=localStorage.getItem(STORE);
-
+  let raw = localStorage.getItem(STORE);
   if(raw){
-    P=validate(JSON.parse(raw));
+    P = validate(JSON.parse(raw));
   }else{
-    const old=localStorage.getItem("tk-fire-v1");
-    if(old)P=validate(JSON.parse(old));
+    let old = localStorage.getItem('tk-fire-v1');
+    if(old) P = validate(JSON.parse(old));
   }
 }catch{
-  storageOK=false;
+  storageOK = false;
 }
 
 function save(){
   try{
     localStorage.setItem(STORE,JSON.stringify(P));
-    storageOK=true;
+    storageOK = true;
   }catch{
-    storageOK=false;
+    storageOK = false;
   }
-
-  $("saveHint").textContent=storageOK
-    ? "已自動儲存；可匯出備份。"
-    : "無法自動存檔，請匯出備份。";
+  $('saveHint').textContent = storageOK
+    ? '已自動儲存；可匯出備份。'
+    : '無法自動存檔，請匯出備份。';
 }
 
 function note(s){
-  $("notice").textContent=s;
+  $('notice').textContent = s;
 }
 
-// ============================================================
-// 分組、招募、商店
-// ============================================================
-
+// 每組 50 人，餘數併入最後一組。
 function sizes(n){
-  if(n<=0)return [];
-  if(n<20)return [n];
-
-  const a=Array(Math.floor(n/20)).fill(20);
-  a[a.length-1]+=n%20;
-
+  if(n <= 0) return [];
+  if(n < 50) return [n];
+  let a = Array(Math.floor(n/50)).fill(50);
+  a[a.length-1] += n%50;
   return a;
 }
 
 function normalize(){
-  const count=Math.max(
-    1,
-    sizes(Math.floor(P.merit/100)).length
-  );
+  let count = Math.max(1,sizes(Math.floor(P.merit/100)).length);
 
-  while(P.groups.length<count){
+  while(P.groups.length < count){
     P.groups.push({
       hero:P.groups.length ? -1 : 0,
       weapon:0,
@@ -801,354 +730,385 @@ function normalize(){
     });
   }
 
-  P.groups.length=count;
+  P.groups.length = count;
+  let seen = new Set();
 
-  const seen=new Set();
-
-  P.groups.forEach(g=>{
-    if(g.hero<0||seen.has(g.hero)){
-      g.hero=-1;
-    }else{
-      seen.add(g.hero);
-    }
+  P.groups.forEach(g => {
+    if(g.hero < 0 || seen.has(g.hero)) g.hero = -1;
+    else seen.add(g.hero);
   });
 
-  if(P.groups[0].hero<0){
-    P.groups.forEach(g=>{
-      if(g.hero===0)g.hero=-1;
+  if(P.groups[0].hero < 0){
+    P.groups.forEach(g => {
+      if(g.hero === 0) g.hero = -1;
     });
-    P.groups[0].hero=0;
+    P.groups[0].hero = 0;
   }
 }
 
 function option(s,text,value){
-  const o=document.createElement("option");
-  o.textContent=text;
-  o.value=value;
+  let o = document.createElement('option');
+  o.textContent = text;
+  o.value = value;
   s.append(o);
 }
 
 function assignHero(group,id){
-  if(!P.owned.includes(id)&&id!==-1)return;
-  if(group===0&&id===-1)return;
+  if(!P.owned.includes(id) && id !== -1) return;
+  if(group === 0 && id === -1) return;
 
-  if(
-    id>=0&&
-    P.groups.some((g,i)=>i!==group&&g.hero===id)
-  ){
-    note("這位武將已指派到另一組，請先解除原指派。");
+  if(id >= 0 && P.groups.some((g,i) => i !== group && g.hero === id)){
+    note('這位武將已指派到另一組，請先解除原指派。');
     renderCamp();
     return;
   }
 
-  P.groups[group].hero=id;
+  P.groups[group].hero = id;
   save();
   renderCamp();
 }
 
 function recruit(id){
-  if(P.owned.includes(id))return;
+  if(P.owned.includes(id)) return;
 
-  const h=HEROES[id];
-
-  if(P.coins<h.price){
-    note("金錢不足。");
+  let h = HEROES[id];
+  if(P.coins < h.price){
+    note('金錢不足。');
     return;
   }
 
-  P.coins-=h.price;
+  P.coins -= h.price;
   P.owned.push(id);
-
   save();
   renderCamp();
-
-  note("已招募 "+h.name+"，請在軍團表指派。");
+  note('已招募 '+h.name+'，請在軍團表指派。');
 }
 
 function renderCamp(){
   normalize();
 
-  const troop=sizes(Math.floor(P.merit/100));
+  let troop = sizes(Math.floor(P.merit/100));
 
-  $("money").textContent="金錢 "+P.coins+" 元";
-  $("career").textContent=
-    "功績 "+P.merit+" · 勝場 "+P.wins;
+  $('money').textContent = '金錢 '+P.coins+' 元';
+  $('career').textContent = '功績 '+P.merit+' · 勝場 '+P.wins;
+  $('armyInfo').textContent =
+    '出征 '+Math.floor(P.merit/100)+' 兵／'+troop.length+' 組';
+  $('heroCount').textContent = HEROES.length+' 位';
 
-  $("armyInfo").textContent=
-    "出征 "+Math.floor(P.merit/100)+
-    " 兵／"+troop.length+" 組";
+  $('groups').replaceChildren();
+  let chosen = $('shopGroup').value;
+  $('shopGroup').replaceChildren();
 
-  $("heroCount").textContent=HEROES.length+" 位";
-  $("groups").replaceChildren();
+  P.groups.forEach((g,i) => {
+    let tr = document.createElement('tr');
+    let a = document.createElement('td');
+    let b = document.createElement('td');
+    let c = document.createElement('td');
+    let sel = document.createElement('select');
 
-  const chosen=$("shopGroup").value;
-  $("shopGroup").replaceChildren();
+    a.textContent =
+      (i+1)+' 組 · '+(troop[i]||0)+' 兵'+(i === 0 ? '／你' : '');
 
-  P.groups.forEach((g,i)=>{
-    const tr=document.createElement("tr");
-    const a=document.createElement("td");
-    const b=document.createElement("td");
-    const c=document.createElement("td");
-    const sel=document.createElement("select");
+    if(i > 0) option(sel,'部將（免費）',-1);
+    P.owned.forEach(id => option(sel,HEROES[id].name,id));
 
-    a.textContent=
-      (i+1)+" 組 · "+(troop[i]||0)+" 兵"+
-      (i===0 ? "／你" : "");
-
-    if(i>0){
-      option(sel,"部將（免費）",-1);
-    }
-
-    P.owned.forEach(id=>{
-      option(sel,HEROES[id].name,id);
-    });
-
-    sel.value=g.hero;
-    sel.onchange=()=>assignHero(i,+sel.value);
-
+    sel.value = g.hero;
+    sel.onchange = () => assignHero(i,+sel.value);
     b.append(sel);
-
-    c.textContent=
-      WEAPONS[g.weapon][0]+"／"+ARMOR[g.armor][0];
+    c.textContent = WEAPONS[g.weapon][0]+'／'+ARMOR[g.armor][0];
 
     tr.append(a,b,c);
-    $("groups").append(tr);
+    $('groups').append(tr);
 
     option(
-      $("shopGroup"),
-      "第 "+(i+1)+" 組 · "+(troop[i]||0)+" 兵",
+      $('shopGroup'),
+      '第 '+(i+1)+' 組 · '+(troop[i]||0)+' 兵',
       i
     );
   });
 
-  $("shopGroup").value=
-    +chosen<P.groups.length ? chosen||0 : 0;
+  $('shopGroup').value =
+    +chosen < P.groups.length ? chosen || 0 : 0;
 
-  $("heroes").replaceChildren();
+  $('heroes').replaceChildren();
 
-  HEROES.forEach((h,i)=>{
-    if(
-      $("faction").value!=="全部"&&
-      h.f!==$("faction").value
-    )return;
+  HEROES.forEach((h,i) => {
+    if($('faction').value !== '全部' &&
+       h.f !== $('faction').value) return;
 
-    const card=document.createElement("div");
-    const b=document.createElement("b");
-    const t=document.createElement("small");
-    const buy=document.createElement("button");
+    let card = document.createElement('div');
+    let b = document.createElement('b');
+    let t = document.createElement('small');
+    let buy = document.createElement('button');
 
-    card.className="card";
-    b.textContent=h.name;
-
-    t.textContent=
-      h.f+" · "+h.role+
-      " · HP "+h.hp+
-      " · 武器傷害 ×"+h.power;
-
-    buy.textContent=P.owned.includes(i)
-      ? "已招募"
-      : h.price+" 元招募";
-
-    buy.disabled=P.owned.includes(i);
-    buy.onclick=()=>recruit(i);
+    card.className = 'card';
+    b.textContent = h.name;
+    t.textContent =
+      h.f+' · '+h.role+' · 基礎 HP '+h.hp+' · 武器傷害 ×'+h.power;
+    buy.textContent = P.owned.includes(i)
+      ? '已招募' : h.price+' 元招募';
+    buy.disabled = P.owned.includes(i);
+    buy.onclick = () => recruit(i);
 
     card.append(b,t,buy);
-    $("heroes").append(card);
+    $('heroes').append(card);
   });
 
-  $("inventory").textContent=
-    P.loot
-      .map((n,i)=>n ? WEAPONS[i][0]+" ×"+n : "")
-      .filter(Boolean)
-      .join("　")||
-    "尚未繳獲武器。擊殺敵人後自動入庫。";
+  $('inventory').textContent = P.loot
+    .map((n,i) => n ? WEAPONS[i][0]+' ×'+n : '')
+    .filter(Boolean)
+    .concat(
+      P.armorLoot
+        .map((n,i) => n ? ARMOR[i][0]+' ×'+n : '')
+        .filter(Boolean)
+    )
+    .join('　') || '尚未繳獲裝備。擊殺敵人後自動入庫。';
 
   shopInfo();
+  economyInfo();
 }
 
 function shopInfo(){
-  const w=WEAPONS[+$("shopWeapon").value];
-  const a=ARMOR[+$("shopArmor").value];
-  const i=+$("shopGroup").value;
-  const n=sizes(Math.floor(P.merit/100))[i]||0;
+  let w = WEAPONS[+$('shopWeapon').value];
+  let a = ARMOR[+$('shopArmor').value];
+  let i = +$('shopGroup').value;
+  let n = sizes(Math.floor(P.merit/100))[i] || 0;
 
-  $("shopInfo").textContent=
-    w[0]+"：傷害 "+w[2]+
-    "／距離 "+w[3]+
-    "／間隔 "+w[4]+" 秒"+
-    "／整組 "+w[5]+" 元。"+
-    a[0]+"：生命 +"+a[1]+
-    "／減傷 "+Math.round(a[2]*100)+"%"+
-    "／整組 "+a[4]+" 元。"+
-    "繳獲換裝需要 "+Math.max(1,n)+" 件同種武器。";
+  $('shopInfo').textContent =
+    w[0]+'：傷害 '+w[2]+'／距離 '+w[3]+
+    '／間隔 '+w[4]+' 秒／整組 '+w[5]+' 元。'+
+    a[0]+'：生命 +'+a[1]+'／減傷 '+Math.round(a[2]*100)+
+    '%／整組 '+a[4]+' 元。繳獲換裝需要 '+Math.max(1,n)+
+    ' 件同種武器。出售兩件：武器 '+
+    pairPrice('weapon',+$('shopWeapon').value)+' 元／防具 '+
+    pairPrice('armor',+$('shopArmor').value)+' 元。';
 }
 
 function equip(kind,loot=false){
-  if(G)return;
+  if(G) return;
 
-  const i=+$("shopGroup").value;
-  const g=P.groups[i];
+  let i = +$('shopGroup').value;
+  let g = P.groups[i];
+  let id = +(kind === 'weapon'
+    ? $('shopWeapon').value : $('shopArmor').value);
 
-  const id=+(
-    kind==="weapon"
-      ? $("shopWeapon").value
-      : $("shopArmor").value
-  );
+  if(!g) return;
 
-  if(!g)return;
-
-  if(g[kind]===id){
-    note("本組已使用這項裝備。");
+  if(g[kind] === id){
+    note('本組已使用這項裝備。');
     return;
   }
 
-  const cost=kind==="weapon"
-    ? WEAPONS[id][5]
-    : ARMOR[id][4];
+  let cost = kind === 'weapon' ? WEAPONS[id][5] : ARMOR[id][4];
 
   if(loot){
-    const need=Math.max(
-      1,
-      sizes(Math.floor(P.merit/100))[i]||0
-    );
+    let need = Math.max(1,sizes(Math.floor(P.merit/100))[i]||0);
 
-    if(P.loot[id]<need){
-      note("繳獲數量不足，需要 "+need+" 件。");
+    if(P.loot[id] < need){
+      note('繳獲數量不足，需要 '+need+' 件。');
       return;
     }
 
-    P.loot[id]-=need;
+    P.loot[id] -= need;
   }else{
-    if(P.coins<cost){
-      note("金錢不足，需要 "+cost+" 元。");
+    if(P.coins < cost){
+      note('金錢不足，需要 '+cost+' 元。');
       return;
     }
-
-    P.coins-=cost;
+    P.coins -= cost;
   }
 
-  g[kind]=id;
+  g[kind] = id;
+  save();
+  renderCamp();
+  note('第 '+(i+1)+' 組已換裝。');
+}
+
+function levelFactor(level){
+  return 1+(level-1)*.1;
+}
+
+function upgradeCost(kind){
+  return (kind === 'hero' ? 100 : 50)*P[kind+'Level'];
+}
+
+function economyInfo(){
+  $('levelInfo').textContent =
+    '武將 Lv.'+P.heroLevel+'／士兵 Lv.'+P.soldierLevel+
+    '（生命、傷害 ×'+levelFactor(P.heroLevel).toFixed(1)+
+    '／×'+levelFactor(P.soldierLevel).toFixed(1)+'）';
+
+  for(const kind of ['hero','soldier']){
+    let b = $(kind === 'hero' ? 'upHero' : 'upSoldier');
+
+    b.textContent =
+      (kind === 'hero' ? '全體武將' : '全體士兵')+
+      (P[kind+'Level'] >= 50
+        ? '已滿級' : '升級 '+upgradeCost(kind)+' 元');
+
+    b.disabled = P[kind+'Level'] >= 50;
+  }
+
+  let n = Number($('exchangeAmount').value);
+  let ok = integer(n,1,1000000) && n*10 <= P.merit;
+
+  $('exchangeInfo').textContent = ok
+    ? '扣除 '+n*10+' 功績，獲得 '+n+
+      ' 元；下次可帶 '+Math.floor((P.merit-n*10)/100)+' 兵。'
+    : '請輸入可兌換的正整數；目前最多 '+
+      Math.floor(P.merit/10)+' 元。';
+}
+
+function upgrade(kind){
+  if(G || !['hero','soldier'].includes(kind)) return;
+
+  let key = kind+'Level';
+  let cost = upgradeCost(kind);
+
+  if(P[key] >= 50) return;
+  if(P.coins < cost){
+    note('金錢不足，升級需要 '+cost+' 元。');
+    return;
+  }
+
+  P.coins -= cost;
+  P[key]++;
+  save();
+  renderCamp();
+  note('升級完成，不會復活戰死單位。');
+}
+
+function exchange(){
+  if(G) return;
+
+  let n = Number($('exchangeAmount').value);
+
+  if(!integer(n,1,1000000) || n*10 > P.merit){
+    note('兌換金額不正確或功績不足。');
+    return;
+  }
+
+  P.merit -= n*10;
+  P.coins += n;
+  normalize();
+  save();
+  renderCamp();
+  note('已兌換 '+n+' 元，出征編制已按剩餘功績調整。');
+}
+
+// 每次只能賣兩件同款庫存；免費基本裝備仍至少值 1 元。
+function pairPrice(kind,id){
+  return Math.max(
+    1,
+    Math.floor(
+      (kind === 'weapon' ? WEAPONS[id][5] : ARMOR[id][4])/50
+    )
+  );
+}
+
+function sellPair(kind){
+  if(G) return;
+
+  let id = +(kind === 'weapon'
+    ? $('shopWeapon').value : $('shopArmor').value);
+  let stock = kind === 'weapon' ? P.loot : P.armorLoot;
+
+  if(stock[id] < 2){
+    note('必須有同款 2 件庫存才能出售。');
+    return;
+  }
+
+  let value = pairPrice(kind,id);
+  stock[id] -= 2;
+  P.coins += value;
 
   save();
   renderCamp();
-
-  note("第 "+(i+1)+" 組已換裝。");
+  note('已出售 2 件，獲得 '+value+' 元。');
 }
 
-WEAPONS.forEach((w,i)=>{
-  option(
-    $("shopWeapon"),
-    w[0]+" · "+w[5]+" 元／組",
-    i
+$('upHero').onclick = () => upgrade('hero');
+$('upSoldier').onclick = () => upgrade('soldier');
+$('exchange').onclick = exchange;
+$('exchangeAmount').oninput = economyInfo;
+$('sellWeapon').onclick = () => sellPair('weapon');
+$('sellArmor').onclick = () => sellPair('armor');
+
+WEAPONS.forEach((w,i) =>
+  option($('shopWeapon'),w[0]+' · '+w[5]+' 元／組',i));
+ARMOR.forEach((a,i) =>
+  option($('shopArmor'),a[0]+' · '+a[4]+' 元／組',i));
+TACTICS.forEach((t,i) => option($('tactic'),t,i));
+
+$('shopWeapon').onchange =
+$('shopArmor').onchange =
+$('shopGroup').onchange = shopInfo;
+
+$('faction').onchange = renderCamp;
+$('buyWeapon').onclick = () => equip('weapon');
+$('useLoot').onclick = () => equip('weapon',true);
+$('buyArmor').onclick = () => equip('armor');
+
+$('export').onclick = () => {
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(
+    new Blob([JSON.stringify(P,null,2)],{type:'application/json'})
   );
-});
-
-ARMOR.forEach((a,i)=>{
-  option(
-    $("shopArmor"),
-    a[0]+" · "+a[4]+" 元／組",
-    i
-  );
-});
-
-TACTICS.forEach((t,i)=>{
-  option($("tactic"),t,i);
-});
-
-$("shopWeapon").onchange=shopInfo;
-$("shopArmor").onchange=shopInfo;
-$("shopGroup").onchange=shopInfo;
-$("faction").onchange=renderCamp;
-
-$("buyWeapon").onclick=()=>equip("weapon");
-$("useLoot").onclick=()=>equip("weapon",true);
-$("buyArmor").onclick=()=>equip("armor");
-
-$("export").onclick=()=>{
-  const a=document.createElement("a");
-
-  a.href=URL.createObjectURL(
-    new Blob(
-      [JSON.stringify(P,null,2)],
-      {type:"application/json"}
-    )
-  );
-
-  a.download="三國軍團存檔.json";
+  a.download = '三國軍團存檔.json';
   a.click();
-
-  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  setTimeout(() => URL.revokeObjectURL(a.href),1000);
 };
 
-$("import").onclick=()=>$("saveFile").click();
+$('import').onclick = () => $('saveFile').click();
 
-$("saveFile").onchange=async e=>{
+$('saveFile').onchange = async e => {
   try{
-    const f=e.target.files[0];
-    if(!f)return;
-    if(f.size>1000000)throw Error("檔案過大");
+    let f = e.target.files[0];
+    if(!f) return;
+    if(f.size > 1000000) throw Error('檔案過大');
 
-    const n=validate(JSON.parse(await f.text()));
+    let n = validate(JSON.parse(await f.text()));
 
-    if(!confirm("以此存檔取代目前進度？"))return;
+    if(!confirm('以此存檔取代目前進度？')) return;
 
-    P=n;
+    P = n;
     normalize();
     save();
     renderCamp();
   }catch(e){
-    note("匯入失敗："+e.message);
+    note('匯入失敗：'+e.message);
   }finally{
-    e.target.value="";
+    e.target.value = '';
   }
 };
 
-// ============================================================
-// 畫布、音效、三维投影
-// ============================================================
-
-const canvas=$("world");
-const ctx=canvas.getContext("2d");
-const pc=$("portrait");
-const px=pc.getContext("2d");
+const canvas = $('world');
+const ctx = canvas.getContext('2d');
+const pc = $('portrait');
+const px = pc.getContext('2d');
 
 let W=0,H=0;
 let cam={x:0,z:0};
-let faces=[];
-let labels=[];
-let time=0;
-let G=null;
-let paused=false;
+let faces=[],labels=[];
+let time=0,G=null,paused=false;
 let keys={};
 let touches=new Map();
 let joy={x:0,z:0,id:null};
-let silent=false;
-let audioCtx=null;
+let silent=false,audioCtx=null;
 
 function tone(f,d=.08){
-  if(silent)return;
-
+  if(silent) return;
   try{
-    audioCtx??=new (
-      window.AudioContext||window.webkitAudioContext
-    )();
+    audioCtx ??= new(window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
 
-    if(audioCtx.state==="suspended"){
-      audioCtx.resume();
-    }
+    let o = audioCtx.createOscillator();
+    let g = audioCtx.createGain();
 
-    const o=audioCtx.createOscillator();
-    const g=audioCtx.createGain();
-
-    o.type="triangle";
+    o.type = 'triangle';
     o.frequency.setValueAtTime(f,audioCtx.currentTime);
-
     g.gain.setValueAtTime(.025,audioCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(
-      .001,
-      audioCtx.currentTime+d
-    );
-
+    g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);
     o.connect(g).connect(audioCtx.destination);
     o.start();
     o.stop(audioCtx.currentTime+d);
@@ -1158,26 +1118,22 @@ function tone(f,d=.08){
 function resize(){
   W=innerWidth;
   H=innerHeight;
-
-  const d=Math.min(devicePixelRatio||1,1.5);
-
+  let d=Math.min(devicePixelRatio||1,1.5);
   canvas.width=W*d;
   canvas.height=H*d;
   ctx.setTransform(d,0,0,d,0,0);
-
   pc.width=600;
   pc.height=260;
 }
-
-window.addEventListener("resize",resize);
+window.addEventListener('resize',resize);
 resize();
 
+// 以 Canvas 繪製 3D 頂點投影，不依賴外部模型或圖片。
 function project(x,y,z){
-  const dz=z-cam.z;
-  const dx=x-cam.x;
-  const depth=38+dz*.8-y*.6;
-  const f=Math.min(700,Math.max(390,H*1.05));
-
+  let dz=z-cam.z;
+  let dx=x-cam.x;
+  let depth=38+dz*.8-y*.6;
+  let f=Math.min(700,Math.max(390,H*1.05));
   return {
     x:W/2+dx*f/depth,
     y:H*.58+(-dz*.6-y*.8)*f/depth,
@@ -1186,108 +1142,71 @@ function project(x,y,z){
 }
 
 function face(verts,color){
-  const p=verts.map(v=>project(...v));
-  if(p.some(v=>v.d<3))return;
-
-  faces.push({
-    p,
-    c:color,
-    d:p.reduce((s,v)=>s+v.d,0)/p.length
-  });
+  let p=verts.map(v=>project(...v));
+  if(p.some(v=>v.d<3)) return;
+  faces.push({p,c:color,d:p.reduce((s,v)=>s+v.d,0)/p.length});
 }
 
 function shade(hex,k){
-  const n=parseInt(hex.slice(1),16);
-
-  return "#"+[n>>16,(n>>8)&255,n&255]
-    .map(c=>
-      clamp(Math.floor(c*k),0,255)
-        .toString(16)
-        .padStart(2,"0")
-    )
-    .join("");
+  let n=parseInt(hex.slice(1),16);
+  return '#'+[n>>16,(n>>8)&255,n&255]
+    .map(c=>clamp(Math.floor(c*k),0,255).toString(16).padStart(2,'0'))
+    .join('');
 }
 
 function box(x,y,z,w,h,d,c,rot=0){
-  const cs=Math.cos(rot);
-  const sn=Math.sin(rot);
-  const v=[];
+  let cs=Math.cos(rot),sn=Math.sin(rot),v=[];
 
-  for(const yy of [0,h]){
-    for(const zz of [-d/2,d/2]){
-      for(const xx of [-w/2,w/2]){
+  for(let yy of [0,h])
+    for(let zz of [-d/2,d/2])
+      for(let xx of [-w/2,w/2])
         v.push([
           x+xx*cs+zz*sn,
           y+yy,
           z+zz*cs-xx*sn
         ]);
-      }
-    }
-  }
 
   [
-    [0,1,3,2],
-    [4,6,7,5],
-    [0,4,5,1],
-    [2,3,7,6],
-    [0,2,6,4],
-    [1,5,7,3]
-  ].forEach((a,i)=>{
-    face(
-      a.map(j=>v[j]),
-      shade(c,[.55,1.15,.83,1,.7,.95][i])
-    );
-  });
+    [0,1,3,2],[4,6,7,5],[0,4,5,1],
+    [2,3,7,6],[0,2,6,4],[1,5,7,3]
+  ].forEach((a,i)=>
+    face(a.map(j=>v[j]),shade(c,[.55,1.15,.83,1,.7,.95][i]))
+  );
 }
 
 function limb(a,b,width,c){
-  const dx=b[0]-a[0];
-  const dy=b[1]-a[1];
-  const dz=b[2]-a[2];
-  const len=Math.hypot(dx,dy,dz)||1;
-
-  let ux=dz,uz=-dx;
-  let ul=Math.hypot(ux,uz)||1;
+  let dx=b[0]-a[0],dy=b[1]-a[1],dz=b[2]-a[2];
+  let len=Math.hypot(dx,dy,dz)||1;
+  let ux=dz,uz=-dx,ul=Math.hypot(ux,uz)||1;
 
   if(Math.hypot(dx,dz)<.01){
-    ux=1;
-    uz=0;
-    ul=1;
+    ux=1;uz=0;ul=1;
   }
 
   ux=ux/ul*width;
   uz=uz/ul*width;
 
-  const vx=dy*uz/len;
-  const vy=(dz*ux-dx*uz)/len;
-  const vz=-dy*ux/len;
-  const vs=[];
+  let vx=dy*uz/len;
+  let vy=(dz*ux-dx*uz)/len;
+  let vz=-dy*ux/len;
+  let vs=[];
 
-  for(const p of [a,b]){
-    for(const [s,t] of [[-1,-1],[1,-1],[1,1],[-1,1]]){
+  for(let p of[a,b])
+    for(let [s,t] of[[-1,-1],[1,-1],[1,1],[-1,1]])
       vs.push([
         p[0]+s*ux+t*vx,
         p[1]+t*vy,
         p[2]+s*uz+t*vz
       ]);
-    }
-  }
 
   [
-    [0,1,2,3],
-    [4,7,6,5],
-    [0,4,5,1],
-    [1,5,6,2],
-    [2,6,7,3],
-    [3,7,4,0]
-  ].forEach((a,i)=>{
-    face(a.map(j=>vs[j]),shade(c,.7+i*.065));
-  });
+    [0,1,2,3],[4,7,6,5],[0,4,5,1],
+    [1,5,6,2],[2,6,7,3],[3,7,4,0]
+  ].forEach((a,i)=>face(a.map(j=>vs[j]),shade(c,.7+i*.065)));
 }
 
 function ring(x,z,r,c,y=.08){
-  const ps=[];
-
+  let ps=[];
   for(let i=0;i<=32;i++){
     ps.push(project(
       x+Math.cos(i/32*TAU)*r,
@@ -1299,34 +1218,19 @@ function ring(x,z,r,c,y=.08){
   ctx.strokeStyle=c;
   ctx.lineWidth=2;
   ctx.beginPath();
-
-  ps.forEach((p,i)=>{
-    if(i)ctx.lineTo(p.x,p.y);
-    else ctx.moveTo(p.x,p.y);
-  });
-
+  ps.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
   ctx.stroke();
 }
 
-// ============================================================
-// 人物、武器與坐騎模型
-// ============================================================
-
 function model(u){
-  const x=u.x,z=u.z;
-  let y=u.y||0;
+  let x=u.x,z=u.z,y=u.y||0;
+  let s=u.big?1.5:u.player?1.3:1;
+  let rot=u.dir||0;
+  let c=u.color||'#7798a1';
 
-  const s=u.big?1.5:u.player?1.3:1;
-  const rot=u.dir||0;
-  const c=u.color||"#7798a1";
-
-  const walk=u.moving
-    ? Math.sin(time*11+u.seed)*.3
-    : 0;
-
-  const atk=u.swing>0
-    ? Math.sin(Math.PI*(1-u.swing/(u.swingMax||.3)))
-    : 0;
+  let walk=u.moving?Math.sin(time*11+u.seed)*.3:0;
+  let atk=u.swing>0
+    ?Math.sin(Math.PI*(1-u.swing/(u.swingMax||.3))):0;
 
   function pos(a,b,d){
     return [
@@ -1345,77 +1249,57 @@ function model(u){
   }
 
   if(u.mount){
-    const hc=["","#985438","#d9d0b3","#36434a"][u.mount];
-
+    let hc=['','#985438','#d9d0b3','#36434a'][u.mount];
     b(0,.75,0,.78,.65,1.65,hc);
     b(0,1.24,.67,.4,.64,.48,hc);
     b(0,1.64,.98,.4,.32,.6,hc);
 
-    for(const a of [-1,1]){
-      for(const q of [-1,1]){
-        l(
-          [a*.29,.85,q*.6],
-          [a*.29,.12,q*.6+walk*q],
-          .1,
-          hc
-        );
-      }
-    }
+    for(let a of [-1,1])
+      for(let q of [-1,1])
+        l([a*.29,.85,q*.6],[a*.29,.12,q*.6+walk*q],.1,hc);
 
-    l([0,1.1,-.8],[0,.65,-1.3],.1,"#303134");
+    l([0,1.1,-.8],[0,.65,-1.3],.1,'#303134');
     y+=.9;
   }
 
   b(0,.72,0,.73,.73,.4,c);
   b(0,.6,0,.87,.3,.53,shade(c,.75));
-  b(0,1.47,0,.45,.46,.4,"#dcb48c");
+  b(0,1.47,0,.45,.46,.4,'#dcb48c');
   b(0,1.85,-.04,.56,.18,.5,shade(c,.65));
-  b(0,2.03,-.06,.12,.24,.12,"#d7b569");
+  b(0,2.03,-.06,.12,.24,.12,'#d7b569');
 
-  l([-.22,.7,0],[-.25,.09,walk],.13,"#253b40");
-  l([.22,.7,0],[.25,.09,-walk],.13,"#253b40");
+  l([-.22,.7,0],[-.25,.09,walk],.13,'#253b40');
+  l([.22,.7,0],[.25,.09,-walk],.13,'#253b40');
 
   if(u.player||u.big){
-    b(-.16,1.66,.213,.07,.05,.035,"#1b2a2b");
-    b(.16,1.66,.213,.07,.05,.035,"#1b2a2b");
+    b(-.16,1.66,.213,.07,.05,.035,'#1b2a2b');
+    b(.16,1.66,.213,.07,.05,.035,'#1b2a2b');
     b(0,.97,-.3,.66,.52,.08,shade(c,.55));
-    b(0,.84,.225,.7,.08,.04,"#d0ac67");
-    b(-.45,1.22,0,.3,.25,.48,"#b9a574");
-    b(.45,1.22,0,.3,.25,.48,"#b9a574");
+    b(0,.84,.225,.7,.08,.04,'#d0ac67');
+    b(-.45,1.22,0,.3,.25,.48,'#b9a574');
+    b(.45,1.22,0,.3,.25,.48,'#b9a574');
 
-    if(["關羽","張飛","曹操","劉備"].includes(u.name)){
-      b(0,1.2,.25,.27,.4,.12,"#263337");
+    if(['關羽','張飛','曹操','劉備'].includes(u.name)){
+      b(0,1.2,.25,.27,.4,.12,'#263337');
     }
 
-    if(u.name==="呂布"){
-      for(const a of [-1,1]){
-        l(
-          [a*.2,2,0],
-          [a*.5,2.7,-.4],
-          .04,
-          "#e3b484"
-        );
-        l(
-          [a*.5,2.7,-.4],
-          [a*.85,2.5,-.9],
-          .04,
-          "#aa4d4d"
-        );
+    if(u.name==='呂布'){
+      for(let a of [-1,1]){
+        l([a*.2,2,0],[a*.5,2.7,-.4],.04,'#e3b484');
+        l([a*.5,2.7,-.4],[a*.85,2.5,-.9],.04,'#aa4d4d');
       }
     }
 
-    if(u.role==="智將"){
+    if(u.role==='智將'){
       b(0,1.98,0,.38,.38,.35,shade(c,.65));
     }
-
-    if(u.role==="刺客"){
+    if(u.role==='刺客'){
       b(0,1.5,.23,.44,.15,.07,shade(c,.4));
     }
   }
 
-  const type=u.weapon||"槍";
-  const thrust=["槍","戟","匕"].includes(type);
-
+  const type=u.weapon||'槍';
+  const thrust=['槍','戟','匕'].includes(type);
   const hand=[
     .64-atk*.38,
     1.12+atk*.3,
@@ -1425,150 +1309,111 @@ function model(u){
   l([-.45,1.3,0],[-.6,1.05,.25],.12,c);
   l([.45,1.3,0],hand,.12,c);
 
-  const metal="#d8e3dc";
-  const wood="#ad844c";
+  const metal='#d8e3dc';
+  const wood='#ad844c';
 
   function wp(a,b,d){
     return [hand[0]+a,hand[1]+b,hand[2]+d];
   }
 
-  if(type==="弓"){
+  if(type==='弓'){
     l(wp(0,-.55,0),wp(.16,0,.18),.04,wood);
     l(wp(.16,0,.18),wp(0,.55,0),.04,wood);
     l(wp(0,-.55,0),wp(0,.55,0),.01,metal);
-  }else if(type==="弩"){
+  }else if(type==='弩'){
     l(wp(-.5,0,.2),wp(.5,0,.2),.055,wood);
     l(wp(0,0,-.25),wp(0,0,.8),.08,wood);
-  }else if(type==="槍"||type==="戟"){
+  }else if(type==='槍'||type==='戟'){
     l(wp(0,-.15,-.8),wp(0,.13,1.75),.04,wood);
     l(wp(0,.13,1.75),wp(0,.16,2.15),.09,metal);
-
-    if(type==="戟"){
+    if(type==='戟'){
       l(wp(-.3,.12,1.6),wp(.3,.12,1.6),.07,metal);
     }
-  }else if(type==="杖"){
+  }else if(type==='杖'){
     l(wp(0,-.5,0),wp(0,.7,0),.035,wood);
-
     for(let i=-2;i<=2;i++){
-      l(
-        wp(0,.3,0),
-        wp(i*.18,.9-Math.abs(i)*.09,0),
-        .075,
-        "#d1eddf"
-      );
+      l(wp(0,.3,0),wp(i*.18,.9-Math.abs(i)*.09,0),.075,'#d1eddf');
     }
   }else{
-    const tip=wp(
-      .25-atk*.85,
-      1.05-atk*.5,
-      .2+atk*.55
-    );
-
+    let tip=wp(.25-atk*.85,1.05-atk*.5,.2+atk*.55);
     l(wp(0,-.2,0),wp(0,.15,0),.055,wood);
+    l(wp(0,.12,0),tip,type==='斧'?.17:.07,metal);
 
-    l(
-      wp(0,.12,0),
-      tip,
-      type==="斧"?.17:.07,
-      metal
-    );
-
-    if(type==="斧"){
+    if(type==='斧'){
       l(
         [tip[0]-.23,tip[1],tip[2]],
         [tip[0]+.23,tip[1],tip[2]],
-        .17,
-        metal
+        .17,metal
       );
     }
 
-    if(type==="劍"||type==="匕"){
-      l(
-        [-.6,1.05,.25],
-        [-.65,.9,type==="匕"?.85:1.25],
-        .06,
-        metal
-      );
+    if(type==='劍'||type==='匕'){
+      l([-.6,1.05,.25],[-.65,.9,type==='匕'?.85:1.25],.06,metal);
     }
   }
 
-  if(u.block||type==="盾"){
-    b(-.65,.85,.43,.55,.7,.16,"#b29863");
+  if(u.block||type==='盾'){
+    b(-.65,.85,.43,.55,.7,.16,'#b29863');
   }
 
-  const p=project(x,y+2.5*s,z);
+  let p=project(x,y+2.5*s,z);
 
   if(u.player||u.big){
     labels.push({
-      x:p.x,
-      y:p.y,
-      text:u.name||"",
-      c:u.player?"#ffdf92":"#ffb0a0"
+      x:p.x,y:p.y,
+      text:u.name||'',
+      c:u.player?'#ffdf92':'#ffb0a0'
     });
   }
 
   if(u.hp>0&&u.hp<u.max){
     labels.push({
-      x:p.x,
-      y:p.y+7,
+      x:p.x,y:p.y+7,
       health:clamp(u.hp/u.max,0,1),
-      c:u.enemy?"#e78d72":"#76ccba"
+      c:u.enemy?'#e78d72':'#76ccba'
     });
   }
 }
-
-// ============================================================
-// 軍隊生成
-// ============================================================
 
 function alive(u){
   return u.hp>0&&!u.retired;
 }
 
-function makeUnit(
-  enemy,group,weapon,armor,
-  hero=null,player=false
-){
+function makeUnit(enemy,group,weapon,armor,hero=null,player=false){
   const w=WEAPONS[weapon];
   const a=ARMOR[armor];
 
+  // 敵人一律使用一級基礎能力，不讀取玩家升級等級。
   const mul=enemy?(10+G.wave*2)/10:1;
-  const max=((hero?hero.hp:120)+a[1])*mul;
+  const level=enemy?1:(hero?P.heroLevel:P.soldierLevel);
+  const growth=levelFactor(level);
+  const max=Math.round(((hero?hero.hp:120)*growth+a[1])*mul);
 
   return {
     x:0,z:0,y:0,vy:0,
-    hp:max,max,mp:100,
+    hp:max,max,
+    mp:100,level,tacticCD:0,
     enemy,group,
-    wid:weapon,
-    aid:armor,
+    wid:weapon,aid:armor,
     weapon:w[1],
-    hero,
-    player,
-    big:!!hero,
-    name:hero?hero.name:"",
-    role:hero?hero.role:"士兵",
-
+    hero,player,big:!!hero,
+    name:hero?hero.name:'',
+    role:hero?hero.role:'士兵',
     color:enemy
-      ? (hero?"#be7287":"#c36d57")
-      : (hero?hero.color:"#5aafa0"),
-
-    power:(hero?hero.power:1)*a[5]*mul,
+      ?(hero?'#be7287':'#c36d57')
+      :(hero?hero.color:'#5aafa0'),
+    power:(hero?hero.power:1)*a[5]*mul*growth,
     def:1-(1-a[2])*(1-w[6]),
     speed:(hero?4:2.9)*a[3],
-
     seed:rand(0,10),
     dir:enemy?Math.PI:0,
     cd:rand(.2,1),
-    swing:0,
-    swingMax:.3,
-    moving:false,
-    block:false,
-    dodge:0,
-    dodgeCD:0,
-    mount:player?+$("mount").value:0,
+    swing:0,swingMax:.3,
+    moving:false,block:false,
+    dodge:0,dodgeCD:0,
+    mount:player?+$('mount').value:0,
     pending:null,
-    comboStep:0,
-    comboClock:0,
+    comboStep:0,comboClock:0,
     windup:0,
     special:4,
     retired:false
@@ -1576,26 +1421,14 @@ function makeUnit(
 }
 
 function enemyPosition(u){
-  const a=rand(0,TAU);
-  const r=rand(18,29);
-
-  u.x=clamp(
-    G.player.x+Math.sin(a)*r,
-    -33,33
-  );
-
-  u.z=clamp(
-    G.player.z+Math.cos(a)*r,
-    -33,33
-  );
+  let a=rand(0,TAU),r=rand(18,29);
+  u.x=clamp(G.player.x+Math.sin(a)*r,-33,33);
+  u.z=clamp(G.player.z+Math.cos(a)*r,-33,33);
 }
 
 function fillEnemies(){
-  while(
-    G.pending.length&&
-    G.enemies.filter(alive).length<140
-  ){
-    const u=G.pending.shift();
+  while(G.pending.length&&G.enemies.filter(alive).length<140){
+    let u=G.pending.shift();
     enemyPosition(u);
     G.enemies.push(u);
   }
@@ -1609,110 +1442,68 @@ function spawnWave(){
   G.fields=[];
   G.transition=0;
 
-  // 難度只影響兵力，不再影響能力。
-  G.enemyTotal=Math.ceil(
-    Math.max(1,G.capacity)*G.difficulty
-  );
+  G.enemyTotal=Math.ceil(Math.max(1,G.capacity)*G.difficulty);
 
   const ns=sizes(G.enemyTotal);
-
-  const maxWeapon=Math.min(
-    WEAPONS.length-1,
-    2+G.wave*3
-  );
+  const maxWeapon=Math.min(WEAPONS.length-1,2+G.wave*3);
 
   ns.forEach((n,i)=>{
-    const wid=1+Math.floor(rand(0,maxWeapon));
-    const aid=Math.min(3,Math.floor((G.wave-1)/2));
+    let wid=1+Math.floor(rand(0,maxWeapon));
+    let aid=Math.min(3,Math.floor((G.wave-1)/2));
+    let h=HEROES[(i*7+G.wave*3+G.stage*11)%HEROES.length];
 
-    const h=HEROES[
-      (i*7+G.wave*3+G.stage*11)%HEROES.length
-    ];
-
-    // 每組一位指揮將，另外加上該組小兵。
-    G.pending.push(
-      makeUnit(true,i,wid,aid,h)
-    );
+    G.pending.push(makeUnit(true,i,wid,aid,h));
 
     for(let j=0;j<n;j++){
-      G.pending.push(
-        makeUnit(true,i,wid,aid)
-      );
+      G.pending.push(makeUnit(true,i,wid,aid));
     }
   });
 
   fillEnemies();
 
   announce(
-    "第 "+G.wave+" 輪 · "+
-    G.enemyTotal+" 敵兵＋"+ns.length+
-    " 將 · 能力 ×"+((10+G.wave*2)/10)
+    '第 '+G.wave+' 輪 · '+G.enemyTotal+' 敵兵＋'+
+    ns.length+' 將 · 能力 ×'+((10+G.wave*2)/10)
   );
 }
 
 function start(){
   normalize();
 
-  const cap=Math.floor(P.merit/100);
+  let cap=Math.floor(P.merit/100);
   let ns=sizes(cap);
-
-  if(!ns.length)ns=[0];
+  if(!ns.length) ns=[0];
 
   G={
     capacity:cap,
-    difficulty:+$("difficulty").value,
-    stage:+$("stage").value,
-
-    wave:0,
-    enemyTotal:0,
-
-    friends:[],
-    enemies:[],
-    pending:[],
-    dead:[],
-    shots:[],
-    fields:[],
-    fx:[],
-
-    tactic:+$("tactic").value,
+    difficulty:+$('difficulty').value,
+    stage:+$('stage').value,
+    wave:0,enemyTotal:0,
+    friends:[],enemies:[],pending:[],dead:[],
+    shots:[],fields:[],fx:[],
+    tactic:+$('tactic').value,
     tacticCD:0,
-
-    pet:+$("pet").value,
+    pet:+$('pet').value,
     petPos:{x:-2,z:-2},
     petCD:0,
-
-    kills:0,
-    gold:0,
-    earned:0,
-    combo:0,
-    comboTime:0,
-    transition:0,
-    toast:0,
-    autosave:0,
-    elapsed:0,
-    order:"attack",
+    kills:0,gold:0,earned:0,
+    combo:0,comboTime:0,
+    transition:0,toast:0,autosave:0,elapsed:0,
+    order:'attack',
     ended:false
   };
 
   let index=0;
-  const columns=Math.max(1,Math.ceil(Math.sqrt(cap)));
-  const spacing=Math.min(1.1,28/columns);
+  let columns=Math.max(1,Math.ceil(Math.sqrt(cap)));
+  let spacing=Math.min(1.1,28/columns);
 
   ns.forEach((n,i)=>{
-    const cfg=P.groups[i];
+    let cfg=P.groups[i];
+    let h=cfg.hero<0
+      ?{...GENERIC,name:'部將 '+(i+1)}
+      :HEROES[cfg.hero];
 
-    const h=cfg.hero<0
-      ? {...GENERIC,name:"部將 "+(i+1)}
-      : HEROES[cfg.hero];
-
-    const leader=makeUnit(
-      false,
-      i,
-      cfg.weapon,
-      cfg.armor,
-      h,
-      i===0
-    );
+    let leader=makeUnit(false,i,cfg.weapon,cfg.armor,h,i===0);
 
     leader.x=(i%5-2)*2;
     leader.z=-1-Math.floor(i/5)*3;
@@ -1726,17 +1517,10 @@ function start(){
     G.friends.push(leader);
 
     for(let j=0;j<n;j++){
-      const u=makeUnit(
-        false,
-        i,
-        cfg.weapon,
-        cfg.armor
-      );
-
+      let u=makeUnit(false,i,cfg.weapon,cfg.armor);
       u.x=(index%columns-(columns-1)/2)*spacing;
       u.z=-4-Math.floor(index/columns)*spacing;
       index++;
-
       G.friends.push(u);
     }
   });
@@ -1745,10 +1529,10 @@ function start(){
   paused=false;
   cam={x:0,z:0};
 
-  $("camp").style.display="none";
-  $("game").style.display="block";
-  $("overlay").style.display="none";
-  $("order").textContent="全軍進攻";
+  $('camp').style.display='none';
+  $('game').style.display='block';
+  $('overlay').style.display='none';
+  $('order').textContent='全軍進攻';
 
   spawnWave();
   hud();
@@ -1756,58 +1540,41 @@ function start(){
 }
 
 function announce(s){
-  $("toast").textContent=s;
-  if(G)G.toast=3;
+  $('toast').textContent=s;
+  if(G) G.toast=3;
 }
 
 function nearest(u,arr,max=Infinity){
-  let found=null;
-  let d=max;
-
-  for(const v of arr){
-    if(!alive(v))continue;
-
-    const n=Math.hypot(v.x-u.x,v.z-u.z);
-
+  let found=null,d=max;
+  for(let v of arr){
+    if(!alive(v)) continue;
+    let n=Math.hypot(v.x-u.x,v.z-u.z);
     if(n<d){
       found=v;
       d=n;
     }
   }
-
   return found;
 }
 
 function slash(x,z,r,c){
-  G.fx.push({
-    x,z,y:.8,
-    r,c,t:.35,max:.35
-  });
+  G.fx.push({x,z,y:.8,r,c,t:.35,max:.35});
 }
 
-// ============================================================
-// 傷害、獎勵、繳獲
-// ============================================================
-
 function damage(u,d){
-  if(G.ended||!alive(u))return false;
+  if(G.ended||!alive(u)) return false;
 
   if(u.player){
-    if(u.dodge>0||u.y>.9)return false;
-
+    if(u.dodge>0||u.y>.9) return false;
     d*=u.block?.5:1;
     d*=u.mount===3?.85:1;
   }
 
   d*=1-u.def;
 
-  if(
-    !u.enemy&&
-    G.fields.some(f=>
-      f.type===1&&
-      Math.hypot(u.x-f.x,u.z-f.z)<f.r
-    )
-  ){
+  if(!u.enemy&&G.fields.some(
+    f=>f.type===1&&Math.hypot(u.x-f.x,u.z-f.z)<f.r
+  )){
     d*=.5;
   }
 
@@ -1815,13 +1582,10 @@ function damage(u,d){
 
   if(u.big||Math.random()<.18){
     G.fx.push({
-      x:u.x,
-      z:u.z,
-      y:2,
+      x:u.x,z:u.z,y:2,
       text:Math.ceil(d),
-      c:u.enemy?"#ffe3a7":"#a5e6d0",
-      t:.5,
-      max:.5
+      c:u.enemy?'#ffe3a7':'#a5e6d0',
+      t:.5,max:.5
     });
   }
 
@@ -1829,131 +1593,95 @@ function damage(u,d){
     if(u.enemy){
       P.coins++;
       P.loot[u.wid]++;
+      P.armorLoot[u.aid]++;
 
-      const m=u.hero?100:10;
-
+      let m=u.hero?100:10;
       P.merit+=m;
       G.gold++;
       G.earned+=m;
       G.kills++;
-
       G.player.mp=clamp(G.player.mp+1,0,100);
     }else if(!u.hero){
       G.dead.push(u);
     }
 
-    if(u.player){
-      finish(false);
-    }
+    if(u.player) finish(false);
   }
 
   return true;
 }
 
-// ============================================================
-// 戰中合併：不增加士兵、不復活將領
-// ============================================================
-
+// 合併不增加士兵，也不復活或治療將領。
 function mergeGroups(){
-  const groups=new Map();
+  let groups=new Map();
 
-  for(const u of G.friends){
+  for(let u of G.friends){
     if(alive(u)&&!u.hero){
-      if(!groups.has(u.group)){
-        groups.set(u.group,[]);
-      }
-
+      if(!groups.has(u.group)) groups.set(u.group,[]);
       groups.get(u.group).push(u);
     }
   }
 
   function move(from,to){
-    for(const u of groups.get(from)||[]){
-      u.group=to;
-    }
+    for(let u of groups.get(from)||[]) u.group=to;
 
     groups.set(to,[
       ...(groups.get(to)||[]),
       ...(groups.get(from)||[])
     ]);
-
     groups.delete(from);
 
-    for(const u of G.friends){
-      if(
-        u.hero&&
-        !u.player&&
-        u.group===from&&
-        alive(u)
-      ){
+    for(let u of G.friends){
+      if(u.hero&&!u.player&&u.group===from&&alive(u)){
         u.retired=true;
       }
     }
   }
 
-  // 確保仍存活的士兵可由玩家主將接管。
   if(!groups.has(0)&&groups.size){
     groups.set(0,[]);
-
-    const from=groups.keys().next().value;
-    if(from!==0)move(from,0);
+    let from=groups.keys().next().value;
+    if(from!==0) move(from,0);
   }
 
-  // 失去指揮將的小組併入主將組。
-  for(const id of [...groups.keys()]){
-    if(
-      id!==0&&
-      !G.friends.some(u=>
-        u.hero&&u.group===id&&alive(u)
-      )
-    ){
+  for(let id of [...groups.keys()]){
+    if(id!==0&&!G.friends.some(
+      u=>u.hero&&u.group===id&&alive(u)
+    )){
       move(id,0);
     }
   }
 
-  // 不足 20 的小組合併。
   while(groups.size>1){
-    const short=[...groups.keys()].find(
-      id=>groups.get(id).length<20
+    let short=[...groups.keys()].find(
+      id=>groups.get(id).length<50
     );
 
-    if(short===undefined)break;
+    if(short===undefined) break;
 
     if(short===0){
-      const from=[...groups.keys()].find(id=>id!==0);
+      let from=[...groups.keys()].find(id=>id!==0);
       move(from,0);
     }else{
       move(short,0);
     }
   }
 
-  for(const u of G.friends){
-    if(
-      u.hero&&
-      !u.player&&
-      alive(u)&&
-      !groups.has(u.group)
-    ){
+  for(let u of G.friends){
+    if(u.hero&&!u.player&&alive(u)&&!groups.has(u.group)){
       u.retired=true;
     }
   }
 }
 
-// ============================================================
-// 玩家招式與兵法
-// ============================================================
-
 function fire(u,target,amount,color){
-  const dir=target
-    ? Math.atan2(target.x-u.x,target.z-u.z)
-    : u.dir;
-
-  const w=WEAPONS[u.wid];
+  let dir=target
+    ?Math.atan2(target.x-u.x,target.z-u.z)
+    :u.dir;
+  let w=WEAPONS[u.wid];
 
   G.shots.push({
-    x:u.x,
-    z:u.z,
-    y:1.3,
+    x:u.x,z:u.z,y:1.3,
     vx:Math.sin(dir)*24,
     vz:Math.cos(dir)*24,
     t:w[3]/24,
@@ -1965,56 +1693,42 @@ function fire(u,target,amount,color){
 }
 
 function attack(){
-  const p=G.player;
+  let p=G.player;
+  if(p.cd>0||p.block||p.dodge>0) return;
 
-  if(p.cd>0||p.block||p.dodge>0)return;
+  let w=WEAPONS[p.wid];
 
-  const w=WEAPONS[p.wid];
-
-  p.comboStep=p.comboClock>0
-    ? (p.comboStep+1)%3
-    : 0;
-
+  p.comboStep=p.comboClock>0?(p.comboStep+1)%3:0;
   p.comboClock=1.5;
   p.cd=w[4];
   p.swing=p.swingMax=.32;
 
-  const t=nearest(p,G.enemies,w[3]+2);
-
-  if(t){
-    p.dir=Math.atan2(t.x-p.x,t.z-p.z);
-  }
+  let t=nearest(p,G.enemies,w[3]+2);
+  if(t) p.dir=Math.atan2(t.x-p.x,t.z-p.z);
 
   p.pending={t:.12,step:p.comboStep};
-
   tone(190+p.comboStep*60);
 }
 
 function resolveAttack(step){
-  const p=G.player;
-  const w=WEAPONS[p.wid];
-
-  const amount=w[2]*p.power*(step===2?1.5:1);
+  let p=G.player;
+  let w=WEAPONS[p.wid];
+  let amount=w[2]*p.power*(step===2?1.5:1);
   let hit=false;
 
-  if(["弓","弩","杖"].includes(w[1])){
-    fire(p,null,amount,"#f4d887");
+  if(['弓','弩','杖'].includes(w[1])){
+    fire(p,null,amount,'#f4d887');
   }else{
-    slash(p.x,p.z,w[3],"#f9d58b");
+    slash(p.x,p.z,w[3],'#f9d58b');
 
-    for(const u of G.enemies){
-      const d=Math.hypot(u.x-p.x,u.z-p.z);
-
-      const dot=(
+    for(let u of G.enemies){
+      let d=Math.hypot(u.x-p.x,u.z-p.z);
+      let dot=(
         Math.sin(p.dir)*(u.x-p.x)+
         Math.cos(p.dir)*(u.z-p.z)
       )/(d||1);
 
-      if(
-        d<w[3]&&
-        dot>-.2&&
-        damage(u,amount)
-      ){
+      if(d<w[3]&&dot>-.2&&damage(u,amount)){
         hit=true;
       }
     }
@@ -2026,11 +1740,12 @@ function resolveAttack(step){
   }
 }
 
-function skill(){
-  const p=G.player;
+// 我方武將專用。即使敵方嘗試呼叫也會直接拒絕。
+function skill(p=G.player){
+  if(!alive(p)||p.enemy||!p.hero) return false;
 
   if(p.mp<60){
-    announce("無雙需要 60 氣");
+    announce('無雙需要 60 氣');
     return;
   }
 
@@ -2039,134 +1754,114 @@ function skill(){
   p.cd=.7;
   p.swing=p.swingMax=.7;
 
-  slash(p.x,p.z,8,"#ffe8a2");
+  slash(p.x,p.z,8,'#ffe8a2');
 
-  for(const e of G.enemies){
+  for(let e of G.enemies){
     if(Math.hypot(e.x-p.x,e.z-p.z)<8){
-      damage(
-        e,
-        WEAPONS[p.wid][2]*p.power*5
-      );
+      damage(e,WEAPONS[p.wid][2]*p.power*5);
     }
   }
 
-  announce(p.name+" · 無雙！");
+  announce(p.name+' · 無雙！');
   tone(500,.3);
+  return true;
 }
 
-function tactic(){
-  const p=G.player;
-  const cost=p.role==="智將"?25:35;
+// 每個我方武將有自己的氣力與兵法冷卻。
+function tactic(p=G.player){
+  if(!alive(p)||p.enemy||!p.hero) return false;
 
-  if(G.tacticCD>0){
-    announce("兵法冷卻中");
+  let cost=p.role==='智將'?25:35;
+
+  if(p.tacticCD>0){
+    announce('兵法冷卻中');
     return;
   }
 
   if(p.mp<cost){
-    announce("氣力不足");
+    announce('氣力不足');
     return;
   }
 
   if(G.tactic===4&&!G.dead.length){
-    announce("目前沒有可恢復的陣亡士兵");
+    announce('目前沒有可恢復的陣亡士兵');
     return;
   }
 
   p.mp-=cost;
-  G.tacticCD=13;
+  p.tacticCD=13;
 
-  const t=G.tactic;
+  let t=G.tactic;
 
   if(t<=2){
     G.fields.push({
-      x:p.x,
-      z:p.z,
-      r:10,
-      type:t,
-      t:6,
-      tick:0
+      x:p.x,z:p.z,r:10,
+      type:t,t:6,tick:0
     });
   }
 
   if(t===3){
-    for(const u of G.friends){
+    for(let u of G.friends){
       if(alive(u)){
-        u.hp=Math.min(
-          u.max,
-          u.hp+(u.hero?130:55)
-        );
+        u.hp=Math.min(u.max,u.hp+(u.hero?130:55));
       }
     }
-
-    slash(p.x,p.z,12,"#98edbd");
+    slash(p.x,p.z,12,'#98edbd');
   }
 
   if(t===4){
-    // 先去除原陣亡參照，避免恢復後重複加入。
+    // 先移除死亡引用，再恢復，防止同一士兵被重複加入。
     G.friends=G.friends.filter(u=>u.hp>0);
 
-    const n=Math.min(
+    let n=Math.min(
       20,
       G.dead.length,
-      G.capacity-G.friends.filter(
-        u=>alive(u)&&!u.hero
-      ).length
+      G.capacity-G.friends.filter(u=>alive(u)&&!u.hero).length
     );
 
     for(let i=0;i<n;i++){
-      const u=G.dead.shift();
-
+      let u=G.dead.shift();
       u.hp=u.max;
       u.group=0;
       u.x=clamp(p.x+rand(-3,3),-33,33);
       u.z=clamp(p.z+rand(-3,3),-33,33);
       u.cd=.5;
-
       G.friends.push(u);
     }
 
-    announce("伏兵歸隊 "+n+" 人");
+    announce('伏兵歸隊 '+n+' 人');
   }else{
-    announce(TACTICS[t]+"！");
+    announce(TACTICS[t]+'！');
   }
 
   tone(600,.2);
+  return true;
 }
 
 function action(k){
-  if(!G||paused||G.ended)return;
+  if(!G||paused||G.ended) return;
+  let p=G.player;
 
-  const p=G.player;
+  if(k==='k') skill();
+  if(k==='l') tactic();
+  if(k===' '&&p.y===0) p.vy=8;
 
-  if(k==="k")skill();
-  if(k==="l")tactic();
-
-  if(k===" "&&p.y===0){
-    p.vy=8;
-  }
-
-  if(k==="shift"&&p.dodgeCD<=0){
+  if(k==='shift'&&p.dodgeCD<=0){
     p.pending=null;
     p.dodge=.32;
     p.dodgeCD=p.mount===2?.9:1.5;
   }
 }
 
-// ============================================================
-// 操作、暫停、結算
-// ============================================================
-
 function clearInput(){
   keys={};
   touches.clear();
   joy={x:0,z:0,id:null};
+  $('knob').style.transform='';
 
-  $("knob").style.transform="";
-
-  document.querySelectorAll("[data-key]").forEach(b=>{
-    b.classList.remove("pressed");
-  });
+  document.querySelectorAll('[data-key]').forEach(
+    b=>b.classList.remove('pressed')
+  );
 }
 
 function down(k){
@@ -2174,137 +1869,118 @@ function down(k){
 }
 
 function order(){
-  if(!G||paused||G.ended)return;
-
-  G.order=G.order==="attack"?"follow":"attack";
-
-  $("order").textContent=G.order==="attack"
-    ? "全軍進攻"
-    : "集合護衛";
+  if(!G||paused||G.ended) return;
+  G.order=G.order==='attack'?'follow':'attack';
+  $('order').textContent=
+    G.order==='attack'?'全軍進攻':'集合護衛';
 }
 
 function togglePause(){
-  if(!G||G.ended)return;
-
+  if(!G||G.ended) return;
   paused=!paused;
   clearInput();
 
   if(paused){
     dialog(
-      "戰場暫停",
-      "返回軍營為撤退；保留已賺金錢、武器與功績。",
+      '戰場暫停',
+      '返回軍營為撤退；保留已賺金錢、裝備與功績。',
       true
     );
   }else{
-    $("overlay").style.display="none";
+    $('overlay').style.display='none';
   }
 }
 
 function dialog(title,text,resume){
-  $("dialogTitle").textContent=title;
-  $("dialogText").textContent=text;
-
-  $("resume").style.display=resume
-    ? "inline-block"
-    : "none";
-
-  $("overlay").style.display="grid";
+  $('dialogTitle').textContent=title;
+  $('dialogText').textContent=text;
+  $('resume').style.display=resume?'inline-block':'none';
+  $('overlay').style.display='grid';
 }
 
 function finish(win){
-  if(G.ended)return;
+  if(G.ended) return;
 
   G.ended=true;
   clearInput();
 
-  if(win){
-    P.wins++;
-  }else{
-    P.merit=Math.max(0,P.merit-1000);
-  }
+  if(win) P.wins++;
+  else P.merit=Math.max(0,P.merit-1000);
 
   save();
 
   dialog(
-    win?"大捷 · 凱旋":"兵敗 · 再戰",
-
-    "擊破 "+G.kills+" 人，獲得 "+
-    G.gold+" 元、"+G.earned+
-    " 功績與 "+G.kills+" 件武器。\n"+
-    (win
-      ? "五輪完成。"
-      : "主將陣亡，扣除 1,000 功績（最低 0）。")+
-    "\n返回軍營可招募武將與整組換裝。",
-
+    win?'大捷 · 凱旋':'兵敗 · 再戰',
+    '擊破 '+G.kills+' 人，獲得 '+G.gold+' 元、'+
+    G.earned+' 功績與 '+G.kills+' 件武器及 '+
+    G.kills+' 件防具。\n'+
+    (win?'五輪完成。':'主將陣亡，扣除 1,000 功績（最低 0）。')+
+    '\n返回軍營可招募武將、升級與整組換裝。',
     false
   );
 
   tone(win?660:120,.4);
 }
 
-$("sortie").onclick=start;
-$("pause").onclick=togglePause;
-$("resume").onclick=togglePause;
-$("order").onclick=order;
+$('sortie').onclick=start;
+$('pause').onclick=togglePause;
+$('resume').onclick=togglePause;
+$('order').onclick=order;
 
-$("back").onclick=()=>{
+$('back').onclick=()=>{
   save();
   G=null;
   paused=false;
   clearInput();
-
-  $("game").style.display="none";
-  $("camp").style.display="block";
-
+  $('game').style.display='none';
+  $('camp').style.display='block';
   renderCamp();
 };
 
-$("sound").onclick=()=>{
+$('sound').onclick=()=>{
   silent=!silent;
-  $("sound").textContent="音效："+(silent?"關":"開");
+  $('sound').textContent='音效：'+(silent?'關':'開');
 };
 
-$("full").onclick=async()=>{
+$('full').onclick=async()=>{
   try{
     if(document.fullscreenElement){
       await document.exitFullscreen();
-    }else if($("game").requestFullscreen){
-      await $("game").requestFullscreen();
+    }else if($('game').requestFullscreen){
+      await $('game').requestFullscreen();
     }else{
-      announce("此瀏覽器不支援全螢幕");
+      announce('此瀏覽器不支援全螢幕');
     }
   }catch{
-    announce("無法切換全螢幕");
+    announce('無法切換全螢幕');
   }
 };
 
-window.addEventListener("keydown",e=>{
-  if(!G)return;
+window.addEventListener('keydown',e=>{
+  if(!G) return;
 
-  const k=e.key.toLowerCase();
+  let k=e.key.toLowerCase();
 
-  if([
-    " ","arrowup","arrowdown",
-    "arrowleft","arrowright","shift"
-  ].includes(k)){
+  if([' ','arrowup','arrowdown','arrowleft','arrowright','shift']
+      .includes(k)){
     e.preventDefault();
   }
 
-  if(!e.repeat&&k==="p"){
+  if(!e.repeat&&k==='p'){
     togglePause();
     return;
   }
 
-  if(!e.repeat&&k==="f"){
+  if(!e.repeat&&k==='f'){
     order();
     return;
   }
 
-  if(!down(k))action(k);
+  if(!down(k)) action(k);
   keys[k]=true;
 });
 
-window.addEventListener("keyup",e=>{
+window.addEventListener('keyup',e=>{
   keys[e.key.toLowerCase()]=false;
 });
 
@@ -2313,101 +1989,84 @@ function loseFocus(){
 
   if(G&&!G.ended){
     save();
-    if(!paused)togglePause();
+    if(!paused) togglePause();
   }
 }
 
-window.addEventListener("blur",loseFocus);
+window.addEventListener('blur',loseFocus);
 
-document.addEventListener("visibilitychange",()=>{
-  if(document.hidden)loseFocus();
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden) loseFocus();
 });
 
-document.querySelectorAll("[data-key]").forEach(b=>{
+document.querySelectorAll('[data-key]').forEach(b=>{
   b.onpointerdown=e=>{
     e.preventDefault();
     b.setPointerCapture(e.pointerId);
 
-    if(!down(b.dataset.key)){
-      action(b.dataset.key);
-    }
+    if(!down(b.dataset.key)) action(b.dataset.key);
 
     touches.set(e.pointerId,b.dataset.key);
-    b.classList.add("pressed");
+    b.classList.add('pressed');
   };
 
   b.onpointerup=
   b.onpointercancel=
   b.onlostpointercapture=e=>{
     touches.delete(e.pointerId);
-    b.classList.remove("pressed");
+    b.classList.remove('pressed');
   };
 });
 
 function stickMove(e){
-  const r=$("stick").getBoundingClientRect();
-
-  const x=e.clientX-r.left-r.width/2;
-  const y=e.clientY-r.top-r.height/2;
-  const max=r.width*.3;
-  const d=Math.hypot(x,y);
-  const k=d>max?max/d:1;
+  let r=$('stick').getBoundingClientRect();
+  let x=e.clientX-r.left-r.width/2;
+  let y=e.clientY-r.top-r.height/2;
+  let max=r.width*.3;
+  let d=Math.hypot(x,y);
+  let k=d>max?max/d:1;
 
   joy.x=x*k/max;
   joy.z=-y*k/max;
 
-  $("knob").style.transform=
-    `translate(${x*k}px,${y*k}px)`;
+  $('knob').style.transform=`translate(${x*k}px,${y*k}px)`;
 }
 
-$("stick").onpointerdown=e=>{
-  if(joy.id!==null)return;
+$('stick').onpointerdown=e=>{
+  if(joy.id!==null) return;
 
   joy.id=e.pointerId;
-  $("stick").setPointerCapture(e.pointerId);
+  $('stick').setPointerCapture(e.pointerId);
   stickMove(e);
 };
 
-$("stick").onpointermove=e=>{
-  if(e.pointerId===joy.id){
-    stickMove(e);
-  }
+$('stick').onpointermove=e=>{
+  if(e.pointerId===joy.id) stickMove(e);
 };
 
-$("stick").onpointerup=
-$("stick").onpointercancel=
-$("stick").onlostpointercapture=e=>{
+$('stick').onpointerup=
+$('stick').onpointercancel=
+$('stick').onlostpointercapture=e=>{
   if(e.pointerId===joy.id){
     joy={x:0,z:0,id:null};
-    $("knob").style.transform="";
+    $('knob').style.transform='';
   }
 };
 
-// ============================================================
-// 空間分桶：僅分離附近單位
-// ============================================================
-
+// 空間分桶，只檢查相鄰士兵的擠壓。
 function separate(team,dt){
-  const bins=new Map();
+  let bins=new Map();
 
-  for(const u of team){
-    const x=Math.floor(u.x);
-    const z=Math.floor(u.z);
+  for(let u of team){
+    let x=Math.floor(u.x),z=Math.floor(u.z);
 
     for(let dx=-1;dx<=1;dx++){
       for(let dz=-1;dz<=1;dz++){
-        const nearby=bins.get(
-          (x+dx)+","+(z+dz)
-        )||[];
-
-        for(const v of nearby){
-          const a=u.x-v.x;
-          const b=u.z-v.z;
-          const d=Math.hypot(a,b);
+        for(let v of bins.get((x+dx)+','+(z+dz))||[]){
+          let a=u.x-v.x,b=u.z-v.z,d=Math.hypot(a,b);
 
           if(d>.001&&d<.65){
-            const k=(.65-d)*dt*4/d;
-
+            let k=(.65-d)*dt*4/d;
             u.x+=a*k;
             u.z+=b*k;
             v.x-=a*k;
@@ -2417,22 +2076,14 @@ function separate(team,dt){
       }
     }
 
-    const key=x+","+z;
-
-    if(!bins.has(key)){
-      bins.set(key,[]);
-    }
-
+    let key=x+','+z;
+    if(!bins.has(key)) bins.set(key,[]);
     bins.get(key).push(u);
   }
 }
 
-// ============================================================
-// 戰鬥迴圈
-// ============================================================
-
 function update(dt){
-  const p=G.player;
+  let p=G.player;
 
   G.elapsed+=dt;
   G.autosave+=dt;
@@ -2443,34 +2094,29 @@ function update(dt){
   }
 
   G.toast-=dt;
-
-  if(G.toast<=0){
-    $("toast").textContent="";
-  }
+  if(G.toast<=0) $('toast').textContent='';
 
   G.comboTime-=dt;
-  if(G.comboTime<=0)G.combo=0;
+  if(G.comboTime<=0) G.combo=0;
 
-  G.tacticCD=Math.max(0,G.tacticCD-dt);
+  p.tacticCD=Math.max(0,p.tacticCD-dt);
 
-  for(const k of [
-    "cd","swing","dodge","dodgeCD","comboClock"
-  ]){
+  for(let k of ['cd','swing','dodge','dodgeCD','comboClock']){
     p[k]=Math.max(0,p[k]-dt);
   }
 
   p.mp=Math.min(100,p.mp+dt*3);
-  p.block=down("i")&&p.dodge<=0;
+  p.block=down('i')&&p.dodge<=0;
 
   let dx=
-    (down("d")||down("arrowright")?1:0)-
-    (down("a")||down("arrowleft")?1:0)+joy.x;
+    (down('d')||down('arrowright')?1:0)-
+    (down('a')||down('arrowleft')?1:0)+joy.x;
 
   let dz=
-    (down("w")||down("arrowup")?1:0)-
-    (down("s")||down("arrowdown")?1:0)+joy.z;
+    (down('w')||down('arrowup')?1:0)-
+    (down('s')||down('arrowdown')?1:0)+joy.z;
 
-  const l=Math.hypot(dx,dz);
+  let l=Math.hypot(dx,dz);
   p.moving=l>0;
 
   if(l){
@@ -2479,18 +2125,16 @@ function update(dt){
       dz/=l;
     }
 
-    if(!p.pending){
-      p.dir=Math.atan2(dx,dz);
-    }
+    if(!p.pending) p.dir=Math.atan2(dx,dz);
   }else if(p.dodge>0){
     dx=Math.sin(p.dir);
     dz=Math.cos(p.dir);
   }
 
-  const sp=
+  let sp=
     (p.mount===1?8.5:p.mount?7:5.5)*
     ARMOR[p.aid][3]*
-    (p.role==="刺客"?1.2:1)*
+    (p.role==='刺客'?1.2:1)*
     (p.block?.4:1)*
     (p.dodge>0?3:1);
 
@@ -2514,7 +2158,7 @@ function update(dt){
     }
   }
 
-  if(down("j"))attack();
+  if(down('j')) attack();
 
   cam.x+=(p.x-cam.x)*dt*4;
   cam.z+=(p.z-cam.z)*dt*4;
@@ -2525,234 +2169,152 @@ function update(dt){
   mergeGroups();
   fillEnemies();
 
-  const friends=G.friends.filter(alive);
-  const enemies=G.enemies;
+  let friends=G.friends.filter(alive);
+  let enemies=G.enemies;
 
-  const leaders=new Map();
-
-  for(const u of friends){
-    if(u.hero)leaders.set(u.group,u);
+  let leaders=new Map();
+  for(let u of friends){
+    if(u.hero) leaders.set(u.group,u);
   }
 
-  // 士兵與非玩家武將 AI。
-  for(const u of [...friends,...enemies]){
-    if(u.player||!alive(u))continue;
+  for(let u of [...friends,...enemies]){
+    if(u.player||!alive(u)) continue;
 
     u.cd-=dt;
     u.swing=Math.max(0,u.swing-dt);
     u.moving=false;
 
-    if(
-      u.enemy&&
-      G.fields.some(f=>f.type===2)
-    ){
+    // 我方 AI 武將自動使用兵法及無雙。
+    if(!u.enemy&&u.hero){
+      u.mp=Math.min(100,u.mp+dt*3);
+      u.tacticCD=Math.max(0,u.tacticCD-dt);
+
+      const close=nearest(u,enemies,8);
+      const injured=friends.some(
+        a=>alive(a)&&a.hp<a.max*.65
+      );
+
+      if(u.tacticCD<=0&&
+         u.mp>=(u.role==='智將'?25:35)&&
+         (
+           (G.tactic===4&&G.dead.length)||
+           (G.tactic===3&&injured)||
+           (G.tactic<3&&close)
+         )){
+        tactic(u);
+      }
+
+      if(close&&u.mp>=60&&u.cd<=0){
+        skill(u);
+        continue;
+      }
+    }
+
+    if(u.enemy&&G.fields.some(f=>f.type===2)){
       u.windup=0;
       continue;
     }
 
-    // 敵方將領重擊或弓兵蓄力。
+    // 敵方弓兵僅有普通射擊蓄力，不是無雙或兵法。
     if(u.windup>0){
       u.windup-=dt;
 
       if(u.windup<=0){
-        if(u.hero){
-          slash(
-            u.aim.x,
-            u.aim.z,
-            3.5,
-            "#ff8f77"
-          );
-
-          for(const t of friends){
-            if(
-              Math.hypot(
-                t.x-u.aim.x,
-                t.z-u.aim.z
-              )<3.5
-            ){
-              damage(
-                t,
-                WEAPONS[u.wid][2]*u.power*1.5
-              );
-            }
-          }
-
-          u.special=6;
-        }else{
-          fire(
-            u,
-            u.aim,
-            WEAPONS[u.wid][2]*u.power,
-            "#eaa078"
-          );
-        }
-
+        fire(u,u.aim,WEAPONS[u.wid][2]*u.power,'#eaa078');
         u.cd=WEAPONS[u.wid][4];
         u.swing=u.swingMax=.3;
       }
-
       continue;
     }
 
-    let target=nearest(
-      u,
-      u.enemy?friends:enemies
-    );
+    let target=nearest(u,u.enemy?friends:enemies);
+    if(!target) continue;
 
-    if(!target)continue;
+    let d=Math.hypot(u.x-target.x,u.z-target.z);
+    let w=WEAPONS[u.wid];
+    let leader=leaders.get(u.group);
 
-    let d=Math.hypot(
-      u.x-target.x,
-      u.z-target.z
-    );
-
-    const w=WEAPONS[u.wid];
-    const leader=leaders.get(u.group);
-
-    // 我方士兵保持在所屬將領附近。
-    if(
-      !u.enemy&&
-      d>4&&
-      (
-        G.order==="follow"||
-        (
-          !u.hero&&
-          leader&&
-          Math.hypot(
-            u.x-leader.x,
-            u.z-leader.z
-          )>10
-        )
-      )
-    ){
-      const anchor=G.order==="follow"?p:leader;
+    if(!u.enemy&&d>4&&
+       (
+         G.order==='follow'||
+         (!u.hero&&leader&&Math.hypot(
+           u.x-leader.x,u.z-leader.z
+         )>10)
+       )){
+      let anchor=G.order==='follow'?p:leader;
 
       target={
         x:anchor.x+Math.sin(u.seed*4)*3,
         z:anchor.z+Math.cos(u.seed*4)*3
       };
 
-      d=Math.hypot(
-        u.x-target.x,
-        u.z-target.z
-      );
-
-      if(d<1)continue;
+      d=Math.hypot(u.x-target.x,u.z-target.z);
+      if(d<1) continue;
     }
 
-    u.dir=Math.atan2(
-      target.x-u.x,
-      target.z-u.z
-    );
+    u.dir=Math.atan2(target.x-u.x,target.z-u.z);
 
-    if(u.enemy&&u.hero){
-      u.special-=dt;
-
-      if(u.special<=0&&d<5){
-        u.windup=.9;
-        u.aim={
-          x:target.x,
-          z:target.z
-        };
-        continue;
-      }
-    }
-
-    const ranged=["弓","弩","杖"].includes(w[1]);
-    const reach=ranged?w[3]:w[3]*.75;
+    let ranged=['弓','弩','杖'].includes(w[1]);
+    let reach=ranged?w[3]:w[3]*.75;
 
     if(d>reach||target.hp===undefined){
-      const slow=u.enemy&&G.fields.some(f=>
-        f.type===1&&
-        Math.hypot(u.x-f.x,u.z-f.z)<f.r
+      let slow=u.enemy&&G.fields.some(
+        f=>f.type===1&&Math.hypot(u.x-f.x,u.z-f.z)<f.r
       );
 
-      const speed=u.speed*(slow?.4:1);
+      let speed=u.speed*(slow?.4:1);
 
-      u.x=clamp(
-        u.x+Math.sin(u.dir)*speed*dt,
-        -34,34
-      );
-
-      u.z=clamp(
-        u.z+Math.cos(u.dir)*speed*dt,
-        -34,34
-      );
-
+      u.x=clamp(u.x+Math.sin(u.dir)*speed*dt,-34,34);
+      u.z=clamp(u.z+Math.cos(u.dir)*speed*dt,-34,34);
       u.moving=true;
     }else if(u.cd<=0){
       u.swing=u.swingMax=.3;
       u.cd=w[4];
 
-      const boost=
-        !u.enemy&&leader&&leader.role==="君主"
-          ? 1.15
-          : 1;
+      let boost=!u.enemy&&leader&&leader.role==='君主'?1.15:1;
 
       if(ranged){
         if(u.enemy&&!u.hero){
           u.windup=.5;
-          u.aim={
-            x:target.x,
-            z:target.z
-          };
+          u.aim={x:target.x,z:target.z};
         }else{
           fire(
-            u,
-            target,
-            w[2]*u.power*boost,
-            u.enemy?"#ed9b82":"#a5dfd1"
+            u,target,w[2]*u.power*boost,
+            u.enemy?'#ed9b82':'#a5dfd1'
           );
         }
       }else{
-        damage(
-          target,
-          w[2]*u.power*boost
-        );
+        damage(target,w[2]*u.power*boost);
       }
     }
   }
 
-  if(G.ended)return;
+  if(G.ended) return;
 
   separate(friends,dt);
   separate(enemies,dt);
 
-  // 飛行武器碰撞。
-  for(const s of G.shots){
-    const x=s.x;
-    const z=s.z;
-    const travel=Math.min(dt,s.t);
+  // 線段碰撞，避免高速箭矢穿過敵人。
+  for(let s of G.shots){
+    let x=s.x,z=s.z;
+    let travel=Math.min(dt,s.t);
 
     s.t-=dt;
     s.x+=s.vx*travel;
     s.z+=s.vz*travel;
 
-    let hit=null;
-    let best=Infinity;
+    let hit=null,best=Infinity;
 
-    for(const u of (s.enemy?friends:enemies)){
-      if(!alive(u))continue;
+    for(let u of(s.enemy?friends:enemies)){
+      if(!alive(u)) continue;
 
-      const dx=s.x-x;
-      const dz=s.z-z;
-      const ll=dx*dx+dz*dz;
+      let dx=s.x-x,dz=s.z-z;
+      let ll=dx*dx+dz*dz;
+      let t=ll
+        ?clamp(((u.x-x)*dx+(u.z-z)*dz)/ll,0,1)
+        :0;
 
-      const t=ll
-        ? clamp(
-            ((u.x-x)*dx+(u.z-z)*dz)/ll,
-            0,
-            1
-          )
-        : 0;
-
-      if(
-        Math.hypot(
-          x+dx*t-u.x,
-          z+dz*t-u.z
-        )<.75&&
-        t<best
-      ){
+      if(Math.hypot(x+dx*t-u.x,z+dz*t-u.z)<.75&&t<best){
         hit=u;
         best=t;
       }
@@ -2770,18 +2332,16 @@ function update(dt){
   }
 
   G.shots=G.shots.filter(s=>s.t>0);
+  if(G.ended) return;
 
-  if(G.ended)return;
-
-  // 兵法。
-  for(const f of G.fields){
+  for(let f of G.fields){
     f.t-=dt;
     f.tick-=dt;
 
     if(f.type===0&&f.tick<=0){
       f.tick=.5;
 
-      for(const u of enemies){
+      for(let u of enemies){
         if(Math.hypot(u.x-f.x,u.z-f.z)<f.r){
           damage(u,32);
         }
@@ -2791,18 +2351,11 @@ function update(dt){
 
   G.fields=G.fields.filter(f=>f.t>0);
 
-  // 戰寵。
   G.petCD-=dt;
 
-  const pp=G.petPos;
-  const t=nearest(p,enemies,12);
-
-  const dest=G.pet===0&&t
-    ? t
-    : {
-        x:p.x-2,
-        z:p.z+1
-      };
+  let pp=G.petPos;
+  let t=nearest(p,enemies,12);
+  let dest=G.pet===0&&t?t:{x:p.x-2,z:p.z+1};
 
   pp.x+=(dest.x-pp.x)*dt*3;
   pp.z+=(dest.z-pp.z)*dt*3;
@@ -2812,44 +2365,28 @@ function update(dt){
 
     if(G.pet===2){
       p.hp=Math.min(p.max,p.hp+20);
-      slash(pp.x,pp.z,1.3,"#94ebbd");
+      slash(pp.x,pp.z,1.3,'#94ebbd');
     }else if(t){
-      if(
-        G.pet===0&&
-        Math.hypot(pp.x-t.x,pp.z-t.z)<2
-      ){
+      if(G.pet===0&&Math.hypot(pp.x-t.x,pp.z-t.z)<2){
         damage(t,35);
-        slash(t.x,t.z,1,"#ffe2ad");
+        slash(t.x,t.z,1,'#ffe2ad');
       }else if(G.pet===1){
-        fire(
-          {...pp,wid:4,enemy:false},
-          t,
-          25,
-          "#a4e5ed"
-        );
+        fire({...pp,wid:4,enemy:false},t,25,'#a4e5ed');
       }
     }
   }
 
-  for(const f of G.fx){
-    f.t-=dt;
-  }
-
+  for(let f of G.fx) f.t-=dt;
   G.fx=G.fx.filter(f=>f.t>0);
+
   mergeGroups();
 
-  // 必須把本輪所有敵軍打完才換輪。
-  if(
-    !G.pending.length&&
-    G.enemies.every(u=>!alive(u))
-  ){
+  if(!G.pending.length&&G.enemies.every(u=>!alive(u))){
     G.transition+=dt;
 
     if(G.transition>2){
       if(G.wave<5){
         spawnWave();
-
-        // 只恢復主將少量生命，不補兵。
         p.hp=Math.min(p.max,p.hp+60);
         save();
       }else{
@@ -2861,161 +2398,100 @@ function update(dt){
   hud();
 }
 
-// ============================================================
-// HUD
-// ============================================================
-
 function hud(){
-  const p=G.player;
+  let p=G.player;
 
-  $("playerName").textContent=
-    p.name+" · "+WEAPONS[p.wid][0];
+  $('playerName').textContent=
+    p.name+' Lv.'+p.level+' · '+WEAPONS[p.wid][0];
 
-  $("hpText").textContent=
-    "生命 "+Math.ceil(p.hp)+" / "+p.max+
-    " · 氣力 "+Math.floor(p.mp);
+  $('hpText').textContent=
+    '生命 '+Math.ceil(p.hp)+' / '+p.max+
+    ' · 氣力 '+Math.floor(p.mp);
 
-  $("hpBar").style.width=p.hp/p.max*100+"%";
-  $("mpBar").style.width=p.mp+"%";
+  $('hpBar').style.width=p.hp/p.max*100+'%';
+  $('mpBar').style.width=p.mp+'%';
 
-  $("waveInfo").textContent=
-    "第 "+G.wave+" / 5 輪"+
-    " · 敵兵 "+G.enemyTotal+
-    " · 能力 ×"+((10+G.wave*2)/10);
+  $('waveInfo').textContent=
+    '第 '+G.wave+' / 5 輪 · 敵兵 '+G.enemyTotal+
+    ' · 能力 ×'+((10+G.wave*2)/10);
 
-  $("battleInfo").textContent=
-    "金錢 "+P.coins+"（本場 +"+G.gold+"）\n"+
-    "敵 "+G.enemies.filter(alive).length+
-    "／待入場 "+G.pending.length+
-    " · 我兵 "+G.friends.filter(
-      u=>alive(u)&&!u.hero
-    ).length+
-    "/"+G.capacity+
-    " · "+G.combo+" 連擊";
+  $('battleInfo').textContent=
+    '金錢 '+P.coins+'（本場 +'+G.gold+'）\n'+
+    '敵 '+G.enemies.filter(alive).length+
+    '／待入場 '+G.pending.length+
+    ' · 我兵 '+G.friends.filter(u=>alive(u)&&!u.hero).length+
+    '/'+G.capacity+' · '+G.combo+' 連擊';
 
-  const lines=[];
+  let lines=[];
+  let ids=[...new Set(G.friends.filter(alive).map(u=>u.group))];
 
-  const ids=[
-    ...new Set(
-      G.friends.filter(alive).map(u=>u.group)
-    )
-  ];
-
-  for(const id of ids){
-    const n=G.friends.filter(u=>
-      alive(u)&&!u.hero&&u.group===id
+  for(let id of ids){
+    let n=G.friends.filter(
+      u=>alive(u)&&!u.hero&&u.group===id
     ).length;
 
-    const h=G.friends.find(u=>
-      alive(u)&&u.hero&&u.group===id
+    let h=G.friends.find(
+      u=>alive(u)&&u.hero&&u.group===id
     );
 
-    lines.push(
-      (id+1)+"組 "+n+"兵 · "+
-      (h?h.name:"無將")
-    );
+    lines.push((id+1)+'組 '+n+'兵 · '+(h?h.name:'無將'));
   }
 
-  $("squadHud").textContent=lines.join("　");
+  $('squadHud').textContent=lines.join('　');
 
-  for(const b of document.querySelectorAll(".actions button")){
-    const k=b.dataset.key;
+  for(let b of document.querySelectorAll('.actions button')){
+    let k=b.dataset.key;
+    let cd=k==='l'?p.tacticCD:k==='shift'?p.dodgeCD:0;
+    let cost=k==='k'?60:k==='l'?(p.role==='智將'?25:35):0;
 
-    const cd=k==="l"
-      ? G.tacticCD
-      : k==="shift" ? p.dodgeCD : 0;
+    b.classList.toggle('dim',cd>0||p.mp<cost);
 
-    const cost=k==="k"
-      ? 60
-      : k==="l"
-        ? (p.role==="智將"?25:35)
-        : 0;
-
-    b.classList.toggle(
-      "dim",
-      cd>0||p.mp<cost
-    );
-
-    if(["l","k","shift"].includes(k)){
-      b.querySelector("small").textContent=
-        cd>0
-          ? Math.ceil(cd)+"秒"
-          : cost ? cost+"氣" : "就緒";
+    if(['l','k','shift'].includes(k)){
+      b.querySelector('small').textContent=
+        cd>0?Math.ceil(cd)+'秒':cost?cost+'氣':'就緒';
     }
   }
 }
 
-// ============================================================
-// 寵物與戰場繪圖
-// ============================================================
-
 function drawPet(){
-  const u=G.petPos;
-  const y=G.pet===1?3.2:0;
-  const col=["#e9d5ad","#bca981","#b8dbc0"][G.pet];
+  let u=G.petPos;
+  let y=G.pet===1?3.2:0;
+  let col=['#e9d5ad','#bca981','#b8dbc0'][G.pet];
 
   if(G.pet===1){
     box(u.x,y,u.z,.4,.3,.7,col);
-
-    const flap=Math.sin(time*10)*.3;
-
-    limb(
-      [u.x,y,u.z],
-      [u.x-1.1,y+flap,u.z],
-      .1,
-      col
-    );
-
-    limb(
-      [u.x,y,u.z],
-      [u.x+1.1,y+flap,u.z],
-      .1,
-      col
-    );
+    let flap=Math.sin(time*10)*.3;
+    limb([u.x,y,u.z],[u.x-1.1,y+flap,u.z],.1,col);
+    limb([u.x,y,u.z],[u.x+1.1,y+flap,u.z],.1,col);
   }else{
     box(u.x,.4,u.z,.55,.45,1,col);
     box(u.x,.77,u.z+.45,.45,.4,.45,col);
 
-    for(const a of [-1,1]){
-      for(const b of [-1,1]){
-        box(
-          u.x+a*.2,
-          .05,
-          u.z+b*.32,
-          .13,
-          .4,
-          .13,
-          col
-        );
-      }
-    }
+    for(let a of[-1,1])
+      for(let b of[-1,1])
+        box(u.x+a*.2,.05,u.z+b*.32,.13,.4,.13,col);
 
     if(G.pet===2){
       limb(
         [u.x-.15,1.1,u.z+.45],
-        [u.x-.4,1.7,u.z+.35],
-        .035,
-        "#e4c894"
+        [u.x-.4,1.7,u.z+.35],.035,'#e4c894'
       );
-
       limb(
         [u.x+.15,1.1,u.z+.45],
-        [u.x+.4,1.7,u.z+.35],
-        .035,
-        "#e4c894"
+        [u.x+.4,1.7,u.z+.35],.035,'#e4c894'
       );
     }
   }
 }
 
 function render(){
-  ctx.fillStyle="#9eafa4";
+  ctx.fillStyle='#9eafa4';
   ctx.fillRect(0,0,W,H);
 
-  const sky=ctx.createLinearGradient(0,0,0,H);
-  sky.addColorStop(0,"#284852");
-  sky.addColorStop(.5,"#849b90");
-  sky.addColorStop(1,"#354d43");
+  let sky=ctx.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,'#284852');
+  sky.addColorStop(.5,'#849b90');
+  sky.addColorStop(1,'#354d43');
 
   ctx.fillStyle=sky;
   ctx.fillRect(0,0,W,H);
@@ -3023,107 +2499,70 @@ function render(){
   faces=[];
   labels=[];
 
-  const ground=[
-    "#677a69",
-    "#7b816a",
-    "#5d7772"
-  ][G.stage];
-
   for(let z=-40;z<=40;z+=5){
     for(let x=-40;x<=40;x+=5){
       face(
         [
-          [x,.01,z],
-          [x+5,.01,z],
-          [x+5,.01,z+5],
-          [x,.01,z+5]
+          [x,.01,z],[x+5,.01,z],
+          [x+5,.01,z+5],[x,.01,z+5]
         ],
-        shade(ground,(x+z)%10===0?.96:1)
+        shade(
+          ['#677a69','#7b816a','#5d7772'][G.stage],
+          (x+z)%10===0?.96:1
+        )
       );
     }
   }
 
   for(let x=-35;x<=35;x+=7){
-    box(x,0,36,6.8,4,2,"#626b60");
-    box(x,4,36,2,1,2,"#71796a");
+    box(x,0,36,6.8,4,2,'#626b60');
+    box(x,4,36,2,1,2,'#71796a');
   }
 
-  for(const x of [-25,25]){
-    box(x,0,15,.16,7,.16,"#746246");
-
-    box(
-      x+1.1,5,15,
-      2.1,1.7,.07,
-      x<0?"#427c79":"#a35b4d"
-    );
+  for(let x of [-25,25]){
+    box(x,0,15,.16,7,.16,'#746246');
+    box(x+1.1,5,15,2.1,1.7,.07,x<0?'#427c79':'#a35b4d');
   }
 
-  // friends 已包含玩家，避免重複繪製玩家。
-  for(const u of [...G.friends,...G.enemies]){
-    if(!alive(u))continue;
+  // friends 已包含玩家，不能再額外加入一次玩家。
+  for(let u of [...G.friends,...G.enemies]){
+    if(alive(u)){
+      let p=project(u.x,1,u.z);
 
-    const p=project(u.x,1,u.z);
-
-    if(
-      p.x>-80&&p.x<W+80&&
-      p.y>-100&&p.y<H+100
-    ){
-      model(u);
+      if(p.x>-80&&p.x<W+80&&p.y>-100&&p.y<H+100){
+        model(u);
+      }
     }
   }
 
   drawPet();
 
-  for(const s of G.shots){
+  for(let s of G.shots){
     limb(
       [s.x,s.y,s.z],
-      [
-        s.x-s.vx*.06,
-        s.y,
-        s.z-s.vz*.06
-      ],
-      .045,
-      s.c
+      [s.x-s.vx*.06,s.y,s.z-s.vz*.06],
+      .045,s.c
     );
   }
 
   faces.sort((a,b)=>b.d-a.d);
 
-  for(const f of faces){
+  for(let f of faces){
     ctx.fillStyle=f.c;
     ctx.beginPath();
-
-    f.p.forEach((p,i)=>{
-      if(i)ctx.lineTo(p.x,p.y);
-      else ctx.moveTo(p.x,p.y);
-    });
-
+    f.p.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
     ctx.closePath();
     ctx.fill();
   }
 
-  ring(
-    G.player.x,
-    G.player.z,
-    1.3,
-    "#fbe5a0"
-  );
+  ring(G.player.x,G.player.z,1.3,'#fbe5a0');
 
-  for(const e of G.enemies){
-    if(e.windup<=0)continue;
+  for(let e of G.enemies){
+    if(e.windup>0){
+      let a=project(e.x,1.2,e.z);
+      let b=project(e.aim.x,1.2,e.aim.z);
 
-    if(e.big){
-      ring(
-        e.aim.x,
-        e.aim.z,
-        3.8,
-        "#ff665a"
-      );
-    }else{
-      const a=project(e.x,1.2,e.z);
-      const b=project(e.aim.x,1.2,e.aim.z);
-
-      ctx.strokeStyle="#ec957880";
+      ctx.strokeStyle='#ec957880';
       ctx.beginPath();
       ctx.moveTo(a.x,a.y);
       ctx.lineTo(b.x,b.y);
@@ -3131,76 +2570,57 @@ function render(){
     }
   }
 
-  for(const f of G.fields){
-    const c=[
-      "#ff9e5e",
-      "#8ceada",
-      "#cebeed"
-    ][f.type];
-
+  for(let f of G.fields){
+    let c=['#ff9e5e','#8ceada','#cebeed'][f.type];
     ring(f.x,f.z,Math.min(f.r,15),c);
 
     if(f.type===0){
       for(let i=0;i<18;i++){
-        const a=i/18*TAU+time*.2;
-
-        const p=project(
+        let a=i/18*TAU+time*.2;
+        let p=project(
           f.x+Math.cos(a)*f.r*.8,
           .2+Math.abs(Math.sin(time*7+i))*1.6,
           f.z+Math.sin(a)*f.r*.8
         );
 
-        ctx.fillStyle="#ffcb7c";
+        ctx.fillStyle='#ffcb7c';
         ctx.fillRect(p.x,p.y,4,10);
       }
     }
   }
 
-  for(const f of G.fx){
+  for(let f of G.fx){
     ctx.globalAlpha=f.t/f.max;
 
     if(f.text!==undefined){
-      const p=project(
-        f.x,
-        f.y+(1-f.t/f.max),
-        f.z
-      );
-
+      let p=project(f.x,f.y+(1-f.t/f.max),f.z);
       ctx.fillStyle=f.c;
-      ctx.font="bold 14px system-ui";
+      ctx.font='bold 14px system-ui';
       ctx.fillText(f.text,p.x,p.y);
     }else{
-      ring(
-        f.x,
-        f.z,
-        f.r*(1-f.t/f.max)*1.1,
-        f.c,
-        f.y
-      );
+      ring(f.x,f.z,f.r*(1-f.t/f.max)*1.1,f.c,f.y);
     }
 
     ctx.globalAlpha=1;
   }
 
-  ctx.font="bold 13px system-ui";
-  ctx.textAlign="center";
+  ctx.font='bold 13px system-ui';
+  ctx.textAlign='center';
 
-  for(const l of labels){
+  for(let l of labels){
     if(l.health!==undefined){
-      ctx.fillStyle="#162d30";
+      ctx.fillStyle='#162d30';
       ctx.fillRect(l.x-15,l.y,30,4);
       ctx.fillStyle=l.c;
       ctx.fillRect(l.x-15,l.y,30*l.health,4);
       continue;
     }
 
-    const width=ctx.measureText(l.text).width;
-
-    ctx.fillStyle="#102932b0";
+    ctx.fillStyle='#102932b0';
     ctx.fillRect(
-      l.x-width/2-8,
+      l.x-ctx.measureText(l.text).width/2-8,
       l.y-16,
-      width+16,
+      ctx.measureText(l.text).width+16,
       23
     );
 
@@ -3208,7 +2628,7 @@ function render(){
     ctx.fillText(l.text,l.x,l.y);
   }
 
-  ctx.textAlign="left";
+  ctx.textAlign='left';
   drawMap();
 }
 
@@ -3221,51 +2641,36 @@ function drawMap(){
     y=H-252;
   }
 
-  ctx.fillStyle="#08212ecb";
+  ctx.fillStyle='#08212ecb';
   ctx.fillRect(x,y,size,size);
-  ctx.strokeStyle="#72978a";
+  ctx.strokeStyle='#72978a';
   ctx.strokeRect(x,y,size,size);
 
   function dot(u,c,r){
     ctx.fillStyle=c;
-
     ctx.fillRect(
       x+(u.x/80+.5)*size-r,
       y+(.5-u.z/80)*size-r,
-      r*2,
-      r*2
+      r*2,r*2
     );
   }
 
-  G.friends.filter(alive).forEach(a=>{
-    dot(a,"#6cc5bb",1);
-  });
-
-  G.enemies.forEach(a=>{
-    dot(a,"#f17b69",a.big?2:1);
-  });
-
-  dot(G.player,"#ffe393",3);
+  G.friends.filter(alive).forEach(a=>dot(a,'#6cc5bb',1));
+  G.enemies.forEach(a=>dot(a,'#f17b69',a.big?2:1));
+  dot(G.player,'#ffe393',3);
 }
 
-// ============================================================
-// 軍營人物預覽與啟動
-// ============================================================
-
 function portrait(){
-  const oldW=W;
-  const oldH=H;
-  const oldCam=cam;
+  let oldW=W,oldH=H,oldCam=cam;
 
   W=600;
   H=260;
   cam={x:0,z:0};
-
   faces=[];
   labels=[];
 
-  const cfg=P.groups[0];
-  const h=HEROES[cfg.hero];
+  let cfg=P.groups[0];
+  let h=HEROES[cfg.hero];
 
   model({
     x:0,z:0,y:0,
@@ -3287,31 +2692,24 @@ function portrait(){
 
   faces.sort((a,b)=>b.d-a.d);
 
-  for(const f of faces){
+  for(let f of faces){
     px.fillStyle=f.c;
     px.beginPath();
-
-    f.p.forEach((p,i)=>{
-      if(i)px.lineTo(p.x,p.y);
-      else px.moveTo(p.x,p.y);
-    });
-
+    f.p.forEach((p,i)=>i?px.lineTo(p.x,p.y):px.moveTo(p.x,p.y));
     px.closePath();
     px.fill();
   }
 
   px.restore();
-
-  px.fillStyle="#ebc786";
-  px.font="18px serif";
-  px.fillText(h.name+" · "+h.role,22,42);
-
-  px.font="13px sans-serif";
+  px.fillStyle='#ebc786';
+  px.font='18px serif';
+  px.fillText(h.name+' · '+h.role,22,42);
+  px.font='13px sans-serif';
   px.fillText(
-    "生命 "+(h.hp+ARMOR[cfg.armor][1])+
-    " · "+WEAPONS[cfg.weapon][0],
-    22,
-    69
+    '生命 '+
+    Math.round(h.hp*levelFactor(P.heroLevel)+ARMOR[cfg.armor][1])+
+    ' · '+WEAPONS[cfg.weapon][0],
+    22,69
   );
 
   W=oldW;
@@ -3322,7 +2720,7 @@ function portrait(){
 let last=performance.now();
 
 function loop(now){
-  const dt=Math.min((now-last)/1000,.035);
+  let dt=Math.min((now-last)/1000,.035);
   last=now;
 
   if(!G||(!paused&&!G.ended)){
@@ -3330,10 +2728,7 @@ function loop(now){
   }
 
   if(G){
-    if(!paused&&!G.ended){
-      update(dt);
-    }
-
+    if(!paused&&!G.ended) update(dt);
     render();
   }else{
     portrait();
@@ -3345,9 +2740,9 @@ function loop(now){
 normalize();
 renderCamp();
 
-$("saveHint").textContent=storageOK
-  ? "可自動存檔；舊版功績已相容。"
-  : "無法讀取本機存檔，請匯入備份。";
+$('saveHint').textContent=storageOK
+  ?'可自動存檔；相容舊版存檔。'
+  :'無法讀取本機存檔，請匯入備份。';
 
 requestAnimationFrame(loop);
 </script>
