@@ -5,6 +5,7 @@
 <meta name="viewport"
       content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>三國・烽火軍團</title>
+
 <style>
 :root{
   color-scheme:dark;
@@ -102,7 +103,12 @@ th{color:#a1b9b8}
   margin-bottom:5px;
 }
 .card small{font-size:11px}
-.card button{margin-top:8px;width:100%;padding:7px;font-size:12px}
+.card button{
+  margin-top:8px;
+  width:100%;
+  padding:7px;
+  font-size:12px;
+}
 #notice{min-height:28px;color:var(--gold);margin:10px 0}
 #inventory{line-height:1.9;font-size:13px}
 details{line-height:1.9;font-size:13px}
@@ -120,7 +126,12 @@ summary{cursor:pointer;color:var(--gold)}
   inset:0;
   background:#243e47;
 }
-#world{width:100%;height:100%;display:block;touch-action:none}
+#world{
+  width:100%;
+  height:100%;
+  display:block;
+  touch-action:none;
+}
 #hud{
   position:absolute;
   top:10px;
@@ -204,7 +215,11 @@ summary{cursor:pointer;color:var(--gold)}
   top:38px;
   pointer-events:none;
 }
-.actions{display:grid;grid-template-columns:repeat(3,67px);gap:6px}
+.actions{
+  display:grid;
+  grid-template-columns:repeat(3,67px);
+  gap:6px;
+}
 .actions button{
   pointer-events:auto;
   touch-action:none;
@@ -242,7 +257,11 @@ summary{cursor:pointer;color:var(--gold)}
   text-align:center;
   padding:30px;
 }
-#dialog p{line-height:1.9;margin:20px 0;white-space:pre-line}
+#dialog p{
+  line-height:1.9;
+  margin:20px 0;
+  white-space:pre-line;
+}
 footer{font-size:12px;line-height:1.8;color:#b1c5bf}
 #saveFile{display:none}
 @media(max-width:750px){
@@ -263,8 +282,8 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
 }
 </style>
 </head>
-<body>
 
+<body>
 <div id="camp">
   <header>
     <div>
@@ -286,21 +305,34 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
           <span id="armyInfo"></span>
           <button id="sortie" class="primary">擂鼓出征 →</button>
         </div>
+
         <div class="scroll">
           <table>
             <thead>
               <tr>
                 <th>組別／士兵</th>
-                <th>指揮武將</th>
+                <th>指揮武將／個別兵法</th>
                 <th>武器／裝備</th>
               </tr>
             </thead>
             <tbody id="groups"></tbody>
           </table>
         </div>
+
         <p class="muted" style="font-size:12px;margin-top:10px">
           第一組武將由你操作，其餘武將自動參戰。
-          未招募名將的組，由基本生命 650 的部將指揮。
+          未招募名將的組，由 650 血量的部將指揮。
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2>攻城工坊</h2>
+        <select id="siegeType"></select>
+        <button id="buySiege">購買一台</button>
+        <p id="siegeInfo"></p>
+        <p class="muted">
+          衝車近戰破城，床弩遠射，投石車投擲石彈。
+          永久擁有，每場重新部署；本場被摧毀不補充。
         </p>
       </section>
 
@@ -333,22 +365,33 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
           <label>武器<select id="shopWeapon"></select></label>
           <label>防具<select id="shopArmor"></select></label>
         </div>
+
         <div id="shopInfo"></div>
+
         <div class="row">
           <button id="buyWeapon">購買整組武器</button>
           <button id="useLoot">用繳獲武器換裝</button>
           <button id="buyArmor">購買整組防具</button>
+          <button id="useArmorLoot">用繳獲防具換裝</button>
         </div>
+
         <p class="muted" style="font-size:12px;margin-top:10px">
           一次購買供一組士兵與該組武將使用。
           繳獲數量湊足該組兵數即可換裝；換下裝備不退款。
         </p>
+
         <div id="notice" aria-live="polite"></div>
-        <h2>繳獲庫 · 同款兩件出售</h2>
+
+        <h2>繳獲庫 · 每組 50 件</h2>
         <div id="inventory"></div>
         <div class="row">
-          <button id="sellWeapon">出售所選武器 ×2</button>
-          <button id="sellArmor">出售所選防具 ×2</button>
+          <label>
+            出售組數
+            <input id="sellCount" type="number"
+                   min="1" step="1" value="1">
+          </label>
+          <button id="sellWeapon">出售武器</button>
+          <button id="sellArmor">出售防具</button>
         </div>
         <p class="muted">
           販售上方選單所選的庫存裝備，穿戴中的裝備不出售。
@@ -367,6 +410,7 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
               <option value="2">赤壁</option>
             </select>
           </label>
+
           <label>難度 · 敵兵數
             <select id="difficulty">
               <option value="1">初入沙場 ×1</option>
@@ -374,7 +418,9 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
               <option value="2">一騎當千 ×2</option>
             </select>
           </label>
+
           <label>兵法<select id="tactic"></select></label>
+
           <label>坐騎
             <select id="mount">
               <option value="0">徒步</option>
@@ -383,6 +429,7 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
               <option value="3">絕影 · 減傷</option>
             </select>
           </label>
+
           <label>戰寵
             <select id="pet">
               <option value="0">白虎 · 近戰</option>
@@ -417,12 +464,13 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
         難度只決定每輪敵兵總數：出征兵數 × 1／1.5／2，小數進位；
         零兵單人出征時基數最低為 1。
         五輪敵方生命及傷害倍率依序為 1.2／1.4／1.6／1.8／2，
-        敵方指揮將也適用。敵方每組另有一名指揮將，不計入小兵數。
+        敵方指揮將也適用。
+        敵方每組另有一名指揮將，不計入小兵數。
       </p>
       <p>
         武將基本生命至少 650，小兵基本生命 120。
-        每殺一名敵兵得 1 元、10 功績，並繳獲其武器、防具各一件；
-        敵將同樣給 1 元及武器、防具各一件，功績為 100。
+        每殺一名敵兵得 1 元、10 功績並繳獲其武器、防具各一件；
+        敵將同樣給 1 元與武器、防具各一件，功績為 100。
         全軍與戰寵擊殺都算，陣亡扣 1,000 功績，金錢不扣。
       </p>
       <p>
@@ -436,22 +484,27 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
       <p>
         我方士兵不自動補充，換輪也不補兵；
         伏兵每次恢復最多 20 名本場陣亡士兵，
-        保留原裝備及等級，不復活武將。
+        保留原武器，不復活武將。
         返回軍營再出征才重新按功績整軍。
-        新遊戲金錢為 0，全軍只有鐵劍；趙雲免費。
+        新遊戲金錢為 0，全軍只有鐵劍；趙雲免費，其餘名將可招募。
+        角色數值、技能與裝備為本作原創設定，
+        並非《三國幻戰》官方數據。
       </p>
       <p>
-        所有我方武將均有獨立氣力和兵法冷卻，
-        其他指揮將自動施放所選兵法與無雙。
+        所有我方武將均有獨立氣力和兵法冷卻；
+        其他指揮將自動施放各自選定的兵法與無雙。
         敵方只能普通攻擊，不能用無雙或兵法。
-        每 10 功績可換 1 元，會影響下次出征兵數。
-        同款庫存武器／防具每次賣 2 件，價格見軍需坊。
-      </p>
-      <p>
+        每 10 功績可換 1 元，會影響下次出征兵數；
+        同款庫存武器／防具以 50 件為一組出售，
+        可選組數，價格見軍需坊。
         升級限軍營，武將每次花 100×目前等級元，
         士兵花 50×目前等級元，都是全體升級。
-        角色、技能與裝備數值為本作原創，
-        並非《三國幻戰》官方數據。
+      </p>
+      <p>
+        每關第五輪出現城池，每 5 秒射出最多 8 支實體箭，
+        可跳躍、閃避或格擋。
+        消滅守軍並摧毀城池才能過關。
+        攻城兵器第五輪自動部署，士兵與武將也能攻城。
       </p>
       <p>
         WASD／方向鍵移動，J 攻擊，K 無雙，L 兵法，
@@ -520,13 +573,13 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
 <script>
 'use strict';
 
-const $ = id => document.getElementById(id);
-const TAU = Math.PI * 2;
-const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
-const rand = (a,b) => a + Math.random() * (b-a);
+const $=id=>document.getElementById(id);
+const TAU=Math.PI*2;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const rand=(a,b)=>a+Math.random()*(b-a);
 
 // 名稱、種類、傷害、距離、攻擊間隔、整組價、武器減傷。
-const WEAPONS = [
+const WEAPONS=[
   ['鐵劍','劍',14,2.6,.8,0,0],
   ['精鋼劍','劍',21,2.8,.72,30,0],
   ['長槍','槍',23,4,.85,45,0],
@@ -546,7 +599,7 @@ const WEAPONS = [
 ];
 
 // 名稱、加生命、減傷、速度倍率、整組價格、傷害倍率。
-const ARMOR = [
+const ARMOR=[
   ['布衣',0,0,1,0,1],
   ['皮甲',25,.08,1,25,1],
   ['鎖子甲',65,.18,.96,80,1],
@@ -554,53 +607,82 @@ const ARMOR = [
   ['兵符護衣',45,.1,1,130,1.2]
 ];
 
-const TACTICS = ['火攻','八卦陣','空城計','鼓舞','伏兵'];
+WEAPONS.push(
+  ['丈八蛇矛','槍',45,4.8,.85,280,0],
+  ['青釭劍','劍',43,3,.6,320,0],
+  ['古錠刀','刀',48,3.6,.8,340,0],
+  ['倚天劍','劍',52,3.3,.7,380,0],
+  ['流星錘','斧',70,3.8,1.25,400,0],
+  ['諸葛連弩','弩',30,24,.45,440,0],
+  ['白羽扇','杖',64,23,1,460,0],
+  ['霸王戟','戟',76,5,1.05,500,0]
+);
 
-const NAMES = [
+ARMOR.push(
+  ['白銀鎧',180,.32,.95,240,1],
+  ['明光鎧',220,.36,.9,320,1],
+  ['玄武戰甲',300,.42,.82,420,1.1]
+);
+
+const SIEGE=[
+  {name:'衝車',price:120,hp:1400,damage:260,range:3,cd:2.5},
+  {name:'床弩',price:180,hp:800,damage:150,range:24,cd:2},
+  {name:'投石車',price:240,hp:1000,damage:440,range:20,cd:4}
+];
+
+const TACTICS=['火攻','八卦陣','空城計','鼓舞','伏兵'];
+
+const NAMES=[
   ['蜀','趙雲 關羽 張飛 劉備 諸葛亮 黃忠 馬超 姜維 魏延 龐統 徐庶 黃月英 關平 關興 張苞 馬岱'],
   ['魏','曹操 夏侯惇 夏侯淵 張遼 許褚 典韋 司馬懿 郭嘉 荀彧 甄姬 曹仁 徐晃 張郃 樂進 于禁 鄧艾'],
   ['吳','孫權 孫策 孫堅 孫尚香 周瑜 陸遜 甘寧 太史慈 大喬 小喬 呂蒙 魯肅 黃蓋 周泰 凌統'],
   ['群','呂布 貂蟬 董卓 袁紹 袁術 張角 孟獲 祝融 燎原火 陳宮']
 ];
 
-const thinkers =
+const thinkers=
   '諸葛亮 龐統 徐庶 黃月英 司馬懿 郭嘉 荀彧 周瑜 陸遜 呂蒙 魯肅 陳宮 張角 大喬 小喬 甄姬'
   .split(' ');
 
-const lords =
+const lords=
   '劉備 曹操 孫權 孫策 孫堅 董卓 袁紹 袁術 孟獲'.split(' ');
 
-const HEROES = NAMES.flatMap(([f,names]) =>
-  names.split(' ').map(name => {
-    let role = thinkers.includes(name) ? '智將'
-      : lords.includes(name) ? '君主'
-      : ['貂蟬','燎原火'].includes(name) ? '刺客'
-      : '武將';
+// 新角色追加在最後，保留舊存檔的角色編號。
+NAMES.push(
+  ['蜀','劉禪 廖化 王平 馬謖 法正 嚴顏'],
+  ['魏','曹丕 曹植 曹洪 夏侯霸 鍾會 賈詡'],
+  ['吳','孫登 韓當 程普 丁奉 朱然 徐盛'],
+  ['群','華雄 顏良 文醜 陳登 高順 田豐']
+);
 
-    let hp = {智將:650,君主:850,刺客:700,武將:800}[role];
-    if(name === '呂布') hp = 1000;
+const HEROES=NAMES.flatMap(([f,names])=>
+  names.split(' ').map(name=>{
+    let role=thinkers.includes(name)?'智將':
+      lords.includes(name)?'君主':
+      ['貂蟬','燎原火'].includes(name)?'刺客':'武將';
 
-    return {
+    let hp={智將:650,君主:850,刺客:700,武將:800}[role];
+    if(name==='呂布') hp=1000;
+
+    return{
       name,f,role,hp,
-      power:role === '武將' ? 2.1 : role === '刺客' ? 1.9 : 1.7,
+      power:role==='武將'?2.1:role==='刺客'?1.9:1.7,
       color:{蜀:'#63a689',魏:'#819acc',吳:'#cf8468',群:'#b18eb8'}[f],
-      price:name === '趙雲' ? 0
-        : name === '呂布' ? 400
-        : role === '智將' ? 150 : 200
+      price:name==='趙雲'?0:name==='呂布'?400:role==='智將'?150:200
     };
   })
 );
 
-const GENERIC = {
+const GENERIC={
   name:'部將',role:'武將',hp:650,power:1.7,color:'#85aaa5'
 };
 
-// 保留舊版儲存位置，自動將 v3 資料升級成 v4。
-const STORE = 'tk-legion-v3';
+// 沿用舊儲存位置，存檔內容版本為 5。
+const STORE='tk-legion-v3';
 
 function fresh(){
-  return {
-    v:4,
+  return{
+    v:5,
+    siege:[0,0,0],
     heroLevel:1,
     soldierLevel:1,
     armorLoot:Array(ARMOR.length).fill(0),
@@ -613,171 +695,196 @@ function fresh(){
   };
 }
 
-let P = fresh();
-let storageOK = true;
+let P=fresh(),storageOK=true;
 
 function integer(v,min,max){
-  return Number.isInteger(v) && v >= min && v <= max;
+  return Number.isInteger(v)&&v>=min&&v<=max;
 }
 
 function validate(o){
-  if(!o ||
-     !integer(o.merit,0,10000000) ||
+  if(!o||
+     !integer(o.merit,0,10000000)||
      !integer(o.wins,0,10000000)){
     throw Error('功績或戰績不正確');
   }
 
-  if(o.v !== 3 && o.v !== 4){
-    if(o.v !== undefined) throw Error('不支援此存檔版本');
-    let p = fresh();
-    p.merit = o.merit;
-    p.wins = o.wins;
+  if(![3,4,5].includes(o.v)){
+    if(o.v!==undefined) throw Error('不支援此存檔版本');
+    let p=fresh();
+    p.merit=o.merit;
+    p.wins=o.wins;
     return p;
   }
 
-  if(!integer(o.coins,0,1000000000) ||
-     !Array.isArray(o.owned) ||
-     !o.owned.includes(0) ||
-     o.owned.some(i => !integer(i,0,HEROES.length-1)) ||
-     !Array.isArray(o.groups) ||
-     o.groups.length > 5000 ||
-     !Array.isArray(o.loot) ||
-     o.loot.length !== WEAPONS.length ||
-     o.loot.some(n => !integer(n,0,1000000000))){
+  if(!integer(o.coins,0,1000000000)||
+     !Array.isArray(o.owned)||
+     !o.owned.includes(0)||
+     o.owned.some(i=>!integer(i,0,HEROES.length-1))||
+     !Array.isArray(o.groups)||
+     o.groups.length>5000||
+     !Array.isArray(o.loot)||
+     (o.v===5?o.loot.length!==WEAPONS.length:o.loot.length!==16)||
+     o.loot.some(n=>!integer(n,0,1000000000))){
     throw Error('軍團存檔不正確');
   }
 
-  const groups = o.groups.map(g => {
-    if(!g ||
-       !integer(g.hero,-1,HEROES.length-1) ||
-       !integer(g.weapon,0,WEAPONS.length-1) ||
-       !integer(g.armor,0,ARMOR.length-1) ||
-       (g.hero >= 0 && !o.owned.includes(g.hero))){
+  const groups=o.groups.map(g=>{
+    if(!g||
+       !integer(g.hero,-1,HEROES.length-1)||
+       !integer(g.weapon,0,WEAPONS.length-1)||
+       !integer(g.armor,0,ARMOR.length-1)||
+       (g.hero>=0&&!o.owned.includes(g.hero))){
       throw Error('配裝資料不正確');
     }
-    return {hero:g.hero,weapon:g.weapon,armor:g.armor};
+
+    if(o.v===5&&!integer(g.tactic,0,TACTICS.length-1)){
+      throw Error('兵法資料不正確');
+    }
+
+    return{
+      hero:g.hero,
+      weapon:g.weapon,
+      armor:g.armor,
+      tactic:o.v===5?g.tactic:0
+    };
   });
 
-  if(o.v === 4 &&
-     (!integer(o.heroLevel,1,50) ||
-      !integer(o.soldierLevel,1,50) ||
-      !Array.isArray(o.armorLoot) ||
-      o.armorLoot.length !== ARMOR.length ||
-      o.armorLoot.some(n => !integer(n,0,1000000000)))){
+  if(o.v>=4&&(
+    !integer(o.heroLevel,1,50)||
+    !integer(o.soldierLevel,1,50)||
+    !Array.isArray(o.armorLoot)||
+    (o.v===5?o.armorLoot.length!==ARMOR.length:o.armorLoot.length!==5)||
+    o.armorLoot.some(n=>!integer(n,0,1000000000))
+  )){
     throw Error('升級或防具資料不正確');
   }
 
-  return {
-    v:4,
-    heroLevel:o.v === 4 ? o.heroLevel : 1,
-    soldierLevel:o.v === 4 ? o.soldierLevel : 1,
-    armorLoot:o.v === 4
-      ? [...o.armorLoot] : Array(ARMOR.length).fill(0),
+  if(o.v===5&&(
+    !Array.isArray(o.siege)||
+    o.siege.length!==3||
+    o.siege.some(n=>!integer(n,0,6))||
+    o.siege.reduce((a,b)=>a+b,0)>6
+  )){
+    throw Error('攻城兵器資料不正確');
+  }
+
+  return{
+    v:5,
+    siege:o.v===5?[...o.siege]:[0,0,0],
+    heroLevel:o.v>=4?o.heroLevel:1,
+    soldierLevel:o.v>=4?o.soldierLevel:1,
+    armorLoot:o.v>=4
+      ?[...o.armorLoot,...Array(ARMOR.length-o.armorLoot.length).fill(0)]
+      :Array(ARMOR.length).fill(0),
     merit:o.merit,
     wins:o.wins,
     coins:o.coins,
     owned:[...new Set(o.owned)],
     groups,
-    loot:[...o.loot]
+    loot:[...o.loot,...Array(WEAPONS.length-o.loot.length).fill(0)]
   };
 }
 
 try{
-  let raw = localStorage.getItem(STORE);
+  let raw=localStorage.getItem(STORE);
   if(raw){
-    P = validate(JSON.parse(raw));
+    P=validate(JSON.parse(raw));
   }else{
-    let old = localStorage.getItem('tk-fire-v1');
-    if(old) P = validate(JSON.parse(old));
+    let old=localStorage.getItem('tk-fire-v1');
+    if(old) P=validate(JSON.parse(old));
   }
 }catch{
-  storageOK = false;
+  storageOK=false;
 }
 
 function save(){
   try{
     localStorage.setItem(STORE,JSON.stringify(P));
-    storageOK = true;
+    storageOK=true;
   }catch{
-    storageOK = false;
+    storageOK=false;
   }
-  $('saveHint').textContent = storageOK
-    ? '已自動儲存；可匯出備份。'
-    : '無法自動存檔，請匯出備份。';
+
+  $('saveHint').textContent=storageOK
+    ?'已自動儲存；可匯出備份。'
+    :'無法自動存檔，請匯出備份。';
 }
 
 function note(s){
-  $('notice').textContent = s;
+  $('notice').textContent=s;
 }
 
-// 每組 50 人，餘數併入最後一組。
 function sizes(n){
-  if(n <= 0) return [];
-  if(n < 50) return [n];
-  let a = Array(Math.floor(n/50)).fill(50);
-  a[a.length-1] += n%50;
+  if(n<=0) return[];
+  if(n<50) return[n];
+  let a=Array(Math.floor(n/50)).fill(50);
+  a[a.length-1]+=n%50;
   return a;
 }
 
 function normalize(){
-  let count = Math.max(1,sizes(Math.floor(P.merit/100)).length);
+  let count=Math.max(1,sizes(Math.floor(P.merit/100)).length);
 
-  while(P.groups.length < count){
+  while(P.groups.length<count){
     P.groups.push({
-      hero:P.groups.length ? -1 : 0,
-      weapon:0,
-      armor:0
+      hero:P.groups.length?-1:0,
+      weapon:0,armor:0,tactic:0
     });
   }
 
-  P.groups.length = count;
-  let seen = new Set();
+  P.groups.length=count;
 
-  P.groups.forEach(g => {
-    if(g.hero < 0 || seen.has(g.hero)) g.hero = -1;
+  P.groups.forEach(g=>{
+    if(!integer(g.tactic,0,TACTICS.length-1)) g.tactic=0;
+  });
+
+  let seen=new Set();
+
+  P.groups.forEach(g=>{
+    if(g.hero<0||seen.has(g.hero)) g.hero=-1;
     else seen.add(g.hero);
   });
 
-  if(P.groups[0].hero < 0){
-    P.groups.forEach(g => {
-      if(g.hero === 0) g.hero = -1;
+  if(P.groups[0].hero<0){
+    P.groups.forEach(g=>{
+      if(g.hero===0) g.hero=-1;
     });
-    P.groups[0].hero = 0;
+    P.groups[0].hero=0;
   }
 }
 
 function option(s,text,value){
-  let o = document.createElement('option');
-  o.textContent = text;
-  o.value = value;
+  let o=document.createElement('option');
+  o.textContent=text;
+  o.value=value;
   s.append(o);
 }
 
 function assignHero(group,id){
-  if(!P.owned.includes(id) && id !== -1) return;
-  if(group === 0 && id === -1) return;
+  if(!P.owned.includes(id)&&id!==-1) return;
+  if(group===0&&id===-1) return;
 
-  if(id >= 0 && P.groups.some((g,i) => i !== group && g.hero === id)){
+  if(id>=0&&P.groups.some((g,i)=>i!==group&&g.hero===id)){
     note('這位武將已指派到另一組，請先解除原指派。');
     renderCamp();
     return;
   }
 
-  P.groups[group].hero = id;
+  P.groups[group].hero=id;
   save();
   renderCamp();
 }
 
 function recruit(id){
   if(P.owned.includes(id)) return;
+  let h=HEROES[id];
 
-  let h = HEROES[id];
-  if(P.coins < h.price){
+  if(P.coins<h.price){
     note('金錢不足。');
     return;
   }
 
-  P.coins -= h.price;
+  P.coins-=h.price;
   P.owned.push(id);
   save();
   renderCamp();
@@ -787,35 +894,49 @@ function recruit(id){
 function renderCamp(){
   normalize();
 
-  let troop = sizes(Math.floor(P.merit/100));
+  let troop=sizes(Math.floor(P.merit/100));
 
-  $('money').textContent = '金錢 '+P.coins+' 元';
-  $('career').textContent = '功績 '+P.merit+' · 勝場 '+P.wins;
-  $('armyInfo').textContent =
+  $('money').textContent='金錢 '+P.coins+' 元';
+  $('career').textContent='功績 '+P.merit+' · 勝場 '+P.wins;
+  $('armyInfo').textContent=
     '出征 '+Math.floor(P.merit/100)+' 兵／'+troop.length+' 組';
-  $('heroCount').textContent = HEROES.length+' 位';
+  $('heroCount').textContent=HEROES.length+' 位';
 
   $('groups').replaceChildren();
-  let chosen = $('shopGroup').value;
+  let chosen=$('shopGroup').value;
   $('shopGroup').replaceChildren();
 
-  P.groups.forEach((g,i) => {
-    let tr = document.createElement('tr');
-    let a = document.createElement('td');
-    let b = document.createElement('td');
-    let c = document.createElement('td');
-    let sel = document.createElement('select');
+  P.groups.forEach((g,i)=>{
+    let tr=document.createElement('tr');
+    let a=document.createElement('td');
+    let b=document.createElement('td');
+    let c=document.createElement('td');
+    let sel=document.createElement('select');
 
-    a.textContent =
-      (i+1)+' 組 · '+(troop[i]||0)+' 兵'+(i === 0 ? '／你' : '');
+    a.textContent=
+      (i+1)+' 組 · '+(troop[i]||0)+' 兵'+(i===0?'／你':'');
 
-    if(i > 0) option(sel,'部將（免費）',-1);
-    P.owned.forEach(id => option(sel,HEROES[id].name,id));
+    if(i>0) option(sel,'部將（免費）',-1);
 
-    sel.value = g.hero;
-    sel.onchange = () => assignHero(i,+sel.value);
+    P.owned.forEach(id=>option(sel,HEROES[id].name,id));
+
+    sel.value=g.hero;
+    sel.onchange=()=>assignHero(i,+sel.value);
     b.append(sel);
-    c.textContent = WEAPONS[g.weapon][0]+'／'+ARMOR[g.armor][0];
+
+    let ts=document.createElement('select');
+    TACTICS.forEach((t,j)=>option(ts,t,j));
+    ts.value=g.tactic;
+
+    ts.onchange=()=>{
+      g.tactic=+ts.value;
+      save();
+      if(i===0) $('tactic').value=g.tactic;
+    };
+
+    b.append(ts);
+
+    c.textContent=WEAPONS[g.weapon][0]+'／'+ARMOR[g.armor][0];
 
     tr.append(a,b,c);
     $('groups').append(tr);
@@ -827,98 +948,99 @@ function renderCamp(){
     );
   });
 
-  $('shopGroup').value =
-    +chosen < P.groups.length ? chosen || 0 : 0;
+  $('shopGroup').value=
+    +chosen<P.groups.length?chosen||0:0;
 
   $('heroes').replaceChildren();
 
-  HEROES.forEach((h,i) => {
-    if($('faction').value !== '全部' &&
-       h.f !== $('faction').value) return;
+  HEROES.forEach((h,i)=>{
+    if($('faction').value!=='全部'&&h.f!==$('faction').value) return;
 
-    let card = document.createElement('div');
-    let b = document.createElement('b');
-    let t = document.createElement('small');
-    let buy = document.createElement('button');
+    let card=document.createElement('div');
+    let b=document.createElement('b');
+    let t=document.createElement('small');
+    let buy=document.createElement('button');
 
-    card.className = 'card';
-    b.textContent = h.name;
-    t.textContent =
-      h.f+' · '+h.role+' · 基礎 HP '+h.hp+' · 武器傷害 ×'+h.power;
-    buy.textContent = P.owned.includes(i)
-      ? '已招募' : h.price+' 元招募';
-    buy.disabled = P.owned.includes(i);
-    buy.onclick = () => recruit(i);
+    card.className='card';
+    b.textContent=h.name;
+    t.textContent=
+      h.f+' · '+h.role+' · HP '+h.hp+' · 武器傷害 ×'+h.power;
+    buy.textContent=P.owned.includes(i)?'已招募':h.price+' 元招募';
+    buy.disabled=P.owned.includes(i);
+    buy.onclick=()=>recruit(i);
 
     card.append(b,t,buy);
     $('heroes').append(card);
   });
 
-  $('inventory').textContent = P.loot
-    .map((n,i) => n ? WEAPONS[i][0]+' ×'+n : '')
+  $('inventory').textContent=P.loot
+    .map((n,i)=>n?WEAPONS[i][0]+' ×'+n:'')
     .filter(Boolean)
     .concat(
       P.armorLoot
-        .map((n,i) => n ? ARMOR[i][0]+' ×'+n : '')
+        .map((n,i)=>n?ARMOR[i][0]+' ×'+n:'')
         .filter(Boolean)
     )
-    .join('　') || '尚未繳獲裝備。擊殺敵人後自動入庫。';
+    .join('　')||'尚未繳獲裝備。擊殺敵人後自動入庫。';
 
+  $('tactic').value=P.groups[0].tactic;
   shopInfo();
   economyInfo();
+  siegeInfo();
 }
 
 function shopInfo(){
-  let w = WEAPONS[+$('shopWeapon').value];
-  let a = ARMOR[+$('shopArmor').value];
-  let i = +$('shopGroup').value;
-  let n = sizes(Math.floor(P.merit/100))[i] || 0;
+  let w=WEAPONS[+$('shopWeapon').value];
+  let a=ARMOR[+$('shopArmor').value];
+  let i=+$('shopGroup').value;
+  let n=sizes(Math.floor(P.merit/100))[i]||0;
 
-  $('shopInfo').textContent =
+  $('shopInfo').textContent=
     w[0]+'：傷害 '+w[2]+'／距離 '+w[3]+
     '／間隔 '+w[4]+' 秒／整組 '+w[5]+' 元。'+
     a[0]+'：生命 +'+a[1]+'／減傷 '+Math.round(a[2]*100)+
     '%／整組 '+a[4]+' 元。繳獲換裝需要 '+Math.max(1,n)+
-    ' 件同種武器。出售兩件：武器 '+
-    pairPrice('weapon',+$('shopWeapon').value)+' 元／防具 '+
-    pairPrice('armor',+$('shopArmor').value)+' 元。';
+    ' 件同種裝備。每組出售 50 件：武器 '+
+    batchPrice('weapon',+$('shopWeapon').value)+' 元／防具 '+
+    batchPrice('armor',+$('shopArmor').value)+' 元。';
 }
 
 function equip(kind,loot=false){
   if(G) return;
 
-  let i = +$('shopGroup').value;
-  let g = P.groups[i];
-  let id = +(kind === 'weapon'
-    ? $('shopWeapon').value : $('shopArmor').value);
+  let i=+$('shopGroup').value;
+  let g=P.groups[i];
+  let id=+(kind==='weapon'
+    ?$('shopWeapon').value:$('shopArmor').value);
 
   if(!g) return;
 
-  if(g[kind] === id){
+  if(g[kind]===id){
     note('本組已使用這項裝備。');
     return;
   }
 
-  let cost = kind === 'weapon' ? WEAPONS[id][5] : ARMOR[id][4];
+  let cost=kind==='weapon'?WEAPONS[id][5]:ARMOR[id][4];
 
   if(loot){
-    let need = Math.max(1,sizes(Math.floor(P.merit/100))[i]||0);
+    let need=Math.max(1,sizes(Math.floor(P.merit/100))[i]||0);
+    let stock=kind==='weapon'?P.loot:P.armorLoot;
 
-    if(P.loot[id] < need){
+    if(stock[id]<need){
       note('繳獲數量不足，需要 '+need+' 件。');
       return;
     }
 
-    P.loot[id] -= need;
+    stock[id]-=need;
   }else{
-    if(P.coins < cost){
+    if(P.coins<cost){
       note('金錢不足，需要 '+cost+' 元。');
       return;
     }
-    P.coins -= cost;
+    P.coins-=cost;
   }
 
-  g[kind] = id;
+  g[kind]=id;
   save();
   renderCamp();
   note('第 '+(i+1)+' 組已換裝。');
@@ -929,49 +1051,50 @@ function levelFactor(level){
 }
 
 function upgradeCost(kind){
-  return (kind === 'hero' ? 100 : 50)*P[kind+'Level'];
+  return (kind==='hero'?100:50)*P[kind+'Level'];
 }
 
 function economyInfo(){
-  $('levelInfo').textContent =
+  $('levelInfo').textContent=
     '武將 Lv.'+P.heroLevel+'／士兵 Lv.'+P.soldierLevel+
     '（生命、傷害 ×'+levelFactor(P.heroLevel).toFixed(1)+
     '／×'+levelFactor(P.soldierLevel).toFixed(1)+'）';
 
   for(const kind of ['hero','soldier']){
-    let b = $(kind === 'hero' ? 'upHero' : 'upSoldier');
+    let b=$(kind==='hero'?'upHero':'upSoldier');
 
-    b.textContent =
-      (kind === 'hero' ? '全體武將' : '全體士兵')+
-      (P[kind+'Level'] >= 50
-        ? '已滿級' : '升級 '+upgradeCost(kind)+' 元');
+    b.textContent=
+      (kind==='hero'?'全體武將':'全體士兵')+
+      (P[kind+'Level']>=50
+        ?'已滿級':'升級 '+upgradeCost(kind)+' 元');
 
-    b.disabled = P[kind+'Level'] >= 50;
+    b.disabled=P[kind+'Level']>=50;
   }
 
-  let n = Number($('exchangeAmount').value);
-  let ok = integer(n,1,1000000) && n*10 <= P.merit;
+  let n=Number($('exchangeAmount').value);
+  let ok=integer(n,1,1000000)&&n*10<=P.merit;
 
-  $('exchangeInfo').textContent = ok
-    ? '扣除 '+n*10+' 功績，獲得 '+n+
+  $('exchangeInfo').textContent=ok
+    ?'扣除 '+n*10+' 功績，獲得 '+n+
       ' 元；下次可帶 '+Math.floor((P.merit-n*10)/100)+' 兵。'
-    : '請輸入可兌換的正整數；目前最多 '+
+    :'請輸入可兌換的正整數；目前最多 '+
       Math.floor(P.merit/10)+' 元。';
 }
 
 function upgrade(kind){
-  if(G || !['hero','soldier'].includes(kind)) return;
+  if(G||!['hero','soldier'].includes(kind)) return;
 
-  let key = kind+'Level';
-  let cost = upgradeCost(kind);
+  let key=kind+'Level';
+  let cost=upgradeCost(kind);
 
-  if(P[key] >= 50) return;
-  if(P.coins < cost){
+  if(P[key]>=50) return;
+
+  if(P.coins<cost){
     note('金錢不足，升級需要 '+cost+' 元。');
     return;
   }
 
-  P.coins -= cost;
+  P.coins-=cost;
   P[key]++;
   save();
   renderCamp();
@@ -981,111 +1104,162 @@ function upgrade(kind){
 function exchange(){
   if(G) return;
 
-  let n = Number($('exchangeAmount').value);
+  let n=Number($('exchangeAmount').value);
 
-  if(!integer(n,1,1000000) || n*10 > P.merit){
+  if(!integer(n,1,1000000)||n*10>P.merit){
     note('兌換金額不正確或功績不足。');
     return;
   }
 
-  P.merit -= n*10;
-  P.coins += n;
+  P.merit-=n*10;
+  P.coins+=n;
   normalize();
   save();
   renderCamp();
   note('已兌換 '+n+' 元，出征編制已按剩餘功績調整。');
 }
 
-// 每次只能賣兩件同款庫存；免費基本裝備仍至少值 1 元。
-function pairPrice(kind,id){
+function batchPrice(kind,id){
   return Math.max(
     1,
-    Math.floor(
-      (kind === 'weapon' ? WEAPONS[id][5] : ARMOR[id][4])/50
-    )
+    Math.floor((kind==='weapon'?WEAPONS[id][5]:ARMOR[id][4])/2)
   );
 }
 
-function sellPair(kind){
+function sellBatch(kind){
   if(G) return;
 
-  let id = +(kind === 'weapon'
-    ? $('shopWeapon').value : $('shopArmor').value);
-  let stock = kind === 'weapon' ? P.loot : P.armorLoot;
+  let id=+(kind==='weapon'
+    ?$('shopWeapon').value:$('shopArmor').value);
+  let stock=kind==='weapon'?P.loot:P.armorLoot;
+  let n=Number($('sellCount').value);
 
-  if(stock[id] < 2){
-    note('必須有同款 2 件庫存才能出售。');
+  if(!integer(n,1,1000000)){
+    note('請輸入正整數組數。');
     return;
   }
 
-  let value = pairPrice(kind,id);
-  stock[id] -= 2;
-  P.coins += value;
+  let need=n*50;
 
+  if(stock[id]<need){
+    note(
+      '庫存不足：需要 '+need+
+      ' 件同款裝備，目前只有 '+stock[id]+' 件。'
+    );
+    return;
+  }
+
+  let value=batchPrice(kind,id)*n;
+  stock[id]-=need;
+  P.coins+=value;
   save();
   renderCamp();
-  note('已出售 2 件，獲得 '+value+' 元。');
+  note('已出售 '+n+' 組（'+need+' 件），獲得 '+value+' 元。');
 }
 
-$('upHero').onclick = () => upgrade('hero');
-$('upSoldier').onclick = () => upgrade('soldier');
-$('exchange').onclick = exchange;
-$('exchangeAmount').oninput = economyInfo;
-$('sellWeapon').onclick = () => sellPair('weapon');
-$('sellArmor').onclick = () => sellPair('armor');
+function siegeInfo(){
+  $('siegeInfo').textContent=
+    SIEGE.map((a,i)=>a.name+' ×'+P.siege[i]).join('／')+
+    '；每次出征第五輪自動部署，最多共 6 台。';
+}
 
-WEAPONS.forEach((w,i) =>
-  option($('shopWeapon'),w[0]+' · '+w[5]+' 元／組',i));
-ARMOR.forEach((a,i) =>
-  option($('shopArmor'),a[0]+' · '+a[4]+' 元／組',i));
-TACTICS.forEach((t,i) => option($('tactic'),t,i));
+function buySiege(){
+  if(G) return;
 
-$('shopWeapon').onchange =
-$('shopArmor').onchange =
-$('shopGroup').onchange = shopInfo;
+  let id=+$('siegeType').value;
+  let c=SIEGE[id];
 
-$('faction').onchange = renderCamp;
-$('buyWeapon').onclick = () => equip('weapon');
-$('useLoot').onclick = () => equip('weapon',true);
-$('buyArmor').onclick = () => equip('armor');
+  if(P.siege.reduce((a,b)=>a+b,0)>=6){
+    note('攻城兵器最多 6 台。');
+    return;
+  }
 
-$('export').onclick = () => {
-  let a = document.createElement('a');
-  a.href = URL.createObjectURL(
-    new Blob([JSON.stringify(P,null,2)],{type:'application/json'})
-  );
-  a.download = '三國軍團存檔.json';
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href),1000);
+  if(P.coins<c.price){
+    note('金錢不足。');
+    return;
+  }
+
+  P.coins-=c.price;
+  P.siege[id]++;
+  save();
+  renderCamp();
+  note('已購買 '+c.name+'，第五輪自動進攻城池。');
+}
+
+$('buySiege').onclick=buySiege;
+
+SIEGE.forEach((a,i)=>
+  option($('siegeType'),a.name+' · '+a.price+' 元／台',i)
+);
+
+$('tactic').onchange=()=>{
+  P.groups[0].tactic=+$('tactic').value;
+  save();
+  renderCamp();
 };
 
-$('import').onclick = () => $('saveFile').click();
+$('upHero').onclick=()=>upgrade('hero');
+$('upSoldier').onclick=()=>upgrade('soldier');
+$('exchange').onclick=exchange;
+$('exchangeAmount').oninput=economyInfo;
+$('sellWeapon').onclick=()=>sellBatch('weapon');
+$('sellArmor').onclick=()=>sellBatch('armor');
 
-$('saveFile').onchange = async e => {
+WEAPONS.forEach((w,i)=>
+  option($('shopWeapon'),w[0]+' · '+w[5]+' 元／組',i)
+);
+ARMOR.forEach((a,i)=>
+  option($('shopArmor'),a[0]+' · '+a[4]+' 元／組',i)
+);
+TACTICS.forEach((t,i)=>option($('tactic'),t,i));
+
+$('shopWeapon').onchange=
+$('shopArmor').onchange=
+$('shopGroup').onchange=shopInfo;
+
+$('faction').onchange=renderCamp;
+$('buyWeapon').onclick=()=>equip('weapon');
+$('useLoot').onclick=()=>equip('weapon',true);
+$('buyArmor').onclick=()=>equip('armor');
+$('useArmorLoot').onclick=()=>equip('armor',true);
+
+$('export').onclick=()=>{
+  let a=document.createElement('a');
+  a.href=URL.createObjectURL(
+    new Blob([JSON.stringify(P,null,2)],{type:'application/json'})
+  );
+  a.download='三國軍團存檔.json';
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
+
+$('import').onclick=()=>$('saveFile').click();
+
+$('saveFile').onchange=async e=>{
   try{
-    let f = e.target.files[0];
+    let f=e.target.files[0];
     if(!f) return;
-    if(f.size > 1000000) throw Error('檔案過大');
+    if(f.size>1000000) throw Error('檔案過大');
 
-    let n = validate(JSON.parse(await f.text()));
+    let n=validate(JSON.parse(await f.text()));
 
     if(!confirm('以此存檔取代目前進度？')) return;
 
-    P = n;
+    P=n;
     normalize();
     save();
     renderCamp();
   }catch(e){
     note('匯入失敗：'+e.message);
   }finally{
-    e.target.value = '';
+    e.target.value='';
   }
 };
 
-const canvas = $('world');
-const ctx = canvas.getContext('2d');
-const pc = $('portrait');
-const px = pc.getContext('2d');
+const canvas=$('world');
+const ctx=canvas.getContext('2d');
+const pc=$('portrait');
+const px=pc.getContext('2d');
 
 let W=0,H=0;
 let cam={x:0,z:0};
@@ -1098,14 +1272,15 @@ let silent=false,audioCtx=null;
 
 function tone(f,d=.08){
   if(silent) return;
+
   try{
-    audioCtx ??= new(window.AudioContext||window.webkitAudioContext)();
-    if(audioCtx.state === 'suspended') audioCtx.resume();
+    audioCtx??=new(window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==='suspended') audioCtx.resume();
 
-    let o = audioCtx.createOscillator();
-    let g = audioCtx.createGain();
+    let o=audioCtx.createOscillator();
+    let g=audioCtx.createGain();
 
-    o.type = 'triangle';
+    o.type='triangle';
     o.frequency.setValueAtTime(f,audioCtx.currentTime);
     g.gain.setValueAtTime(.025,audioCtx.currentTime);
     g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);
@@ -1119,22 +1294,25 @@ function resize(){
   W=innerWidth;
   H=innerHeight;
   let d=Math.min(devicePixelRatio||1,1.5);
+
   canvas.width=W*d;
   canvas.height=H*d;
   ctx.setTransform(d,0,0,d,0,0);
   pc.width=600;
   pc.height=260;
 }
+
 window.addEventListener('resize',resize);
 resize();
 
-// 以 Canvas 繪製 3D 頂點投影，不依賴外部模型或圖片。
+// 3D 頂點投影到 Canvas。
 function project(x,y,z){
   let dz=z-cam.z;
   let dx=x-cam.x;
   let depth=38+dz*.8-y*.6;
   let f=Math.min(700,Math.max(390,H*1.05));
-  return {
+
+  return{
     x:W/2+dx*f/depth,
     y:H*.58+(-dz*.6-y*.8)*f/depth,
     d:depth
@@ -1144,11 +1322,16 @@ function project(x,y,z){
 function face(verts,color){
   let p=verts.map(v=>project(...v));
   if(p.some(v=>v.d<3)) return;
-  faces.push({p,c:color,d:p.reduce((s,v)=>s+v.d,0)/p.length});
+
+  faces.push({
+    p,c:color,
+    d:p.reduce((s,v)=>s+v.d,0)/p.length
+  });
 }
 
 function shade(hex,k){
   let n=parseInt(hex.slice(1),16);
+
   return '#'+[n>>16,(n>>8)&255,n&255]
     .map(c=>clamp(Math.floor(c*k),0,255).toString(16).padStart(2,'0'))
     .join('');
@@ -1157,14 +1340,17 @@ function shade(hex,k){
 function box(x,y,z,w,h,d,c,rot=0){
   let cs=Math.cos(rot),sn=Math.sin(rot),v=[];
 
-  for(let yy of [0,h])
-    for(let zz of [-d/2,d/2])
-      for(let xx of [-w/2,w/2])
+  for(let yy of [0,h]){
+    for(let zz of [-d/2,d/2]){
+      for(let xx of [-w/2,w/2]){
         v.push([
           x+xx*cs+zz*sn,
           y+yy,
           z+zz*cs-xx*sn
         ]);
+      }
+    }
+  }
 
   [
     [0,1,3,2],[4,6,7,5],[0,4,5,1],
@@ -1191,13 +1377,15 @@ function limb(a,b,width,c){
   let vz=-dy*ux/len;
   let vs=[];
 
-  for(let p of[a,b])
-    for(let [s,t] of[[-1,-1],[1,-1],[1,1],[-1,1]])
+  for(let p of[a,b]){
+    for(let [s,t] of[[-1,-1],[1,-1],[1,1],[-1,1]]){
       vs.push([
         p[0]+s*ux+t*vx,
         p[1]+t*vy,
         p[2]+s*uz+t*vz
       ]);
+    }
+  }
 
   [
     [0,1,2,3],[4,7,6,5],[0,4,5,1],
@@ -1207,6 +1395,7 @@ function limb(a,b,width,c){
 
 function ring(x,z,r,c,y=.08){
   let ps=[];
+
   for(let i=0;i<=32;i++){
     ps.push(project(
       x+Math.cos(i/32*TAU)*r,
@@ -1223,6 +1412,11 @@ function ring(x,z,r,c,y=.08){
 }
 
 function model(u){
+  if(u.castle||u.siege){
+    structureModel(u);
+    return;
+  }
+
   let x=u.x,z=u.z,y=u.y||0;
   let s=u.big?1.5:u.player?1.3:1;
   let rot=u.dir||0;
@@ -1233,7 +1427,7 @@ function model(u){
     ?Math.sin(Math.PI*(1-u.swing/(u.swingMax||.3))):0;
 
   function pos(a,b,d){
-    return [
+    return[
       x+(a*Math.cos(rot)+d*Math.sin(rot))*s,
       y+b*s,
       z+(d*Math.cos(rot)-a*Math.sin(rot))*s
@@ -1250,13 +1444,16 @@ function model(u){
 
   if(u.mount){
     let hc=['','#985438','#d9d0b3','#36434a'][u.mount];
+
     b(0,.75,0,.78,.65,1.65,hc);
     b(0,1.24,.67,.4,.64,.48,hc);
     b(0,1.64,.98,.4,.32,.6,hc);
 
-    for(let a of [-1,1])
-      for(let q of [-1,1])
+    for(let a of [-1,1]){
+      for(let q of [-1,1]){
         l([a*.29,.85,q*.6],[a*.29,.12,q*.6+walk*q],.1,hc);
+      }
+    }
 
     l([0,1.1,-.8],[0,.65,-1.3],.1,'#303134');
     y+=.9;
@@ -1293,6 +1490,7 @@ function model(u){
     if(u.role==='智將'){
       b(0,1.98,0,.38,.38,.35,shade(c,.65));
     }
+
     if(u.role==='刺客'){
       b(0,1.5,.23,.44,.15,.07,shade(c,.4));
     }
@@ -1309,11 +1507,10 @@ function model(u){
   l([-.45,1.3,0],[-.6,1.05,.25],.12,c);
   l([.45,1.3,0],hand,.12,c);
 
-  const metal='#d8e3dc';
-  const wood='#ad844c';
+  const metal='#d8e3dc',wood='#ad844c';
 
   function wp(a,b,d){
-    return [hand[0]+a,hand[1]+b,hand[2]+d];
+    return[hand[0]+a,hand[1]+b,hand[2]+d];
   }
 
   if(type==='弓'){
@@ -1331,11 +1528,13 @@ function model(u){
     }
   }else if(type==='杖'){
     l(wp(0,-.5,0),wp(0,.7,0),.035,wood);
+
     for(let i=-2;i<=2;i++){
       l(wp(0,.3,0),wp(i*.18,.9-Math.abs(i)*.09,0),.075,'#d1eddf');
     }
   }else{
     let tip=wp(.25-atk*.85,1.05-atk*.5,.2+atk*.55);
+
     l(wp(0,-.2,0),wp(0,.15,0),.055,wood);
     l(wp(0,.12,0),tip,type==='斧'?.17:.07,metal);
 
@@ -1380,19 +1579,19 @@ function alive(u){
 }
 
 function makeUnit(enemy,group,weapon,armor,hero=null,player=false){
-  const w=WEAPONS[weapon];
-  const a=ARMOR[armor];
-
-  // 敵人一律使用一級基礎能力，不讀取玩家升級等級。
+  const w=WEAPONS[weapon],a=ARMOR[armor];
   const mul=enemy?(10+G.wave*2)/10:1;
+
+  // 敵軍固定為基礎等級，不受玩家升級影響。
   const level=enemy?1:(hero?P.heroLevel:P.soldierLevel);
   const growth=levelFactor(level);
   const max=Math.round(((hero?hero.hp:120)*growth+a[1])*mul);
 
-  return {
+  return{
     x:0,z:0,y:0,vy:0,
-    hp:max,max,
-    mp:100,level,tacticCD:0,
+    hp:max,max,mp:100,level,
+    tactic:enemy?0:(P.groups[group]?.tactic||0),
+    tacticCD:0,
     enemy,group,
     wid:weapon,aid:armor,
     weapon:w[1],
@@ -1414,10 +1613,178 @@ function makeUnit(enemy,group,weapon,armor,hero=null,player=false){
     mount:player?+$('mount').value:0,
     pending:null,
     comboStep:0,comboClock:0,
-    windup:0,
-    special:4,
+    windup:0,special:4,
     retired:false
   };
+}
+
+function spawnSiege(){
+  const hp=6000+G.stage*2000;
+
+  G.castle={
+    x:0,z:27,y:0,
+    hp,max:hp,
+    enemy:true,
+    castle:true,
+    def:.15,
+    arrowCD:5,
+    retired:false,
+    name:['虎牢城','長坂城','赤壁城'][G.stage]
+  };
+
+  G.enemies.push(G.castle);
+  G.engines=[];
+
+  P.siege.forEach((n,id)=>{
+    for(let j=0;j<n;j++){
+      const c=SIEGE[id];
+      const i=G.engines.length;
+
+      G.engines.push({
+        x:(i-2.5)*3,z:-10,y:0,
+        hp:c.hp,max:c.hp,
+        enemy:false,
+        siege:true,
+        kind:id,
+        def:.2,
+        retired:false,
+        cd:1,dir:0,
+        name:c.name
+      });
+    }
+  });
+}
+
+function updateSiege(dt,friends){
+  const c=G.castle;
+
+  if(c&&alive(c)){
+    c.arrowCD-=dt;
+
+    if(c.arrowCD<=0){
+      c.arrowCD+=5;
+
+      const targets=friends
+        .filter(alive)
+        .sort((a,b)=>
+          Math.hypot(a.x-c.x,a.z-c.z)-
+          Math.hypot(b.x-c.x,b.z-c.z)
+        )
+        .slice(0,8);
+
+      for(const t of targets){
+        const angle=Math.atan2(t.x-c.x,t.z-c.z);
+
+        G.shots.push({
+          x:c.x,z:c.z,y:1.3,
+          vx:Math.sin(angle)*24,
+          vz:Math.cos(angle)*24,
+          t:4,
+          damage:44,
+          c:'#ffb478',
+          enemy:true,
+          owner:false
+        });
+      }
+
+      announce(c.name+' · 城防箭雨！');
+    }
+  }
+
+  for(const u of G.engines){
+    if(!alive(u)) continue;
+
+    u.cd-=dt;
+
+    let target=c&&alive(c)?c:nearest(u,G.enemies);
+    if(!target) continue;
+
+    const spec=SIEGE[u.kind];
+    const d=Math.hypot(target.x-u.x,target.z-u.z);
+    u.dir=Math.atan2(target.x-u.x,target.z-u.z);
+
+    if(d>spec.range){
+      u.x+=Math.sin(u.dir)*1.8*dt;
+      u.z+=Math.cos(u.dir)*1.8*dt;
+    }else if(u.cd<=0){
+      u.cd=spec.cd;
+
+      if(u.kind===0){
+        damage(target,spec.damage);
+        slash(u.x,u.z,3,'#e9c18a');
+      }else{
+        const speed=u.kind===2?12:24;
+
+        G.shots.push({
+          x:u.x,z:u.z,y:1.3,
+          vx:Math.sin(u.dir)*speed,
+          vz:Math.cos(u.dir)*speed,
+          t:(spec.range+4)/speed,
+          damage:spec.damage,
+          c:u.kind===2?'#b6aea0':'#eddfb7',
+          enemy:false,
+          owner:false,
+          stone:u.kind===2
+        });
+      }
+    }
+  }
+}
+
+function structureModel(u){
+  if(u.castle){
+    for(let x of [-7,7]){
+      box(u.x+x,0,u.z,5,7,5,'#777b6d');
+      box(u.x+x,7,u.z,6,.8,6,'#9b9c82');
+
+      for(let a of[-2,0,2]){
+        box(u.x+x+a,7.8,u.z-2,.9,1,1,'#777b6d');
+      }
+    }
+
+    box(u.x,0,u.z,9,4,2.2,'#686e61');
+    box(u.x,0,u.z-1.2,3.5,3.5,.3,'#856244');
+    box(u.x,4,u.z,9,.7,3,'#929580');
+  }else{
+    const wood='#94724a',metal='#879796';
+
+    box(u.x,.5,u.z,1.8,.45,2.5,wood,u.dir);
+
+    for(let a of[-1,1]){
+      for(let b of[-.9,.9]){
+        box(u.x+a,.1,u.z+b,.3,.8,.7,metal);
+      }
+    }
+
+    if(u.kind===0){
+      box(u.x,1.1,u.z,.7,.7,3.5,wood,u.dir);
+      box(u.x,2,u.z,2.4,.4,3,'#657b73',u.dir);
+    }
+
+    if(u.kind===1){
+      box(u.x,1.1,u.z,3.3,.3,.4,wood,u.dir);
+      box(u.x,1.1,u.z,.3,.3,3,metal,u.dir);
+    }
+
+    if(u.kind===2){
+      limb([u.x,.8,u.z-1],[u.x,3.5,u.z+.5],.18,wood);
+      box(u.x,3.2,u.z+.5,.8,.5,.8,'#a4a294');
+    }
+  }
+
+  const p=project(u.x,u.castle?9:4,u.z);
+
+  labels.push({
+    x:p.x,y:p.y,
+    text:u.name,
+    c:u.enemy?'#ffb08c':'#bde7d8'
+  });
+
+  labels.push({
+    x:p.x,y:p.y+8,
+    health:u.hp/u.max,
+    c:u.enemy?'#e68d6c':'#82c8b2'
+  });
 }
 
 function enemyPosition(u){
@@ -1459,6 +1826,8 @@ function spawnWave(){
     }
   });
 
+  if(G.wave===5) spawnSiege();
+
   fillEnemies();
 
   announce(
@@ -1479,6 +1848,7 @@ function start(){
     difficulty:+$('difficulty').value,
     stage:+$('stage').value,
     wave:0,enemyTotal:0,
+    engines:[],castle:null,
     friends:[],enemies:[],pending:[],dead:[],
     shots:[],fields:[],fx:[],
     tactic:+$('tactic').value,
@@ -1504,7 +1874,6 @@ function start(){
       :HEROES[cfg.hero];
 
     let leader=makeUnit(false,i,cfg.weapon,cfg.armor,h,i===0);
-
     leader.x=(i%5-2)*2;
     leader.z=-1-Math.floor(i/5)*3;
 
@@ -1546,14 +1915,17 @@ function announce(s){
 
 function nearest(u,arr,max=Infinity){
   let found=null,d=max;
+
   for(let v of arr){
     if(!alive(v)) continue;
     let n=Math.hypot(v.x-u.x,v.z-u.z);
+
     if(n<d){
       found=v;
       d=n;
     }
   }
+
   return found;
 }
 
@@ -1590,7 +1962,10 @@ function damage(u,d){
   }
 
   if(u.hp===0){
-    if(u.enemy){
+    if(u.castle){
+      announce('城池已攻破！');
+      slash(u.x,u.z,10,'#ffcb7c');
+    }else if(u.enemy){
       P.coins++;
       P.loot[u.wid]++;
       P.armorLoot[u.aid]++;
@@ -1601,7 +1976,7 @@ function damage(u,d){
       G.earned+=m;
       G.kills++;
       G.player.mp=clamp(G.player.mp+1,0,100);
-    }else if(!u.hero){
+    }else if(!u.hero&&!u.siege){
       G.dead.push(u);
     }
 
@@ -1611,7 +1986,7 @@ function damage(u,d){
   return true;
 }
 
-// 合併不增加士兵，也不復活或治療將領。
+// 小組合併不增加士兵，也不復活或治療將領。
 function mergeGroups(){
   let groups=new Map();
 
@@ -1629,6 +2004,7 @@ function mergeGroups(){
       ...(groups.get(to)||[]),
       ...(groups.get(from)||[])
     ]);
+
     groups.delete(from);
 
     for(let u of G.friends){
@@ -1676,8 +2052,7 @@ function mergeGroups(){
 
 function fire(u,target,amount,color){
   let dir=target
-    ?Math.atan2(target.x-u.x,target.z-u.z)
-    :u.dir;
+    ?Math.atan2(target.x-u.x,target.z-u.z):u.dir;
   let w=WEAPONS[u.wid];
 
   G.shots.push({
@@ -1740,7 +2115,7 @@ function resolveAttack(step){
   }
 }
 
-// 我方武將專用。即使敵方嘗試呼叫也會直接拒絕。
+// 我方武將專用；敵方不能施放。
 function skill(p=G.player){
   if(!alive(p)||p.enemy||!p.hero) return false;
 
@@ -1767,7 +2142,6 @@ function skill(p=G.player){
   return true;
 }
 
-// 每個我方武將有自己的氣力與兵法冷卻。
 function tactic(p=G.player){
   if(!alive(p)||p.enemy||!p.hero) return false;
 
@@ -1783,7 +2157,7 @@ function tactic(p=G.player){
     return;
   }
 
-  if(G.tactic===4&&!G.dead.length){
+  if(p.tactic===4&&!G.dead.length){
     announce('目前沒有可恢復的陣亡士兵');
     return;
   }
@@ -1791,12 +2165,12 @@ function tactic(p=G.player){
   p.mp-=cost;
   p.tacticCD=13;
 
-  let t=G.tactic;
+  let t=p.tactic;
 
   if(t<=2){
     G.fields.push({
-      x:p.x,z:p.z,r:10,
-      type:t,t:6,tick:0
+      x:p.x,z:p.z,
+      r:10,type:t,t:6,tick:0
     });
   }
 
@@ -1810,7 +2184,7 @@ function tactic(p=G.player){
   }
 
   if(t===4){
-    // 先移除死亡引用，再恢復，防止同一士兵被重複加入。
+    // 先移除死亡引用，避免復活後重複加入同一士兵。
     G.friends=G.friends.filter(u=>u.hp>0);
 
     let n=Math.min(
@@ -1840,6 +2214,7 @@ function tactic(p=G.player){
 
 function action(k){
   if(!G||paused||G.ended) return;
+
   let p=G.player;
 
   if(k==='k') skill();
@@ -1870,6 +2245,7 @@ function down(k){
 
 function order(){
   if(!G||paused||G.ended) return;
+
   G.order=G.order==='attack'?'follow':'attack';
   $('order').textContent=
     G.order==='attack'?'全軍進攻':'集合護衛';
@@ -1877,13 +2253,14 @@ function order(){
 
 function togglePause(){
   if(!G||G.ended) return;
+
   paused=!paused;
   clearInput();
 
   if(paused){
     dialog(
       '戰場暫停',
-      '返回軍營為撤退；保留已賺金錢、裝備與功績。',
+      '返回軍營為撤退；保留已賺金錢、武器與功績。',
       true
     );
   }else{
@@ -1911,11 +2288,10 @@ function finish(win){
 
   dialog(
     win?'大捷 · 凱旋':'兵敗 · 再戰',
-    '擊破 '+G.kills+' 人，獲得 '+G.gold+' 元、'+
-    G.earned+' 功績與 '+G.kills+' 件武器及 '+
-    G.kills+' 件防具。\n'+
+    '擊破 '+G.kills+' 人，獲得 '+G.gold+' 元、'+G.earned+
+    ' 功績與 '+G.kills+' 件武器及 '+G.kills+' 件防具。\n'+
     (win?'五輪完成。':'主將陣亡，扣除 1,000 功績（最低 0）。')+
-    '\n返回軍營可招募武將、升級與整組換裝。',
+    '\n返回軍營可招募武將與整組換裝。',
     false
   );
 
@@ -2028,7 +2404,6 @@ function stickMove(e){
 
   joy.x=x*k/max;
   joy.z=-y*k/max;
-
   $('knob').style.transform=`translate(${x*k}px,${y*k}px)`;
 }
 
@@ -2053,12 +2428,13 @@ $('stick').onlostpointercapture=e=>{
   }
 };
 
-// 空間分桶，只檢查相鄰士兵的擠壓。
+// 空間分桶，只檢查附近士兵。
 function separate(team,dt){
   let bins=new Map();
 
   for(let u of team){
-    let x=Math.floor(u.x),z=Math.floor(u.z);
+    let x=Math.floor(u.x);
+    let z=Math.floor(u.z);
 
     for(let dx=-1;dx<=1;dx++){
       for(let dz=-1;dz<=1;dz++){
@@ -2169,8 +2545,10 @@ function update(dt){
   mergeGroups();
   fillEnemies();
 
-  let friends=G.friends.filter(alive);
+  let friends=[...G.friends,...G.engines].filter(alive);
   let enemies=G.enemies;
+
+  updateSiege(dt,friends);
 
   let leaders=new Map();
   for(let u of friends){
@@ -2178,13 +2556,12 @@ function update(dt){
   }
 
   for(let u of [...friends,...enemies]){
-    if(u.player||!alive(u)) continue;
+    if(u.player||u.castle||u.siege||!alive(u)) continue;
 
     u.cd-=dt;
     u.swing=Math.max(0,u.swing-dt);
     u.moving=false;
 
-    // 我方 AI 武將自動使用兵法及無雙。
     if(!u.enemy&&u.hero){
       u.mp=Math.min(100,u.mp+dt*3);
       u.tacticCD=Math.max(0,u.tacticCD-dt);
@@ -2197,9 +2574,9 @@ function update(dt){
       if(u.tacticCD<=0&&
          u.mp>=(u.role==='智將'?25:35)&&
          (
-           (G.tactic===4&&G.dead.length)||
-           (G.tactic===3&&injured)||
-           (G.tactic<3&&close)
+           (u.tactic===4&&G.dead.length)||
+           (u.tactic===3&&injured)||
+           (u.tactic<3&&close)
          )){
         tactic(u);
       }
@@ -2215,7 +2592,7 @@ function update(dt){
       continue;
     }
 
-    // 敵方弓兵僅有普通射擊蓄力，不是無雙或兵法。
+    // 敵方弓兵的普通射擊蓄力。
     if(u.windup>0){
       u.windup-=dt;
 
@@ -2234,13 +2611,12 @@ function update(dt){
     let w=WEAPONS[u.wid];
     let leader=leaders.get(u.group);
 
-    if(!u.enemy&&d>4&&
-       (
-         G.order==='follow'||
-         (!u.hero&&leader&&Math.hypot(
-           u.x-leader.x,u.z-leader.z
-         )>10)
-       )){
+    if(!u.enemy&&d>4&&(
+      G.order==='follow'||
+      (!u.hero&&leader&&Math.hypot(
+        u.x-leader.x,u.z-leader.z
+      )>10)
+    )){
       let anchor=G.order==='follow'?p:leader;
 
       target={
@@ -2292,9 +2668,9 @@ function update(dt){
   if(G.ended) return;
 
   separate(friends,dt);
-  separate(enemies,dt);
+  separate(enemies.filter(u=>!u.castle),dt);
 
-  // 線段碰撞，避免高速箭矢穿過敵人。
+  // 箭矢與石彈使用移動線段碰撞。
   for(let s of G.shots){
     let x=s.x,z=s.z;
     let travel=Math.min(dt,s.t);
@@ -2311,10 +2687,13 @@ function update(dt){
       let dx=s.x-x,dz=s.z-z;
       let ll=dx*dx+dz*dz;
       let t=ll
-        ?clamp(((u.x-x)*dx+(u.z-z)*dz)/ll,0,1)
-        :0;
+        ?clamp(((u.x-x)*dx+(u.z-z)*dz)/ll,0,1):0;
 
-      if(Math.hypot(x+dx*t-u.x,z+dz*t-u.z)<.75&&t<best){
+      if(
+        Math.hypot(x+dx*t-u.x,z+dz*t-u.z)<
+        (u.castle?3:u.siege?1.2:.75)&&
+        t<best
+      ){
         hit=u;
         best=t;
       }
@@ -2381,6 +2760,7 @@ function update(dt){
 
   mergeGroups();
 
+  // 城池也在敵方陣列內，因此未破城不能勝利。
   if(!G.pending.length&&G.enemies.every(u=>!alive(u))){
     G.transition+=dt;
 
@@ -2437,7 +2817,12 @@ function hud(){
     lines.push((id+1)+'組 '+n+'兵 · '+(h?h.name:'無將'));
   }
 
-  $('squadHud').textContent=lines.join('　');
+  $('squadHud').textContent=lines.join('　')+
+    (G.castle
+      ?' ｜ 城池 '+Math.ceil(G.castle.hp)+' / '+G.castle.max+
+       ' · 齊射 '+Math.ceil(G.castle.arrowCD)+
+       ' 秒 · 攻城兵器 '+G.engines.filter(alive).length
+      :'');
 
   for(let b of document.querySelectorAll('.actions button')){
     let k=b.dataset.key;
@@ -2460,6 +2845,7 @@ function drawPet(){
 
   if(G.pet===1){
     box(u.x,y,u.z,.4,.3,.7,col);
+
     let flap=Math.sin(time*10)*.3;
     limb([u.x,y,u.z],[u.x-1.1,y+flap,u.z],.1,col);
     limb([u.x,y,u.z],[u.x+1.1,y+flap,u.z],.1,col);
@@ -2467,15 +2853,18 @@ function drawPet(){
     box(u.x,.4,u.z,.55,.45,1,col);
     box(u.x,.77,u.z+.45,.45,.4,.45,col);
 
-    for(let a of[-1,1])
-      for(let b of[-1,1])
+    for(let a of[-1,1]){
+      for(let b of[-1,1]){
         box(u.x+a*.2,.05,u.z+b*.32,.13,.4,.13,col);
+      }
+    }
 
     if(G.pet===2){
       limb(
         [u.x-.15,1.1,u.z+.45],
         [u.x-.4,1.7,u.z+.35],.035,'#e4c894'
       );
+
       limb(
         [u.x+.15,1.1,u.z+.45],
         [u.x+.4,1.7,u.z+.35],.035,'#e4c894'
@@ -2524,8 +2913,8 @@ function render(){
     box(x+1.1,5,15,2.1,1.7,.07,x<0?'#427c79':'#a35b4d');
   }
 
-  // friends 已包含玩家，不能再額外加入一次玩家。
-  for(let u of [...G.friends,...G.enemies]){
+  // friends 已包含玩家，避免重複繪製。
+  for(let u of [...G.friends,...G.enemies,...G.engines]){
     if(alive(u)){
       let p=project(u.x,1,u.z);
 
@@ -2538,11 +2927,15 @@ function render(){
   drawPet();
 
   for(let s of G.shots){
-    limb(
-      [s.x,s.y,s.z],
-      [s.x-s.vx*.06,s.y,s.z-s.vz*.06],
-      .045,s.c
-    );
+    if(s.stone){
+      box(s.x,s.y,s.z,.6,.6,.6,s.c);
+    }else{
+      limb(
+        [s.x,s.y,s.z],
+        [s.x-s.vx*.06,s.y,s.z-s.vz*.06],
+        .045,s.c
+      );
+    }
   }
 
   faces.sort((a,b)=>b.d-a.d);
@@ -2559,14 +2952,18 @@ function render(){
 
   for(let e of G.enemies){
     if(e.windup>0){
-      let a=project(e.x,1.2,e.z);
-      let b=project(e.aim.x,1.2,e.aim.z);
+      if(e.big){
+        ring(e.aim.x,e.aim.z,3.8,'#ff665a');
+      }else{
+        let a=project(e.x,1.2,e.z);
+        let b=project(e.aim.x,1.2,e.aim.z);
 
-      ctx.strokeStyle='#ec957880';
-      ctx.beginPath();
-      ctx.moveTo(a.x,a.y);
-      ctx.lineTo(b.x,b.y);
-      ctx.stroke();
+        ctx.strokeStyle='#ec957880';
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+      }
     }
   }
 
@@ -2617,6 +3014,7 @@ function render(){
     }
 
     ctx.fillStyle='#102932b0';
+
     ctx.fillRect(
       l.x-ctx.measureText(l.text).width/2-8,
       l.y-16,
@@ -2648,6 +3046,7 @@ function drawMap(){
 
   function dot(u,c,r){
     ctx.fillStyle=c;
+
     ctx.fillRect(
       x+(u.x/80+.5)*size-r,
       y+(.5-u.z/80)*size-r,
@@ -2705,6 +3104,7 @@ function portrait(){
   px.font='18px serif';
   px.fillText(h.name+' · '+h.role,22,42);
   px.font='13px sans-serif';
+
   px.fillText(
     '生命 '+
     Math.round(h.hp*levelFactor(P.heroLevel)+ARMOR[cfg.armor][1])+
@@ -2723,9 +3123,7 @@ function loop(now){
   let dt=Math.min((now-last)/1000,.035);
   last=now;
 
-  if(!G||(!paused&&!G.ended)){
-    time+=dt;
-  }
+  if(!G||(!paused&&!G.ended)) time+=dt;
 
   if(G){
     if(!paused&&!G.ended) update(dt);
@@ -2741,7 +3139,7 @@ normalize();
 renderCamp();
 
 $('saveHint').textContent=storageOK
-  ?'可自動存檔；相容舊版存檔。'
+  ?'可自動存檔；舊版功績已相容。'
   :'無法讀取本機存檔，請匯入備份。';
 
 requestAnimationFrame(loop);
