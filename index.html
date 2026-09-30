@@ -94,7 +94,7 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
  <div>
   <small>THREE KINGDOMS · LEGION</small>
   <h1>三國・燎原天下</h1>
-  <p>燎原炎起兵洛陽 · 攻城略地 · 統一天下<br>新版：手動結束回合／戰場長寬各五倍</p>
+  <p>燎原炎起兵洛陽 · 攻城略地 · 統一天下<br>新版：開局 500 元／5 功績換 1 元／勝戰招降</p>
  </div>
  <div><div class="money" id="money"></div><small id="career"></small></div>
 </header>
@@ -145,7 +145,7 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
  <p>升級全體同類單位，每級基礎生命與傷害 +10%，最高 50 級；敵軍固定使用未升級數值。</p>
  <div class="row">
   <label>兌換金額（元）<input id="exchangeAmount" type="number" min="1" step="1" value="1"></label>
-  <button id="exchange">10 功績換 1 元</button>
+  <button id="exchange">5 功績換 1 元</button>
  </div>
  <p id="exchangeInfo"></p>
 </section>
@@ -233,9 +233,9 @@ footer{font-size:12px;line-height:1.8;color:#b1c5bf}
  <p>難度只決定每輪敵兵總數：出征兵數 × 1／1.5／2，小數進位；零兵單人出征時基數最低為 1。五輪敵方生命及傷害倍率依序為 1.2／1.4／1.6／1.8／2，敵方指揮將也適用。敵方每組另有一名指揮將，不計入小兵數。</p>
  <p>武將基本生命至少 650，小兵基本生命 120。每殺一名敵兵得 1 元、10 功績並繳獲其武器、防具各一件；敵將同樣給 1 元與武器、防具各一件，功績為 100。全軍與戰寵擊殺都算，陣亡扣 1,000 功績，金錢不扣。</p>
  <p>戰場由 68×68 擴大至 340×340，長、寬各五倍，面積二十五倍。同場單位可選每方 100／240／500／1000，預設 240；剩餘為本場預備隊，並非新增士兵。擴大地圖不等於提升效能；另使用視野裁切、簡化人物及空間分桶降低負擔。每 100 功績可帶 1 兵，出征時固定編制。每組先分 50 人，尾組不足 50 就併入前組；總兵數不足 50 時為唯一殘部。戰中小組不足 50 人會合併，原武器保留，多餘存活指揮將退至後方，不再出戰。指揮將陣亡的組會併入主將組。</p>
- <p>我方士兵不自動補充，換輪也不補兵；伏兵每次恢復最多 20 名本場陣亡士兵，保留原武器，不復活武將。返回軍營再出征才重新按功績整軍。新遊戲金錢為 0，全軍只有鐵劍；燎原炎免費，群雄名將可招募；魏蜀吳武將各屬原勢力。角色數值、技能與裝備為本作原創設定，並非《三國幻戰》官方數據。</p>
+ <p>我方士兵不自動補充，換輪也不補兵；伏兵每次恢復最多 20 名本場陣亡士兵，保留原武器，不復活武將。返回軍營再出征才重新按功績整軍。新遊戲金錢為 500，全軍只有鐵劍；燎原炎免費，群雄名將可招募；魏蜀吳武將可透過勝戰招降加入：每場戰役勝利有 5% 機率獲得一名該勢力尚未加入的武將；攻下敵國最後一座城時，直接獲得該國全部未加入武將。招降免費、不重複，加入後可在軍團表指派，敵軍不再派出已加入我方的武將。角色數值、技能與裝備為本作原創設定，並非《三國幻戰》官方數據。</p>
  <p>空城計只影響範圍內敵人，每次最多停頓 2 秒；受影響後 8 秒內不再被空城計控制。遠程敵兵會向有效射程推進並側移射擊。</p>
- <p>所有我方武將均有獨立氣力和兵法冷卻；其他指揮將自動施放各自選定的兵法與無雙。敵方只能普通攻擊，不能用無雙或兵法。每 10 功績可換 1 元，會影響下次出征兵數；同款庫存武器／防具可自行輸入出售件數，1 件即可出售，價格見軍需坊。升級限軍營，武將每次花 100×目前等級元，士兵花 50×目前等級元，都是全體升級。</p>
+ <p>所有我方武將均有獨立氣力和兵法冷卻；其他指揮將自動施放各自選定的兵法與無雙。敵方只能普通攻擊，不能用無雙或兵法。每 5 功績可換 1 元，會影響下次出征兵數；同款庫存武器／防具可自行輸入出售件數，1 件即可出售，價格見軍需坊。升級限軍營，武將每次花 100×目前等級元，士兵花 50×目前等級元，都是全體升級。</p>
  <p>進攻城池第五輪出現城池；守城戰從第一輪開始保護我方城池，每 5 秒射出最多 8 支實體箭，可跳躍、閃避或格擋。攻城需消滅守軍並摧毀城池，守城需保住城池並擊退五輪敵軍；取得全圖全部城池才算統一通關。攻城兵器在進攻第五輪、守城第一輪自動部署，士兵與武將也能攻城。</p>
  <p>WASD／方向鍵移動，J 攻擊，K 無雙，L 兵法，空白跳躍，Shift 閃避，I 格擋，F 集合／進攻，P 暫停。平板使用搖桿與招式鍵。</p>
 </details>
@@ -394,7 +394,7 @@ const MAIN=HEROES.findIndex(h=>h.name==='燎原火');
 HEROES[MAIN].name='燎原炎';
 HEROES[MAIN].price=0;
 
-// 長寬各五倍：68×68 → 340×340，面積25倍。
+// 長、寬各五倍，總面積二十五倍。
 const BASE_HALF=34,HALF=BASE_HALF*5;
 
 const CITIES=[
@@ -451,7 +451,7 @@ CITIES.forEach((c,i)=>
  .forEach(j=>link(i,j))
 );
 
-// 最小連接樹補足西域、遼東等遠方道路，確保全部城池可到達。
+// 確保所有城池都有相連道路。
 {
  const reached=new Set([0]);
  while(reached.size<CITIES.length){
@@ -480,10 +480,10 @@ const STORE='tk-legion-v3';
 
 function fresh(){
  return{
-  v:6,campaign:newCampaign(),siege:[0,0,0],
+  v:7,campaign:newCampaign(),siege:[0,0,0],
   heroLevel:1,soldierLevel:1,
   armorLoot:Array(ARMOR.length).fill(0),
-  merit:10000,coins:0,wins:0,
+  merit:10000,coins:500,wins:0,
   owned:[MAIN],groups:[],loot:Array(WEAPONS.length).fill(0)
  };
 }
@@ -498,7 +498,7 @@ function validate(o){
  if(!o||!integer(o.merit,0,10000000)||!integer(o.wins,0,10000000))
   throw Error('功績或戰績不正確');
 
- if(![3,4,5,6].includes(o.v)){
+ if(![3,4,5,6,7].includes(o.v)){
   if(o.v!==undefined)throw Error('不支援此存檔版本');
   let p=fresh();p.merit=o.merit;p.wins=o.wins;return p;
  }
@@ -506,7 +506,7 @@ function validate(o){
  if(
   !integer(o.coins,0,1000000000)||
   !Array.isArray(o.owned)||
-  !o.owned.includes(o.v===6?MAIN:0)||
+  !o.owned.includes(o.v>=6?MAIN:0)||
   o.owned.some(i=>!integer(i,0,HEROES.length-1))||
   !Array.isArray(o.groups)||o.groups.length>5000||
   !Array.isArray(o.loot)||
@@ -539,10 +539,10 @@ function validate(o){
   o.siege.reduce((a,b)=>a+b,0)>6
  ))throw Error('攻城兵器資料不正確');
 
- const campaign=o.v===6?validateCampaign(o.campaign):newCampaign();
+ const campaign=o.v>=6?validateCampaign(o.campaign):newCampaign();
 
  return{
-  v:6,campaign,
+  v:7,campaign,
   siege:o.v>=5?[...o.siege]:[0,0,0],
   heroLevel:o.v>=4?o.heroLevel:1,
   soldierLevel:o.v>=4?o.soldierLevel:1,
@@ -550,9 +550,13 @@ function validate(o){
    [...o.armorLoot,...Array(ARMOR.length-o.armorLoot.length).fill(0)]:
    Array(ARMOR.length).fill(0),
   merit:o.merit,wins:o.wins,coins:o.coins,
-  owned:[...new Set([...o.owned.filter(i=>HEROES[i].f==='群'),MAIN])],
+  owned:[...new Set([
+   ...o.owned.filter(i=>o.v>=6||HEROES[i].f==='群'),MAIN
+  ])],
   groups:groups.map((g,i)=>({
-   ...g,hero:i===0?MAIN:(g.hero>=0&&HEROES[g.hero].f==='群'?g.hero:-1)
+   ...g,
+   hero:i===0?MAIN:
+    (g.hero>=0&&(o.v>=6||HEROES[g.hero].f==='群')?g.hero:-1)
   })),
   loot:[...o.loot,...Array(WEAPONS.length-o.loot.length).fill(0)]
  };
@@ -578,7 +582,6 @@ function validateCampaign(c){
   throw Error('回合資料不正確');
 
  const invasions=c.invasions??[];
-
  if(
   !Array.isArray(invasions)||invasions.length>3||
   invasions.some(m=>
@@ -625,9 +628,8 @@ function sizes(n){
 
 function normalize(){
  let count=Math.max(1,sizes(Math.floor(P.merit/100)).length);
- while(P.groups.length<count){
+ while(P.groups.length<count)
   P.groups.push({hero:P.groups.length?-1:MAIN,weapon:0,armor:0,tactic:0});
- }
  P.groups.length=count;
  P.groups.forEach(g=>{
   if(!integer(g.tactic,0,TACTICS.length-1))g.tactic=0;
@@ -716,8 +718,8 @@ function renderCamp(){
    buy=document.createElement('button');
   card.className='card';b.textContent=h.name;
   t.textContent=h.f+' · '+h.role+' · HP '+h.hp+' · 武器傷害 ×'+h.power;
-  buy.textContent=h.f!=='群'?h.f+'國專屬':
-   P.owned.includes(i)?'已招募':h.price+' 元招募';
+  buy.textContent=P.owned.includes(i)?'已加入':
+   h.f!=='群'?'勝戰招降／滅國收服':h.price+' 元招募';
   buy.disabled=h.f!=='群'||P.owned.includes(i);
   buy.onclick=()=>recruit(i);
   card.append(b,t,buy);$('heroes').append(card);
@@ -805,8 +807,7 @@ function aiTurn(){
  if(c.won||c.lost||c.pending)return;
  c.turn++;c.acted=false;c.invasions=[];
 
- // 此函式只由「結束回合」呼叫。
- // 每個尚有領土的敵國各行動一次。
+ // 只由「結束回合」呼叫。
  for(const faction of ['魏','蜀','吳']){
   const choices=[];
   LINKS.forEach(([a,b])=>{
@@ -817,6 +818,7 @@ function aiTurn(){
     )choices.push({from,to,faction});
    }
   });
+
   if(!choices.length)continue;
   const attacks=choices.filter(m=>c.owners[m.to]==='群');
   const pool=attacks.length&&Math.random()<.65?attacks:choices;
@@ -838,8 +840,37 @@ function aiTurn(){
  checkRealm();
 }
 
+// 已加入我方的武將，不再出現在敵軍名將名單。
+function availableEnemyHeroes(faction){
+ return HEROES.map((h,id)=>id).filter(
+  id=>HEROES[id].f===faction&&!P.owned.includes(id)
+ );
+}
+
+// 普通勝戰只抽一次 5%；滅國直接收服全部。
+function rewardGenerals(faction,eliminated){
+ const pool=availableEnemyHeroes(faction);
+ if(!pool.length)return '該勢力武將已全部加入我方。';
+
+ if(!eliminated&&Math.random()>=.05)
+  return '本次未招降武將（每場勝戰機率 5%）。';
+
+ const gained=eliminated?pool:[pool[Math.floor(Math.random()*pool.length)]];
+ P.owned.push(...gained);
+
+ const message=(eliminated?'滅國收服：':'勝戰招降：')+
+  gained.map(id=>HEROES[id].name).join('、')+' 加入炎國！';
+ record(message);
+ return message;
+}
+
 function resolveCampaign(win){
+ if(G.campaignResolved)return;
+ G.campaignResolved=true;G.rewardText='';
+
  const c=P.campaign,m=G.mission;
+ const previouslyAlive=c.owners.includes(m.faction);
+
  if(m.defend){
   if(!win)c.owners[m.city]=m.faction;
   record((win?'守住':'失守')+'：'+CITIES[m.city][0]);
@@ -852,10 +883,15 @@ function resolveCampaign(win){
   record((win?'攻克':'進攻失敗：')+CITIES[m.city][0]+
    '。回營後按「結束回合」才輪到敵國。');
  }
+
+ if(win){
+  const eliminated=!m.defend&&previouslyAlive&&!c.owners.includes(m.faction);
+  G.rewardText=rewardGenerals(m.faction,eliminated);
+ }
  checkRealm();
 }
 
-// 以鄰近城池切分勢力色塊；僅表示本作城池控制範圍。
+// 鄰近城池切分勢力色塊，表示遊戲內控制範圍。
 function territory(i){
  let poly=[[35,30],[960,30],[960,655],[35,655]],a=CITIES[i];
 
@@ -996,11 +1032,11 @@ function economyInfo(){
  }
 
  let n=Number($('exchangeAmount').value);
- let ok=integer(n,1,1000000)&&n*10<=P.merit;
+ let ok=integer(n,1,1000000)&&n*5<=P.merit;
  $('exchangeInfo').textContent=ok?
-  '扣除 '+n*10+' 功績，獲得 '+n+' 元；下次可帶 '+
-  Math.floor((P.merit-n*10)/100)+' 兵。':
-  '請輸入可兌換的正整數；目前最多 '+Math.floor(P.merit/10)+' 元。';
+  '扣除 '+n*5+' 功績，獲得 '+n+' 元；下次可帶 '+
+  Math.floor((P.merit-n*5)/100)+' 兵。':
+  '請輸入可兌換的正整數；目前最多 '+Math.floor(P.merit/5)+' 元。';
 }
 
 function upgrade(kind){
@@ -1015,10 +1051,10 @@ function upgrade(kind){
 function exchange(){
  if(G)return;
  let n=Number($('exchangeAmount').value);
- if(!integer(n,1,1000000)||n*10>P.merit){
+ if(!integer(n,1,1000000)||n*5>P.merit){
   note('兌換金額不正確或功績不足。');return;
  }
- P.merit-=n*10;P.coins+=n;
+ P.merit-=n*5;P.coins+=n;
  normalize();save();renderCamp();
  note('已兌換 '+n+' 元，出征編制已按剩餘功績調整。');
 }
@@ -1484,9 +1520,9 @@ function spawnWave(){
  ns.forEach((n,i)=>{
   let wid=1+Math.floor(rand(0,maxWeapon));
   let aid=Math.min(3,Math.floor((G.wave-1)/2));
-  let h=HEROES.filter(h=>h.f===G.mission.faction)[
-   i%HEROES.filter(h=>h.f===G.mission.faction).length
-  ];
+  let pool=availableEnemyHeroes(G.mission.faction);
+  let h=pool.length?HEROES[pool[i%pool.length]]:
+   {...GENERIC,name:G.mission.faction+'軍部將 '+(i+1)};
   G.pending.push(makeUnit(true,i,wid,aid,h));
   for(let j=0;j<n;j++)G.pending.push(makeUnit(true,i,wid,aid));
  });
@@ -1607,7 +1643,7 @@ function damage(u,d){
  return true;
 }
 
-// 小組合併不增加士兵，也不復活或治療將領。
+// 合併不增加士兵，也不復活或治療將領。
 function mergeGroups(){
  const all=[...G.friends,...G.reserve];
  let groups=new Map();
@@ -1795,7 +1831,8 @@ function finish(win){
   '擊破 '+G.kills+' 人，獲得 '+G.gold+' 元、'+G.earned+
   ' 功績與 '+G.kills+' 件武器及 '+G.kills+' 件防具。\n'+
   (win?'本城戰役勝利，尚須統一天下。':'戰役失敗，扣除 1,000 功績（最低 0）。')+
-  '\n'+P.campaign.log.slice(0,2).join('\n')+
+  '\n'+(G.rewardText?G.rewardText+'\n':'')+
+  P.campaign.log.slice(0,2).join('\n')+
   '\n返回軍營可招募武將與整組換裝。',false
  );
  tone(win?660:120,.4);
@@ -1882,7 +1919,7 @@ $('stick').onpointerup=$('stick').onpointercancel=$('stick').onlostpointercaptur
  }
 };
 
-// 空間分桶只檢查附近士兵，避免整軍互相比較。
+// 空間分桶，只比較附近單位。
 function separate(team,dt){
  let bins=new Map();
  for(let u of team){
